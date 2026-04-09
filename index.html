@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sistema Semanal</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f2ed;
+  --bg2: #ede9e2;
+  --surface: #ffffff;
+  --surface2: #faf8f5;
+  --border: rgba(0,0,0,0.07);
+  --border2: rgba(0,0,0,0.13);
+  --text: #1a1814;
+  --text2: #6b6560;
+  --text3: #a8a39c;
+  --ink: #1a1814;
+
+  /* Block palette — earthy & refined */
+  --sleep-bg: #e8eef8; --sleep-fg: #2d4a8a; --sleep-dot: #4a6fa5;
+  --class-bg: #fdf0e0; --class-fg: #8a4a00; --class-dot: #c46e00;
+  --gym-bg:   #e6f4ea; --gym-fg:   #1a5c2e; --gym-dot:   #2e7d44;
+  --deep-bg:  #f0eafa; --deep-fg:  #4a2d8a; --deep-dot:  #6b42c8;
+  --study-bg: #fff4e0; --study-fg: #7a5200; --study-dot: #b87a00;
+  --food-bg:  #fce8ec; --food-fg:  #8a1a30; --food-dot:  #c42044;
+  --read-bg:  #e8f4f0; --read-fg:  #1a5a4a; --read-dot:  #2a8a6e;
+  --spirit-bg:#fef3e0; --spirit-fg:#7a5c00; --spirit-dot:#c49a00;
+  --mob-bg:   #eef6ff; --mob-fg:   #1a4a7a; --mob-dot:   #2a6aaa;
+  --rest-bg:  #f0f0f0; --rest-fg:  #4a4a4a; --rest-dot:  #888;
+  --plan-bg:  #f5e8ff; --plan-fg:  #5a0a8a; --plan-dot:  #8a2ac8;
+  --travel-bg:#f0f0e8; --travel-fg:#4a4a2a; --travel-dot:#888860;
+
+  --radius: 14px;
+  --radius-sm: 9px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Geist', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ─── LAYOUT ─── */
+.app { max-width: 520px; margin: 0 auto; padding-bottom: 90px; }
+
+/* ─── HEADER ─── */
+.header {
+  padding: 22px 20px 0;
+  background: var(--bg);
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid var(--border);
+}
+.header-row {
+  display: flex; align-items: baseline;
+  justify-content: space-between; margin-bottom: 14px;
+}
+.app-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; color: var(--ink); letter-spacing: -.01em;
+}
+.app-sub {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .1em;
+}
+
+/* ─── TABS ─── */
+.tabs {
+  display: flex; gap: 0;
+  border-bottom: 2px solid var(--border);
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  font-size: 12px; font-weight: 500;
+  border: none; background: transparent;
+  color: var(--text3); cursor: pointer;
+  transition: all .2s;
+  position: relative; white-space: nowrap;
+  font-family: 'Geist', sans-serif;
+  letter-spacing: .01em;
+}
+.tab.on { color: var(--ink); }
+.tab.on::after {
+  content: ''; position: absolute;
+  bottom: -2px; left: 10%; width: 80%;
+  height: 2px; background: var(--ink); border-radius: 2px;
+}
+
+/* ─── SECTIONS ─── */
+.section { display: none; padding: 20px 16px; }
+.section.on { display: block; }
+
+/* ─── WEEK OVERVIEW ─── */
+.week-grid { display: flex; flex-direction: column; gap: 8px; }
+.week-day-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.week-day-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.week-day-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.week-day-left { display: flex; align-items: center; gap: 10px; }
+.week-day-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 16px; color: var(--ink);
+}
+.week-day-type {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.week-day-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+.mini-pill {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.week-day-toggle {
+  font-size: 12px; color: var(--text3);
+  transition: transform .2s;
+}
+.week-day-card.open .week-day-toggle { transform: rotate(180deg); }
+.week-day-body {
+  display: none;
+  padding: 0 16px 14px;
+  border-top: 1px solid var(--border);
+}
+.week-day-card.open .week-day-body { display: block; }
+
+/* ─── BLOCK ROWS ─── */
+.block-row {
+  display: flex; align-items: stretch;
+  gap: 0; margin-top: 8px;
+}
+.bl-time {
+  width: 48px; flex-shrink: 0;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3);
+  padding: 10px 8px 0 0; text-align: right;
+}
+.bl-line {
+  width: 1px; background: var(--border);
+  margin: 0 10px; position: relative; flex-shrink: 0;
+}
+.bl-line::before {
+  content: ''; position: absolute;
+  top: 11px; left: -3.5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--dot-color, var(--text3));
+}
+.bl-content {
+  flex: 1; padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  min-height: 42px;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 8px;
+  cursor: pointer; transition: all .15s;
+  background: var(--blk-bg, var(--surface2));
+}
+.bl-content:hover { filter: brightness(.97); }
+.bl-content.done { opacity: .4; }
+.bl-content.done .bl-name { text-decoration: line-through; }
+.bl-content.now-active {
+  box-shadow: 0 0 0 1.5px var(--blk-dot, #888) !important;
+}
+.bl-left { display: flex; flex-direction: column; gap: 1px; }
+.bl-name { font-size: 12px; font-weight: 500; color: var(--blk-fg, var(--text)); }
+.bl-dur {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3);
+}
+.bl-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.bl-tag {
+  font-size: 10px; font-weight: 500;
+  padding: 2px 8px; border-radius: 20px;
+  background: rgba(0,0,0,0.05);
+  color: var(--blk-fg, var(--text2));
+  white-space: nowrap;
+}
+.bl-check {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all .15s;
+  background: transparent;
+}
+.bl-check.done {
+  background: var(--blk-dot, #888);
+  border-color: var(--blk-dot, #888);
+}
+.bl-check svg {
+  width: 9px; height: 9px;
+  stroke: white; fill: none;
+  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0;
+}
+.bl-check.done svg { opacity: 1; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.now-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blk-dot, #888);
+  animation: pulse 2s infinite; flex-shrink: 0;
+}
+
+/* ─── TODAY SECTION ─── */
+.today-header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 14px;
+}
+.today-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+}
+.today-sub {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em;
+}
+
+.stats-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 7px; margin-bottom: 14px;
+}
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 8px; text-align: center;
+}
+.stat-v {
+  font-family: 'Geist Mono', monospace;
+  font-size: 16px; font-weight: 500;
+  color: var(--ink); line-height: 1;
+}
+.stat-l {
+  font-size: 9px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .07em; margin-top: 3px;
+}
+
+.prog-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 14px;
+}
+.prog-row {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: var(--text2); margin-bottom: 7px;
+}
+.prog-bar { height: 3px; background: var(--bg2); border-radius: 2px; overflow: hidden; }
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4a6fa5, #6b42c8);
+  border-radius: 2px; transition: width .4s ease;
+}
+
+.day-type-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 500;
+  border: 1px solid var(--border2);
+  color: var(--text2); margin-bottom: 14px;
+  font-family: 'Geist Mono', monospace;
+}
+
+/* ─── SECTION DIVIDER ─── */
+.sec-divider {
+  display: flex; align-items: center; gap: 10px;
+  margin: 20px 0 14px;
+}
+.sec-div-line { flex: 1; height: 1px; background: var(--border); }
+.sec-div-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .1em; white-space: nowrap;
+}
+
+/* ─── DAY SELECTOR ─── */
+.day-sel {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 5px; margin-bottom: 16px;
+}
+.day-sel-btn {
+  padding: 9px 4px; border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer; text-align: center;
+  transition: all .15s; font-family: 'Geist', sans-serif;
+}
+.day-sel-btn:hover { border-color: var(--border2); }
+.day-sel-btn.on {
+  background: var(--ink); border-color: var(--ink);
+}
+.dsel-name {
+  font-size: 11px; font-weight: 500;
+  color: var(--text2); display: block;
+}
+.day-sel-btn.on .dsel-name { color: #fff; }
+.dsel-dots { display: flex; gap: 2px; justify-content: center; margin-top: 4px; flex-wrap: wrap; }
+.dsel-dot { width: 4px; height: 4px; border-radius: 50%; }
+
+/* ─── RULES ─── */
+.rule-section { margin-bottom: 16px; }
+.rule-section-title {
+  font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .1em;
+  font-family: 'Geist Mono', monospace;
+  margin-bottom: 8px;
+}
+.rule-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); overflow: hidden;
+}
+.rule-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; line-height: 1.5; color: var(--text2);
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.r-stop { background: #fee2e2; color: #991b1b; }
+.r-go   { background: #dcfce7; color: #14532d; }
+.r-warn { background: #fef3c7; color: #78350f; }
+.r-num  { background: #f0f0f0; color: #444; font-size: 9px; }
+
+/* ─── PRIORITY BLOCK GUIDE ─── */
+.prio-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.prio-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 14px;
+}
+.prio-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--text3);
+  width: 20px; flex-shrink: 0;
+}
+.prio-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.prio-name { font-size: 12px; font-weight: 500; flex: 1; }
+.prio-badge {
+  font-size: 10px; padding: 2px 8px; border-radius: 20px;
+  background: var(--bg2); color: var(--text3);
+}
+
+/* ─── BLOCK GUIDE CARDS ─── */
+.blk-guide-grid { display: flex; flex-direction: column; gap: 6px; }
+.blk-guide-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+}
+.blk-guide-top {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+}
+.blk-guide-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.blk-guide-name { font-size: 12px; font-weight: 500; }
+.blk-guide-type {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3);
+  margin-left: auto;
+}
+.blk-guide-meta {
+  font-size: 11px; color: var(--text2); line-height: 1.5;
+}
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 520px;
+  background: rgba(245,242,237,0.96);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  display: flex; z-index: 200;
+}
+.nav-btn {
+  flex: 1; padding: 12px 0 14px;
+  font-size: 10px; color: var(--text3);
+  border: none; background: transparent; cursor: pointer;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  transition: color .15s;
+  text-transform: uppercase; letter-spacing: .04em;
+  font-family: 'Geist', sans-serif;
+}
+.nav-btn.on { color: var(--ink); }
+.nav-btn svg {
+  width: 18px; height: 18px;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 88px; left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--ink); color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 9px 18px; font-size: 12px;
+  opacity: 0; transition: all .25s; z-index: 999;
+  pointer-events: none; white-space: nowrap;
+  font-family: 'Geist Mono', monospace;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(6px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.block-row { animation: fadeUp .2s ease both; }
+
+/* ─── NOTES & RESET — added for localStorage version ─── */
+.notes-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-top: 20px;
+}
+.notes-header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 10px;
+}
+.notes-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .1em;
+}
+.notes-saved {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--text3);
+  opacity: 0; transition: opacity .4s;
+}
+.notes-saved.show { opacity: 1; }
+.notes-textarea {
+  width: 100%; min-height: 90px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: 'Geist', sans-serif;
+  font-size: 13px; color: var(--text);
+  line-height: 1.6; resize: vertical;
+  outline: none; transition: border .15s;
+}
+.notes-textarea:focus { border-color: var(--border2); }
+.notes-textarea::placeholder { color: var(--text3); }
+
+.reset-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  font-family: 'Geist', sans-serif;
+  font-size: 11px; color: var(--text3);
+  cursor: pointer; transition: all .15s;
+  margin-top: 14px;
+}
+.reset-btn:hover { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+.reset-btn svg {
+  width: 13px; height: 13px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.streak-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 14px; flex-wrap: wrap;
+}
+.streak-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 11px; border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--text2);
+}
+.streak-pill strong { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-row">
+    <div>
+      <div class="app-name">Sistema Semanal</div>
+    </div>
+    <div class="app-sub mono" id="headerDate"></div>
+  </div>
+  <div class="tabs">
+    <button class="tab on"  id="nav-today"  onclick="showNav('today')">Hoy</button>
+    <button class="tab"     id="nav-week"   onclick="showNav('week')">Semana</button>
+    <button class="tab"     id="nav-blocks" onclick="showNav('blocks')">Bloques</button>
+    <button class="tab"     id="nav-rules"  onclick="showNav('rules')">Reglas</button>
+  </div>
+</div>
+
+<!-- ══ HOY ══ -->
+<div id="sec-today" class="section on">
+  <div class="today-header">
+    <div>
+      <div class="today-title" id="todayTitle">—</div>
+      <div class="today-sub" id="todaySub">—</div>
+    </div>
+    <div id="todayDayType" class="day-type-pill">—</div>
+  </div>
+
+  <!-- STREAK ROW — renderizado por JS con datos de localStorage -->
+  <div class="streak-row" id="streakRow"></div>
+
+  <div class="stats-strip" id="todayStats"></div>
+  <div class="prog-card" id="todayProg"></div>
+  <div id="todayBlocks"></div>
+
+  <!-- RESET + NOTES — datos guardados en localStorage por fecha -->
+  <button class="reset-btn" onclick="resetDay()">
+    <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+    Resetear día actual
+  </button>
+
+  <div class="notes-card">
+    <div class="notes-header">
+      <div class="notes-label">Notas del día</div>
+      <div class="notes-saved" id="notesSaved">Guardado ✓</div>
+    </div>
+    <textarea
+      class="notes-textarea"
+      id="notesTextarea"
+      placeholder="Reflexiones, ajustes al sistema, cómo fue el día…"
+      oninput="saveNote()"
+    ></textarea>
+  </div>
+</div>
+
+<!-- ══ SEMANA ══ -->
+<div id="sec-week" class="section">
+  <div class="sec-divider" style="margin-top:0">
+    <div class="sec-div-line"></div>
+    <div class="sec-div-label">Vista semanal</div>
+    <div class="sec-div-line"></div>
+  </div>
+  <div class="day-sel" id="weekDaySel"></div>
+  <div id="weekDayContent"></div>
+</div>
+
+<!-- ══ BLOQUES ══ -->
+<div id="sec-blocks" class="section">
+  <div class="sec-divider" style="margin-top:0">
+    <div class="sec-div-line"></div><div class="sec-div-label">Guía de bloques</div><div class="sec-div-line"></div>
+  </div>
+  <div class="rule-section">
+    <div class="rule-section-title">Orden de prioridad</div>
+    <div class="prio-grid" id="prioGrid"></div>
+  </div>
+  <div class="sec-divider">
+    <div class="sec-div-line"></div><div class="sec-div-label">Bloques definidos</div><div class="sec-div-line"></div>
+  </div>
+  <div class="blk-guide-grid" id="blkGuide"></div>
+</div>
+
+<!-- ══ REGLAS ══ -->
+<div id="sec-rules" class="section">
+  <div class="rule-section">
+    <div class="rule-section-title">Prohibiciones absolutas</div>
+    <div class="rule-card">
+      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div>No sacrificar sueño por <strong>ninguna actividad</strong> — sueño 10:30 PM, despertar 6:30 AM</div></div>
+      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div><strong>Pantallas después de 8:30 PM</strong> — bloque pre-sueño es intocable</div></div>
+      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div>Gym fuera de las <strong>4:00 PM</strong> salvo emergencia — ancla fisiológica</div></div>
+      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div>Deep Work antes de clases — reservar energía cognitiva para las 9 AM</div></div>
+      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div>Carga pesada el <strong>domingo</strong> — día de reset obligatorio</div></div>
+    </div>
+  </div>
+  <div class="rule-section">
+    <div class="rule-section-title">Optimizaciones permitidas</div>
+    <div class="rule-card">
+      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Mover Deep Work dentro de la tarde-noche <strong>(2–8:30 PM)</strong> según energía</div></div>
+      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Dividir Deep Work en <strong>2 bloques de 60 min</strong> si no hay ventana de 120 min</div></div>
+      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Estudio activo: mover ±30 min dentro del rango 11 AM – 1:30 PM</div></div>
+      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Lectura y espiritualidad son <strong>intercambiables</strong> en la ventana 8:30–10:30 PM</div></div>
+      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Miércoles sin gym: usar el bloque 4–6 PM para Deep Work extra o habilidad monetizable</div></div>
+    </div>
+  </div>
+  <div class="rule-section">
+    <div class="rule-section-title">Protocolo de rescate (día roto)</div>
+    <div class="rule-card">
+      <div class="rule-item"><div class="rule-icon r-num">1</div><div>Proteger sueño y clases — intocables</div></div>
+      <div class="rule-item"><div class="rule-icon r-num">2</div><div>Proteger gym (ancla física semanal)</div></div>
+      <div class="rule-item"><div class="rule-icon r-num">3</div><div>Reubicar Deep Work a la noche (7–8:30 PM)</div></div>
+      <div class="rule-item"><div class="rule-icon r-num">4</div><div>Reducir lectura y expansión ese día</div></div>
+      <div class="rule-item"><div class="rule-icon r-num">5</div><div>No compensar gym perdido al día siguiente — continuar ciclo normal</div></div>
+    </div>
+  </div>
+  <div class="rule-section">
+    <div class="rule-section-title">Ventanas de energía</div>
+    <div class="rule-card">
+      <div class="rule-item"><div class="rule-icon r-warn">↑</div><div><strong>6:30–9:00 AM</strong> — Activación gradual. Espiritualidad, desayuno, repaso ligero</div></div>
+      <div class="rule-item"><div class="rule-icon r-warn">↑</div><div><strong>9:00–11:00 AM</strong> — Pico cognitivo 1. Clases (ancla)</div></div>
+      <div class="rule-item"><div class="rule-icon r-warn">→</div><div><strong>11:00–1:30 PM</strong> — Sostenido. Estudio activo, almuerzo</div></div>
+      <div class="rule-item"><div class="rule-icon r-warn">↓</div><div><strong>1:30–3:00 PM</strong> — Caída post-almuerzo. Descanso, Deep Work ligero</div></div>
+      <div class="rule-item"><div class="rule-icon r-warn">↑</div><div><strong>3:00–6:00 PM</strong> — Pico físico. Gym 4 PM (óptimo fisiológico)</div></div>
+      <div class="rule-item"><div class="rule-icon r-warn">↑</div><div><strong>7:00–8:30 PM</strong> — Pico cognitivo 2. Deep Work principal</div></div>
+      <div class="rule-item"><div class="rule-icon r-warn">↓</div><div><strong>8:30–10:30 PM</strong> — Descenso. Solo actividades de baja carga mental</div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════
+//  BLOCK DEFINITIONS
+// ═══════════════════════════════════════════════════
+const CAT = {
+  sleep:   { label:'Sueño',         bg:'--sleep-bg', fg:'--sleep-fg', dot:'--sleep-dot' },
+  class:   { label:'Clases',        bg:'--class-bg', fg:'--class-fg', dot:'--class-dot' },
+  gym:     { label:'Gym',           bg:'--gym-bg',   fg:'--gym-fg',   dot:'--gym-dot'   },
+  deep:    { label:'Deep Work',     bg:'--deep-bg',  fg:'--deep-fg',  dot:'--deep-dot'  },
+  study:   { label:'Estudio',       bg:'--study-bg', fg:'--study-fg', dot:'--study-dot' },
+  food:    { label:'Comida',        bg:'--food-bg',  fg:'--food-fg',  dot:'--food-dot'  },
+  read:    { label:'Lectura',       bg:'--read-bg',  fg:'--read-fg',  dot:'--read-dot'  },
+  spirit:  { label:'Espiritualidad',bg:'--spirit-bg',fg:'--spirit-fg',dot:'--spirit-dot'},
+  mob:     { label:'Movilidad',     bg:'--mob-bg',   fg:'--mob-fg',   dot:'--mob-dot'   },
+  rest:    { label:'Descanso',      bg:'--rest-bg',  fg:'--rest-fg',  dot:'--rest-dot'  },
+  plan:    { label:'Planificación', bg:'--plan-bg',  fg:'--plan-fg',  dot:'--plan-dot'  },
+  travel:  { label:'Traslado',      bg:'--travel-bg',fg:'--travel-fg',dot:'--travel-dot'},
+  presleep:{ label:'Pre-sueño',     bg:'--sleep-bg', fg:'--sleep-fg', dot:'--sleep-dot' },
+  skill:   { label:'Habilidad',     bg:'--plan-bg',  fg:'--plan-fg',  dot:'--plan-dot'  },
+};
+
+function B(name, start, dur, cat, tag) {
+  return { name, start, dur, end: start+dur, cat, tag: tag||CAT[cat].label };
+}
+
+function toM(s){ const [h,m]=s.split(':').map(Number); return h*60+m; }
+function fmM(m){ const t=((m%1440)+1440)%1440; return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
+function durS(m){ if(m<60) return `${m} min`; const h=Math.floor(m/60),r=m%60; return r?`${h}h ${r}min`:`${h}h`; }
+
+// ─── DAILY SCHEDULES ───────────────────────────────
+// GYM day (Mon, Tue, Thu, Fri)
+function dayGym(deepW2dur=90) {
+  return [
+    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual'),
+    B('Desayuno', toM('07:30'), 30, 'food'),
+    B('Repaso ligero / preparación', toM('08:00'), 60, 'study', 'Repaso'),
+    B('Clases', toM('09:00'), 120, 'class'),
+    B('Estudio activo — Contabilidad', toM('11:00'), 80, 'study'),
+    B('Almuerzo', toM('12:20'), 60, 'food'),
+    B('Descanso estratégico', toM('13:20'), 40, 'rest'),
+    B('Deep Work — Proyectos', toM('14:00'), 90, 'deep', 'Deep Work 1'),
+    B('Traslado al gym', toM('15:45'), 15, 'travel'),
+    B('Gym', toM('16:00'), 100, 'gym'),
+    B('Traslado de regreso', toM('17:40'), 15, 'travel'),
+    B('Cena · Higiene personal', toM('18:00'), 60, 'food'),
+    B('Deep Work — Proyectos', toM('19:00'), deepW2dur, 'deep', 'Deep Work 2'),
+    B('Movilidad / recuperación', toM('20:30'), 15, 'mob'),
+    B('Pre-sueño · Lectura · Reflexión', toM('20:30'), 120, 'presleep', 'Pre-sueño'),
+    B('Sueño', toM('22:30'), 480, 'sleep'),
+  ].filter(b=>b).sort((a,b_)=>a.start-b_.start);
+}
+
+// Recalculate pre-sleep to always start 20:30 for gym days (cena 18:00–19:00, DW2 19:00–20:30)
+function dayGymFull() {
+  return [
+    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual mañana'),
+    B('Desayuno', toM('07:30'), 30, 'food'),
+    B('Repaso ligero / preparación', toM('08:00'), 60, 'study', 'Repaso'),
+    B('Clases', toM('09:00'), 120, 'class'),
+    B('Estudio activo — Contabilidad', toM('11:00'), 80, 'study'),
+    B('Almuerzo', toM('12:20'), 60, 'food'),
+    B('Descanso estratégico', toM('13:20'), 40, 'rest'),
+    B('Deep Work — Proyectos', toM('14:00'), 90, 'deep', 'Deep Work 1'),
+    B('Traslado al gym', toM('15:45'), 15, 'travel'),
+    B('Gym', toM('16:00'), 100, 'gym'),
+    B('Traslado de regreso', toM('17:40'), 15, 'travel'),
+    B('Cena · Higiene personal', toM('18:00'), 60, 'food'),
+    B('Deep Work — Proyectos', toM('19:00'), 90, 'deep', 'Deep Work 2'),
+    B('Movilidad / recuperación', toM('20:30'), 15, 'mob'),
+    B('Pre-sueño · Lectura · Sin pantallas', toM('20:30'), 120, 'presleep', 'Pre-sueño'),
+    B('Sueño', toM('22:30'), 480, 'sleep'),
+  ].sort((a,b_)=>a.start-b_.start);
+}
+
+function dayWed() {
+  return [
+    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual mañana'),
+    B('Desayuno', toM('07:30'), 30, 'food'),
+    B('Repaso ligero / preparación', toM('08:00'), 60, 'study', 'Repaso'),
+    B('Clases', toM('09:00'), 120, 'class'),
+    B('Estudio activo — Contabilidad', toM('11:00'), 90, 'study'),
+    B('Almuerzo', toM('12:20'), 60, 'food'),
+    B('Descanso estratégico', toM('13:20'), 30, 'rest'),
+    B('Deep Work — Proyectos', toM('13:50'), 90, 'deep', 'Deep Work 1'),
+    B('Habilidad monetizable', toM('15:20'), 90, 'skill'),
+    B('Deep Work — Proyectos', toM('16:50'), 90, 'deep', 'Deep Work 2'),
+    B('Cena · Higiene personal', toM('18:20'), 60, 'food'),
+    B('Deep Work — Proyectos', toM('19:20'), 70, 'deep', 'Deep Work 3'),
+    B('Movilidad / recuperación', toM('20:30'), 15, 'mob'),
+    B('Pre-sueño · Lectura · Sin pantallas', toM('20:30'), 120, 'presleep', 'Pre-sueño'),
+    B('Sueño', toM('22:30'), 480, 'sleep'),
+  ].sort((a,b_)=>a.start-b_.start);
+}
+
+function daySat() {
+  return [
+    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual mañana'),
+    B('Desayuno', toM('07:30'), 30, 'food'),
+    B('Lectura / expansión', toM('08:00'), 60, 'read'),
+    B('Deep Work — Proyectos', toM('09:00'), 90, 'deep', 'Deep Work'),
+    B('Habilidad monetizable', toM('10:30'), 90, 'skill'),
+    B('Almuerzo', toM('12:20'), 60, 'food'),
+    B('Descanso / recuperación', toM('13:20'), 60, 'rest'),
+    B('Traslado al gym', toM('15:45'), 15, 'travel'),
+    B('Gym', toM('16:00'), 100, 'gym'),
+    B('Traslado de regreso', toM('17:40'), 15, 'travel'),
+    B('Cena · Higiene personal', toM('18:00'), 60, 'food'),
+    B('Lectura / reflexión', toM('19:00'), 90, 'read'),
+    B('Movilidad / recuperación', toM('20:30'), 15, 'mob'),
+    B('Pre-sueño · Lectura · Sin pantallas', toM('20:30'), 120, 'presleep', 'Pre-sueño'),
+    B('Sueño', toM('22:30'), 480, 'sleep'),
+  ].sort((a,b_)=>a.start-b_.start);
+}
+
+function daySun(churchTime) {
+  // churchTime: 'am' = 7:00, 'pm' = 17:00
+  const base = [
+    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual mañana'),
+    B('Desayuno', toM('07:30'), 30, 'food'),
+  ];
+  if(churchTime === 'am') {
+    base.push(B('Iglesia', toM('07:00'), 120, 'spirit', 'Iglesia'));
+    base.push(B('Descanso / tiempo libre', toM('09:00'), 90, 'rest'));
+    base.push(B('Lectura', toM('10:30'), 60, 'read'));
+    base.push(B('Almuerzo', toM('12:20'), 60, 'food'));
+    base.push(B('Reflexión personal', toM('13:20'), 40, 'spirit', 'Reflexión'));
+    base.push(B('Planificación semana siguiente', toM('14:00'), 60, 'plan'));
+    base.push(B('Descanso / actividad ligera', toM('15:00'), 90, 'rest'));
+    base.push(B('Cena · Higiene personal', toM('18:20'), 60, 'food'));
+  } else {
+    base.push(B('Lectura', toM('08:00'), 60, 'read'));
+    base.push(B('Reflexión personal', toM('09:00'), 40, 'spirit', 'Reflexión'));
+    base.push(B('Planificación semana siguiente', toM('09:40'), 60, 'plan'));
+    base.push(B('Almuerzo', toM('12:20'), 60, 'food'));
+    base.push(B('Descanso / tiempo libre', toM('13:20'), 90, 'rest'));
+    base.push(B('Traslado iglesia', toM('16:45'), 15, 'travel'));
+    base.push(B('Iglesia', toM('17:00'), 120, 'spirit', 'Iglesia'));
+    base.push(B('Cena · Higiene personal', toM('19:00'), 60, 'food'));
+  }
+  base.push(B('Pre-sueño · Lectura · Sin pantallas', toM('20:30'), 120, 'presleep', 'Pre-sueño'));
+  base.push(B('Sueño', toM('22:30'), 480, 'sleep'));
+  return base.sort((a,b_)=>a.start-b_.start);
+}
+
+// ─── WEEK DATA ─────────────────────────────────────
+const WEEK = [
+  { name:'Lunes',    short:'Lun', type:'Alto rendimiento', gym:true,  blocks: dayGymFull() },
+  { name:'Martes',   short:'Mar', type:'Alto rendimiento', gym:true,  blocks: dayGymFull() },
+  { name:'Miércoles',short:'Mié', type:'Expansión',        gym:false, blocks: dayWed() },
+  { name:'Jueves',   short:'Jue', type:'Alto rendimiento', gym:true,  blocks: dayGymFull() },
+  { name:'Viernes',  short:'Vie', type:'Alto rendimiento', gym:true,  blocks: dayGymFull() },
+  { name:'Sábado',   short:'Sáb', type:'Ligero + Gym',     gym:true,  blocks: daySat() },
+  { name:'Domingo',  short:'Dom', type:'Reset',            gym:false, blocks: daySun('pm') },
+];
+
+const PRIOS = [
+  { num:'01', name:'Sueño',             type:'Ancla', dot:'--sleep-dot',  badge:'No negociable' },
+  { num:'02', name:'Clases 9–11 AM',    type:'Ancla', dot:'--class-dot',  badge:'No negociable' },
+  { num:'03', name:'Gym 4 PM',          type:'Ancla', dot:'--gym-dot',    badge:'No negociable' },
+  { num:'04', name:'Deep Work',         type:'Flexible', dot:'--deep-dot',badge:'Alta prioridad' },
+  { num:'05', name:'Estudio activo',    type:'Flexible', dot:'--study-dot',badge:'Alta prioridad' },
+  { num:'06', name:'Habilidad monetiz.',type:'Flexible', dot:'--plan-dot', badge:'Media' },
+  { num:'07', name:'Lectura',           type:'Flexible', dot:'--read-dot', badge:'Media' },
+  { num:'08', name:'Espiritualidad',    type:'Flexible', dot:'--spirit-dot',badge:'Diaria' },
+  { num:'09', name:'Movilidad',         type:'Flexible', dot:'--mob-dot',  badge:'Diaria' },
+];
+
+const BLK_GUIDE = [
+  { name:'Sueño',               type:'ANCLA',    dot:'--sleep-dot',  meta:'8h fijas · 10:30 PM – 6:30 AM · No se mueve por nada' },
+  { name:'Clases',              type:'ANCLA',    dot:'--class-dot',  meta:'9:00–11:00 AM · Lun–Vie · No se mueve' },
+  { name:'Gym',                 type:'ANCLA',    dot:'--gym-dot',    meta:'4:00–5:40 PM · Lun, Mar, Jue, Vie, Sáb · +15 min traslado c/u' },
+  { name:'Pre-sueño',           type:'ANCLA',    dot:'--sleep-dot',  meta:'8:30–10:30 PM · Sin pantallas · Solo lectura, reflexión, higiene' },
+  { name:'Deep Work',           type:'FLEXIBLE', dot:'--deep-dot',   meta:'60–120 min · Siempre tarde-noche · 1 bloque días Sáb/Dom, 2–3 resto' },
+  { name:'Estudio activo',      type:'FLEXIBLE', dot:'--study-dot',  meta:'60–90 min · Post-clases o mañana · Siempre cerca de las clases' },
+  { name:'Habilidad monetiz.',  type:'FLEXIBLE', dot:'--plan-dot',   meta:'45–90 min · Mié y Sáb · Se puede fusionar con Deep Work' },
+  { name:'Lectura',             type:'FLEXIBLE', dot:'--read-dot',   meta:'20–40 min · Pre-sueño o mañana libre · Baja carga mental' },
+  { name:'Espiritualidad',      type:'FLEXIBLE', dot:'--spirit-dot', meta:'10–20 min · Mañana al despertar · No se salta' },
+  { name:'Movilidad',           type:'FLEXIBLE', dot:'--mob-dot',    meta:'10–15 min · Post-gym o noche · Prevención activa' },
+  { name:'Descanso estratégico',type:'FLEXIBLE', dot:'--rest-dot',   meta:'20–30 min · Post-almuerzo · Recuperación cognitiva' },
+];
+
+// ═══════════════════════════════════════════════════
+//  LOCALSTORAGE ENGINE
+//  Clave por fecha: "ss_blocks_2026-04-09"
+//  Clave de nota:   "ss_note_2026-04-09"
+//  Clave de racha:  "ss_streak" (objeto global)
+// ═══════════════════════════════════════════════════
+
+function todayKey() {
+  // Genera la clave de fecha actual: YYYY-MM-DD
+  const n = new Date();
+  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+}
+
+function lsKeyBlocks(dateStr) { return `ss_blocks_${dateStr}`; }
+function lsKeyNote(dateStr)   { return `ss_note_${dateStr}`; }
+const LS_STREAK = 'ss_streak';
+
+// ── Guardar bloques completados para una fecha concreta ──
+// Guarda un Array de índices (Set no es serializable con JSON)
+function saveCompleted(dateStr, set) {
+  try {
+    localStorage.setItem(lsKeyBlocks(dateStr), JSON.stringify([...set]));
+  } catch(e) { console.warn('localStorage error', e); }
+}
+
+// ── Cargar bloques completados desde localStorage ──
+// Devuelve un Set<number>
+function loadCompleted(dateStr) {
+  try {
+    const raw = localStorage.getItem(lsKeyBlocks(dateStr));
+    if (raw) return new Set(JSON.parse(raw));
+  } catch(e) {}
+  return new Set();
+}
+
+// ── Guardar nota del día ──
+function saveNote() {
+  const txt = document.getElementById('notesTextarea').value;
+  try {
+    localStorage.setItem(lsKeyNote(todayKey()), txt);
+  } catch(e) {}
+  // Mostrar indicador "Guardado ✓" brevemente
+  const el = document.getElementById('notesSaved');
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+// ── Cargar nota del día ──
+function loadNote() {
+  try {
+    return localStorage.getItem(lsKeyNote(todayKey())) || '';
+  } catch(e) { return ''; }
+}
+
+// ── Calcular racha: días consecutivos con al menos 1 bloque completado ──
+function calcStreak() {
+  let streak = 0;
+  const check = new Date();
+  // Revisa los últimos 60 días hacia atrás
+  for (let i = 0; i < 60; i++) {
+    const d = check.toISOString().split('T')[0];
+    const raw = localStorage.getItem(lsKeyBlocks(d));
+    if (raw) {
+      try {
+        const arr = JSON.parse(raw);
+        if (arr.length > 0) { streak++; check.setDate(check.getDate()-1); continue; }
+      } catch(e) {}
+    }
+    break; // día sin datos → rompe la racha
+  }
+  return streak;
+}
+
+// ── Contar días con datos guardados esta semana ──
+function countWeekDaysWithData() {
+  let count = 0;
+  // Revisa los últimos 7 días
+  const check = new Date();
+  for (let i = 0; i < 7; i++) {
+    const d = check.toISOString().split('T')[0];
+    try {
+      const raw = localStorage.getItem(lsKeyBlocks(d));
+      if (raw && JSON.parse(raw).length > 0) count++;
+    } catch(e) {}
+    check.setDate(check.getDate()-1);
+  }
+  return count;
+}
+
+// ═══════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════
+function jsToWk(js){ return js===0 ? 6 : js-1; }
+let wkIdx = jsToWk(new Date().getDay());
+
+// completedMap: wkIdx -> Set<number>
+// Para "hoy" (wkIdx actual) siempre usa localStorage con la fecha actual.
+// Para otros días de la semana en la vista Semana usa memoria temporal de sesión.
+const completedMap = {};
+
+function getCompleted(idx) {
+  if (idx === wkIdx) {
+    // Hoy: siempre lee desde localStorage para ser consistente tras recargar
+    if (!completedMap[idx]) {
+      completedMap[idx] = loadCompleted(todayKey());
+    }
+    return completedMap[idx];
+  }
+  if (!completedMap[idx]) completedMap[idx] = new Set();
+  return completedMap[idx];
+}
+
+// ═══════════════════════════════════════════════════
+//  RESET DEL DÍA
+// ═══════════════════════════════════════════════════
+function resetDay() {
+  if (!confirm('¿Borrar todo el progreso de hoy? Esta acción no se puede deshacer.')) return;
+  try { localStorage.removeItem(lsKeyBlocks(todayKey())); } catch(e) {}
+  completedMap[wkIdx] = new Set();
+  renderToday();
+  showToast('Día reseteado');
+}
+
+// ═══════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════
+function nowM(){ const n=new Date(); return n.getHours()*60+n.getMinutes(); }
+
+function showToast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg;
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+function updateDate(){
+  const n=new Date();
+  const days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  document.getElementById('headerDate').textContent=`${days[n.getDay()]} ${n.getDate()} ${months[n.getMonth()]}`;
+}
+
+// ═══════════════════════════════════════════════════
+//  NAV
+// ═══════════════════════════════════════════════════
+function showNav(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('sec-'+id).classList.add('on');
+  document.getElementById('nav-'+id).classList.add('on');
+  if(id==='week') renderWeekView();
+  if(id==='blocks') renderBlocksGuide();
+}
+
+// ═══════════════════════════════════════════════════
+//  BLOCK HTML
+// ═══════════════════════════════════════════════════
+function blockStyle(cat){
+  const c = CAT[cat]||CAT.rest;
+  return `style="--blk-bg:var(${c.bg});--blk-fg:var(${c.fg});--blk-dot:var(${c.dot});--dot-color:var(${c.dot})"`;
+}
+
+function renderBlockList(blocks, doneSet, prefix, showNow){
+  const nm = showNow ? nowM() : -1;
+  return blocks.map((b,i)=>{
+    const c = CAT[b.cat]||CAT.rest;
+    const isDone = doneSet.has(i);
+    const isNow = showNow && !isDone && nm>=b.start && nm<b.end;
+    return `
+      <div class="block-row" ${blockStyle(b.cat)}>
+        <div class="bl-time">${fmM(b.start)}</div>
+        <div class="bl-line"></div>
+        <div class="bl-content ${isDone?'done':''} ${isNow?'now-active':''}"
+             onclick="toggleBlock('${prefix}',${i})">
+          <div class="bl-left">
+            <div class="bl-name">${b.name}</div>
+            <div class="bl-dur">${durS(b.dur)}</div>
+          </div>
+          <div class="bl-right">
+            ${isNow?'<div class="now-dot"></div>':''}
+            <span class="bl-tag">${b.tag}</span>
+            <div class="bl-check ${isDone?'done':''}">
+              <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Toggle bloque + guardar en localStorage inmediatamente ──
+function toggleBlock(prefix, i){
+  const isToday = (prefix === 'today');
+  const idx = isToday ? wkIdx : parseInt(prefix);
+  const set = getCompleted(idx);
+
+  if(set.has(i)) {
+    set.delete(i);
+  } else {
+    set.add(i);
+    showToast('Bloque completado ✓');
+  }
+
+  // GUARDAR: si es hoy, persistir en localStorage con la fecha actual
+  if (isToday || idx === wkIdx) {
+    saveCompleted(todayKey(), set);
+  }
+
+  if(isToday) renderToday();
+  else renderWeekDayContent(idx);
+}
+
+// ═══════════════════════════════════════════════════
+//  RENDER TODAY
+// ═══════════════════════════════════════════════════
+function renderToday(){
+  const d = WEEK[wkIdx];
+  // Siempre recarga desde localStorage al renderizar
+  completedMap[wkIdx] = loadCompleted(todayKey());
+  const done = completedMap[wkIdx];
+  const total = d.blocks.length;
+  const doneCount = done.size;
+  const now = nowM();
+
+  const curBlock = d.blocks.find(b=>now>=b.start&&now<b.end);
+  const nextBlock = curBlock ? d.blocks[d.blocks.indexOf(curBlock)+1] : d.blocks.find(b=>b.start>now);
+
+  document.getElementById('todayTitle').textContent = d.name;
+  document.getElementById('todaySub').textContent = d.type;
+
+  const typeColors = {
+    'Alto rendimiento':'#2d4a8a','Expansión':'#4a2d8a',
+    'Ligero + Gym':'#1a5c2e','Reset':'#7a5c00'
+  };
+  document.getElementById('todayDayType').innerHTML = d.type;
+  document.getElementById('todayDayType').style.color = typeColors[d.type]||'var(--text2)';
+  document.getElementById('todayDayType').style.borderColor = (typeColors[d.type]||'#888')+'33';
+
+  // ── Streak row ──
+  const streak = calcStreak();
+  const weekDays = countWeekDaysWithData();
+  document.getElementById('streakRow').innerHTML = `
+    <div class="streak-pill">Racha <strong>${streak} día${streak!==1?'s':''}</strong></div>
+    <div class="streak-pill">Esta semana <strong>${weekDays}/7</strong></div>
+    <div class="streak-pill">Fecha <strong>${todayKey()}</strong></div>`;
+
+  document.getElementById('todayStats').innerHTML = `
+    <div class="stat-box">
+      <div class="stat-v">06:30</div><div class="stat-l">Despertar</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-v">22:30</div><div class="stat-l">Dormir</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-v">${doneCount}/${total}</div><div class="stat-l">Hechos</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-v">${d.gym?'Sí':'No'}</div><div class="stat-l">Gym</div>
+    </div>`;
+
+  document.getElementById('todayProg').innerHTML = `
+    <div class="prog-row">
+      <span>${curBlock ? 'Ahora: '+curBlock.name : 'Sin bloque activo'}</span>
+      <span>${Math.round(doneCount/total*100)}%</span>
+    </div>
+    <div class="prog-bar">
+      <div class="prog-fill" style="width:${Math.round(doneCount/total*100)}%"></div>
+    </div>
+    ${nextBlock&&!curBlock?`<div style="font-size:11px;color:var(--text3);margin-top:8px">Próximo: ${nextBlock.name} a las ${fmM(nextBlock.start)}</div>`:''}`;
+
+  document.getElementById('todayBlocks').innerHTML = renderBlockList(d.blocks, done, 'today', true);
+
+  // ── Restaurar nota desde localStorage ──
+  const noteEl = document.getElementById('notesTextarea');
+  if (noteEl && !noteEl._focused) {
+    noteEl.value = loadNote();
+  }
+}
+
+// ═══════════════════════════════════════════════════
+//  RENDER WEEK VIEW
+// ═══════════════════════════════════════════════════
+function renderWeekView(){
+  let selHtml = WEEK.map((d,i)=>{
+    const cats = [...new Set(d.blocks.map(b=>b.cat))].slice(0,5);
+    const dots = cats.map(c=>`<div class="dsel-dot" style="background:var(${CAT[c]?.dot||'--rest-dot'})"></div>`).join('');
+    return `<button class="day-sel-btn ${i===wkIdx?'on':''}" onclick="selectWeekDay(${i})">
+      <span class="dsel-name">${d.short}</span>
+      <div class="dsel-dots">${dots}</div>
+    </button>`;
+  }).join('');
+  document.getElementById('weekDaySel').innerHTML = selHtml;
+  renderWeekDayContent(wkIdx);
+}
+
+function selectWeekDay(i){
+  wkIdx = i;
+  document.querySelectorAll('.day-sel-btn').forEach((b,j)=>b.classList.toggle('on',j===i));
+  renderWeekDayContent(i);
+}
+
+function renderWeekDayContent(i){
+  const d = WEEK[i];
+  const done = getCompleted(i);
+  const total = d.blocks.length;
+  const doneCount = done.size;
+  const typeColors = {
+    'Alto rendimiento':'#2d4a8a','Expansión':'#4a2d8a',
+    'Ligero + Gym':'#1a5c2e','Reset':'#7a5c00'
+  };
+  document.getElementById('weekDayContent').innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div style="font-family:'Instrument Serif',serif;font-size:18px">${d.name}</div>
+        <div style="font-size:11px;color:var(--text3)">${d.type}</div>
+      </div>
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--text2)">${doneCount}/${total} completados</div>
+    </div>
+    <div class="prog-card" style="margin-bottom:12px">
+      <div class="prog-row"><span>Progreso</span><span>${Math.round(doneCount/total*100)}%</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${Math.round(doneCount/total*100)}%"></div></div>
+    </div>
+    ${renderBlockList(d.blocks, done, String(i), false)}`;
+}
+
+// ═══════════════════════════════════════════════════
+//  RENDER BLOCKS GUIDE
+// ═══════════════════════════════════════════════════
+function renderBlocksGuide(){
+  document.getElementById('prioGrid').innerHTML = PRIOS.map(p=>`
+    <div class="prio-item">
+      <div class="prio-num">${p.num}</div>
+      <div class="prio-dot" style="background:var(${p.dot})"></div>
+      <div class="prio-name">${p.name}</div>
+      <div class="prio-badge">${p.badge}</div>
+    </div>`).join('');
+
+  document.getElementById('blkGuide').innerHTML = BLK_GUIDE.map(b=>`
+    <div class="blk-guide-item">
+      <div class="blk-guide-top">
+        <div class="blk-guide-dot" style="background:var(${b.dot})"></div>
+        <div class="blk-guide-name">${b.name}</div>
+        <div class="blk-guide-type">${b.type}</div>
+      </div>
+      <div class="blk-guide-meta">${b.meta}</div>
+    </div>`).join('');
+}
+
+// ─── WEEKLY OVERVIEW (legacy, no activo en tabs actuales) ──
+function renderWeekOverview(){
+  if(!document.getElementById('weekGrid')) return;
+  document.getElementById('weekGrid').innerHTML = WEEK.map((d,i)=>{
+    const cats = [...new Set(d.blocks.map(b=>b.cat))];
+    const pills = cats.map(c=>`<div class="mini-pill" style="background:var(${CAT[c]?.dot||'--rest-dot'})"></div>`).join('');
+    return `<div class="week-day-card" id="wdc${i}">
+      <div class="week-day-header" onclick="toggleWkCard(${i})">
+        <div class="week-day-left"><div>
+          <div class="week-day-name">${d.name}</div>
+          <div class="week-day-type">${d.type}</div>
+        </div></div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="week-day-pills">${pills}</div>
+          <div class="week-day-toggle">▾</div>
+        </div>
+      </div>
+      <div class="week-day-body" id="wdb${i}">
+        ${renderBlockList(d.blocks, getCompleted(i), String(i), false)}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleWkCard(i){
+  document.getElementById('wdc'+i)?.classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════
+updateDate();
+setInterval(updateDate, 60000);
+// Refresca "Hoy" cada minuto para actualizar bloque activo
+setInterval(()=>renderToday(), 60000);
+
+// Evitar que la nota se sobreescriba mientras el usuario escribe
+document.addEventListener('DOMContentLoaded', () => {
+  const ta = document.getElementById('notesTextarea');
+  if(ta){
+    ta.addEventListener('focus', ()=>{ ta._focused = true; });
+    ta.addEventListener('blur',  ()=>{ ta._focused = false; });
+  }
+});
+
+renderToday();
+</script>
+</body>
+</html>
