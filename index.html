@@ -3,156 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Sistema Semanal</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0e0e0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Anton OS">
+<title>Anton OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f5f2ed;
-  --bg2: #ede9e2;
-  --surface: #ffffff;
-  --surface2: #faf8f5;
-  --border: rgba(0,0,0,0.07);
-  --border2: rgba(0,0,0,0.13);
-  --text: #1a1814;
-  --text2: #6b6560;
-  --text3: #a8a39c;
-  --ink: #1a1814;
+  --bg:       #0e0e0e;
+  --bg2:      #161616;
+  --bg3:      #1e1e1e;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.12);
+  --text:     #e8e8e8;
+  --text2:    #888;
+  --text3:    #444;
+  --ink:      #e8e8e8;
 
-  /* Block palette — earthy & refined */
-  --sleep-bg: #e8eef8; --sleep-fg: #2d4a8a; --sleep-dot: #4a6fa5;
-  --class-bg: #fdf0e0; --class-fg: #8a4a00; --class-dot: #c46e00;
-  --gym-bg:   #e6f4ea; --gym-fg:   #1a5c2e; --gym-dot:   #2e7d44;
-  --deep-bg:  #f0eafa; --deep-fg:  #4a2d8a; --deep-dot:  #6b42c8;
-  --study-bg: #fff4e0; --study-fg: #7a5200; --study-dot: #b87a00;
-  --food-bg:  #fce8ec; --food-fg:  #8a1a30; --food-dot:  #c42044;
-  --read-bg:  #e8f4f0; --read-fg:  #1a5a4a; --read-dot:  #2a8a6e;
-  --spirit-bg:#fef3e0; --spirit-fg:#7a5c00; --spirit-dot:#c49a00;
-  --mob-bg:   #eef6ff; --mob-fg:   #1a4a7a; --mob-dot:   #2a6aaa;
-  --rest-bg:  #f0f0f0; --rest-fg:  #4a4a4a; --rest-dot:  #888;
-  --plan-bg:  #f5e8ff; --plan-fg:  #5a0a8a; --plan-dot:  #8a2ac8;
-  --travel-bg:#f0f0e8; --travel-fg:#4a4a2a; --travel-dot:#888860;
+  /* accent — one strong color per category */
+  --lime:   #c8f135;
+  --blue:   #4f8ef7;
+  --amber:  #f5a623;
+  --rose:   #f7547a;
+  --violet: #9b72f7;
+  --teal:   #3dd6a3;
+  --orange: #f7834f;
+  --slate:  #8aaabf;
 
-  --radius: 14px;
-  --radius-sm: 9px;
+  /* block colors */
+  --c-sleep:   #4f8ef7;
+  --c-wake:    #c8f135;
+  --c-gym:     #f5a623;
+  --c-english: #3dd6a3;
+  --c-study:   #8aaabf;
+  --c-project: #c8f135;
+  --c-skill:   #9b72f7;
+  --c-food:    #f7547a;
+  --c-spirit:  #f5a623;
+  --c-rest:    #444;
+  --c-read:    #3dd6a3;
+  --c-plan:    #9b72f7;
+  --c-mob:     #8aaabf;
+  --c-presleep:#4f8ef7;
+
+  --r: 10px;
+  --rs: 7px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Geist', sans-serif;
+  font-family: 'Archivo', sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
+  overscroll-behavior: none;
 }
 
-/* ─── LAYOUT ─── */
-.app { max-width: 520px; margin: 0 auto; padding-bottom: 90px; }
+.app { max-width: 480px; margin: 0 auto; padding-bottom: 72px; }
 
-/* ─── HEADER ─── */
+/* ── HEADER ── */
 .header {
-  padding: 22px 20px 0;
+  padding: 20px 16px 0;
   background: var(--bg);
   position: sticky; top: 0; z-index: 100;
   border-bottom: 1px solid var(--border);
 }
-.header-row {
-  display: flex; align-items: baseline;
-  justify-content: space-between; margin-bottom: 14px;
+.header-top {
+  display: flex; align-items: flex-end;
+  justify-content: space-between; margin-bottom: 16px;
 }
-.app-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 22px; color: var(--ink); letter-spacing: -.01em;
+.logo {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 20px; letter-spacing: -.02em;
+  color: var(--lime);
+  line-height: 1;
 }
-.app-sub {
-  font-family: 'Geist Mono', monospace;
+.logo-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text3);
+  letter-spacing: .12em; text-transform: uppercase;
+  margin-top: 2px;
+}
+.header-date {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .1em;
+  text-align: right;
 }
 
-/* ─── TABS ─── */
+/* ── TABS ── */
 .tabs {
   display: flex; gap: 0;
-  border-bottom: 2px solid var(--border);
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--border);
+  margin: 0 -16px; padding: 0 16px;
 }
 .tabs::-webkit-scrollbar { display: none; }
 .tab {
   flex-shrink: 0;
-  padding: 10px 16px;
-  font-size: 12px; font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 10px 14px;
   border: none; background: transparent;
   color: var(--text3); cursor: pointer;
-  transition: all .2s;
-  position: relative; white-space: nowrap;
-  font-family: 'Geist', sans-serif;
-  letter-spacing: .01em;
+  transition: color .15s; position: relative;
+  white-space: nowrap;
 }
-.tab.on { color: var(--ink); }
+.tab.on { color: var(--lime); }
 .tab.on::after {
   content: ''; position: absolute;
-  bottom: -2px; left: 10%; width: 80%;
-  height: 2px; background: var(--ink); border-radius: 2px;
+  bottom: -1px; left: 10%; width: 80%;
+  height: 1px; background: var(--lime);
 }
 
-/* ─── SECTIONS ─── */
-.section { display: none; padding: 20px 16px; }
+/* ── SECTIONS ── */
+.section { display: none; padding: 16px; }
 .section.on { display: block; }
 
-/* ─── WEEK OVERVIEW ─── */
-.week-grid { display: flex; flex-direction: column; gap: 8px; }
-.week-day-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: box-shadow .15s;
-}
-.week-day-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-.week-day-header {
-  display: flex; align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  cursor: pointer;
-  user-select: none;
-}
-.week-day-left { display: flex; align-items: center; gap: 10px; }
-.week-day-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 16px; color: var(--ink);
-}
-.week-day-type {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .06em;
-}
-.week-day-pills { display: flex; gap: 4px; flex-wrap: wrap; }
-.mini-pill {
-  width: 8px; height: 8px; border-radius: 50%;
-  flex-shrink: 0;
-}
-.week-day-toggle {
-  font-size: 12px; color: var(--text3);
-  transition: transform .2s;
-}
-.week-day-card.open .week-day-toggle { transform: rotate(180deg); }
-.week-day-body {
-  display: none;
-  padding: 0 16px 14px;
-  border-top: 1px solid var(--border);
-}
-.week-day-card.open .week-day-body { display: block; }
-
-/* ─── BLOCK ROWS ─── */
+/* ── BLOCK ROWS ── */
 .block-row {
   display: flex; align-items: stretch;
-  gap: 0; margin-top: 8px;
+  gap: 0; margin-top: 6px;
 }
 .bl-time {
-  width: 48px; flex-shrink: 0;
-  font-family: 'Geist Mono', monospace;
+  width: 46px; flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px; color: var(--text3);
   padding: 10px 8px 0 0; text-align: right;
 }
@@ -164,1052 +142,1017 @@ body {
   content: ''; position: absolute;
   top: 11px; left: -3.5px;
   width: 8px; height: 8px; border-radius: 50%;
-  background: var(--dot-color, var(--text3));
+  background: var(--dot, var(--text3));
 }
 .bl-content {
-  flex: 1; padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
+  flex: 1; padding: 9px 12px;
+  border-radius: var(--rs);
+  border: 1px solid var(--border);
   min-height: 42px;
   display: flex; align-items: center;
   justify-content: space-between; gap: 8px;
   cursor: pointer; transition: all .15s;
-  background: var(--blk-bg, var(--surface2));
+  background: var(--bg2);
+  position: relative; overflow: hidden;
 }
-.bl-content:hover { filter: brightness(.97); }
-.bl-content.done { opacity: .4; }
-.bl-content.done .bl-name { text-decoration: line-through; }
+.bl-content::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--dot, transparent);
+  opacity: .7;
+}
+.bl-content:hover { border-color: var(--border2); }
+.bl-content.done { opacity: .35; }
+.bl-content.done .bl-name { text-decoration: line-through; text-decoration-color: var(--text3); }
 .bl-content.now-active {
-  box-shadow: 0 0 0 1.5px var(--blk-dot, #888) !important;
+  border-color: var(--dot) !important;
+  background: color-mix(in srgb, var(--dot) 8%, var(--bg2)) !important;
 }
 .bl-left { display: flex; flex-direction: column; gap: 1px; }
-.bl-name { font-size: 12px; font-weight: 500; color: var(--blk-fg, var(--text)); }
+.bl-name { font-size: 12px; font-weight: 500; color: var(--text); }
 .bl-dur {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px; color: var(--text3);
 }
-.bl-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.bl-right { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
 .bl-tag {
-  font-size: 10px; font-weight: 500;
-  padding: 2px 8px; border-radius: 20px;
-  background: rgba(0,0,0,0.05);
-  color: var(--blk-fg, var(--text2));
-  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: .06em;
+  padding: 2px 7px; border-radius: 20px;
+  background: color-mix(in srgb, var(--dot) 15%, transparent);
+  color: var(--dot);
+  text-transform: uppercase;
 }
 .bl-check {
   width: 18px; height: 18px; border-radius: 50%;
-  border: 1.5px solid var(--border2);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; transition: all .15s;
-  background: transparent;
+  border: 1px solid var(--border2);
+  display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
+  transition: all .15s;
 }
 .bl-check.done {
-  background: var(--blk-dot, #888);
-  border-color: var(--blk-dot, #888);
+  background: var(--dot, var(--lime));
+  border-color: var(--dot, var(--lime));
 }
 .bl-check svg {
   width: 9px; height: 9px;
-  stroke: white; fill: none;
-  stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
-  opacity: 0;
+  stroke: var(--bg); fill: none;
+  stroke-width: 2.5; stroke-linecap: round;
+  stroke-linejoin: round; opacity: 0;
 }
 .bl-check.done svg { opacity: 1; }
 
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.2} }
 .now-dot {
   width: 6px; height: 6px; border-radius: 50%;
-  background: var(--blk-dot, #888);
+  background: var(--dot, var(--lime));
   animation: pulse 2s infinite; flex-shrink: 0;
 }
 
-/* ─── TODAY SECTION ─── */
-.today-header {
-  display: flex; align-items: center;
-  justify-content: space-between; margin-bottom: 14px;
+/* ── STATS ── */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 6px; margin-bottom: 12px;
 }
-.today-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px;
-}
-.today-sub {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em;
-}
-
-.stats-strip {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 7px; margin-bottom: 14px;
-}
-.stat-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 8px; text-align: center;
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 12px 10px; text-align: center;
 }
 .stat-v {
-  font-family: 'Geist Mono', monospace;
-  font-size: 16px; font-weight: 500;
-  color: var(--ink); line-height: 1;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 20px; color: var(--lime);
+  line-height: 1;
 }
 .stat-l {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .07em; margin-top: 3px;
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-top: 3px;
 }
 
-.prog-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 14px;
+/* ── PROGRESS ── */
+.prog-wrap {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--rs); padding: 12px 14px;
+  margin-bottom: 12px;
 }
 .prog-row {
   display: flex; justify-content: space-between;
-  font-size: 11px; color: var(--text2); margin-bottom: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--text2); margin-bottom: 8px;
 }
-.prog-bar { height: 3px; background: var(--bg2); border-radius: 2px; overflow: hidden; }
+.prog-bar { height: 2px; background: var(--border2); border-radius: 2px; overflow: hidden; }
 .prog-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4a6fa5, #6b42c8);
-  border-radius: 2px; transition: width .4s ease;
+  background: linear-gradient(90deg, var(--lime), var(--teal));
+  border-radius: 2px; transition: width .5s cubic-bezier(.4,0,.2,1);
 }
 
-.day-type-pill {
+/* ── DAY BADGE ── */
+.day-badge {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 500;
+  padding: 4px 10px; border-radius: 20px;
   border: 1px solid var(--border2);
-  color: var(--text2); margin-bottom: 14px;
-  font-family: 'Geist Mono', monospace;
-}
-
-/* ─── SECTION DIVIDER ─── */
-.sec-divider {
-  display: flex; align-items: center; gap: 10px;
-  margin: 20px 0 14px;
-}
-.sec-div-line { flex: 1; height: 1px; background: var(--border); }
-.sec-div-label {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .1em; white-space: nowrap;
+  margin-bottom: 12px; letter-spacing: .05em;
+  text-transform: uppercase;
 }
+.day-badge-dot { width: 5px; height: 5px; border-radius: 50%; }
 
-/* ─── DAY SELECTOR ─── */
-.day-sel {
-  display: grid; grid-template-columns: repeat(7, 1fr);
-  gap: 5px; margin-bottom: 16px;
+/* ── STREAK ── */
+.streak-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.streak-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px;
+  background: var(--bg2); border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--text2);
 }
-.day-sel-btn {
-  padding: 9px 4px; border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  cursor: pointer; text-align: center;
-  transition: all .15s; font-family: 'Geist', sans-serif;
-}
-.day-sel-btn:hover { border-color: var(--border2); }
-.day-sel-btn.on {
-  background: var(--ink); border-color: var(--ink);
-}
-.dsel-name {
-  font-size: 11px; font-weight: 500;
-  color: var(--text2); display: block;
-}
-.day-sel-btn.on .dsel-name { color: #fff; }
-.dsel-dots { display: flex; gap: 2px; justify-content: center; margin-top: 4px; flex-wrap: wrap; }
-.dsel-dot { width: 4px; height: 4px; border-radius: 50%; }
+.streak-chip strong { color: var(--lime); }
 
-/* ─── RULES ─── */
-.rule-section { margin-bottom: 16px; }
-.rule-section-title {
-  font-size: 10px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .1em;
-  font-family: 'Geist Mono', monospace;
-  margin-bottom: 8px;
+/* ── NOTES ── */
+.notes-wrap {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px;
+  margin-top: 14px;
 }
-.rule-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); overflow: hidden;
-}
-.rule-item {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px; line-height: 1.5; color: var(--text2);
-}
-.rule-item:last-child { border-bottom: none; }
-.rule-icon {
-  width: 20px; height: 20px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
-}
-.r-stop { background: #fee2e2; color: #991b1b; }
-.r-go   { background: #dcfce7; color: #14532d; }
-.r-warn { background: #fef3c7; color: #78350f; }
-.r-num  { background: #f0f0f0; color: #444; font-size: 9px; }
-
-/* ─── PRIORITY BLOCK GUIDE ─── */
-.prio-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-.prio-item {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: 10px 14px;
-}
-.prio-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px; color: var(--text3);
-  width: 20px; flex-shrink: 0;
-}
-.prio-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.prio-name { font-size: 12px; font-weight: 500; flex: 1; }
-.prio-badge {
-  font-size: 10px; padding: 2px 8px; border-radius: 20px;
-  background: var(--bg2); color: var(--text3);
-}
-
-/* ─── BLOCK GUIDE CARDS ─── */
-.blk-guide-grid { display: flex; flex-direction: column; gap: 6px; }
-.blk-guide-item {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: 12px 14px;
-}
-.blk-guide-top {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
-}
-.blk-guide-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.blk-guide-name { font-size: 12px; font-weight: 500; }
-.blk-guide-type {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--text3);
-  margin-left: auto;
-}
-.blk-guide-meta {
-  font-size: 11px; color: var(--text2); line-height: 1.5;
-}
-
-/* ─── BOTTOM NAV ─── */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 100%; max-width: 520px;
-  background: rgba(245,242,237,0.96);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid var(--border);
-  display: flex; z-index: 200;
-}
-.nav-btn {
-  flex: 1; padding: 12px 0 14px;
-  font-size: 10px; color: var(--text3);
-  border: none; background: transparent; cursor: pointer;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 3px;
-  transition: color .15s;
-  text-transform: uppercase; letter-spacing: .04em;
-  font-family: 'Geist', sans-serif;
-}
-.nav-btn.on { color: var(--ink); }
-.nav-btn svg {
-  width: 18px; height: 18px;
-  stroke: currentColor; fill: none;
-  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-}
-
-/* ─── TOAST ─── */
-.toast {
-  position: fixed; bottom: 88px; left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: var(--ink); color: #fff;
-  border-radius: var(--radius-sm);
-  padding: 9px 18px; font-size: 12px;
-  opacity: 0; transition: all .25s; z-index: 999;
-  pointer-events: none; white-space: nowrap;
-  font-family: 'Geist Mono', monospace;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
-
-@keyframes fadeUp {
-  from { opacity:0; transform: translateY(6px); }
-  to   { opacity:1; transform: translateY(0); }
-}
-.block-row { animation: fadeUp .2s ease both; }
-
-/* ─── NOTES & RESET — added for localStorage version ─── */
-.notes-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-top: 20px;
-}
-.notes-header {
+.notes-head {
   display: flex; align-items: center;
   justify-content: space-between; margin-bottom: 10px;
 }
-.notes-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--text3);
+.notes-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text3);
   text-transform: uppercase; letter-spacing: .1em;
 }
 .notes-saved {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--text3);
-  opacity: 0; transition: opacity .4s;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--teal);
+  opacity: 0; transition: opacity .3s;
 }
 .notes-saved.show { opacity: 1; }
-.notes-textarea {
-  width: 100%; min-height: 90px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  font-family: 'Geist', sans-serif;
+.notes-ta {
+  width: 100%; min-height: 80px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--rs); padding: 10px 12px;
+  font-family: 'Archivo', sans-serif;
   font-size: 13px; color: var(--text);
-  line-height: 1.6; resize: vertical;
-  outline: none; transition: border .15s;
+  line-height: 1.6; resize: vertical; outline: none;
+  transition: border .15s;
 }
-.notes-textarea:focus { border-color: var(--border2); }
-.notes-textarea::placeholder { color: var(--text3); }
+.notes-ta:focus { border-color: var(--border2); }
+.notes-ta::placeholder { color: var(--text3); }
 
+/* ── RESET BTN ── */
 .reset-btn {
-  display: flex; align-items: center; gap: 6px;
-  padding: 7px 14px;
-  border-radius: 20px;
-  border: 1px solid var(--border2);
-  background: transparent;
-  font-family: 'Geist', sans-serif;
-  font-size: 11px; color: var(--text3);
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 20px;
+  border: 1px solid var(--border2); background: transparent;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--text3);
   cursor: pointer; transition: all .15s;
-  margin-top: 14px;
+  margin-top: 12px; letter-spacing: .04em;
+  text-transform: uppercase;
 }
-.reset-btn:hover { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
-.reset-btn svg {
-  width: 13px; height: 13px;
-  stroke: currentColor; fill: none;
-  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+.reset-btn:hover { border-color: var(--rose); color: var(--rose); }
+.reset-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── WEEK SELECTOR ── */
+.week-sel {
+  display: grid; grid-template-columns: repeat(7,1fr);
+  gap: 4px; margin-bottom: 14px;
+}
+.wday-btn {
+  padding: 8px 4px; border-radius: var(--rs);
+  border: 1px solid var(--border); background: var(--bg2);
+  cursor: pointer; text-align: center;
+  transition: all .15s; font-family: 'Archivo', sans-serif;
+}
+.wday-btn.on { background: var(--lime); border-color: var(--lime); }
+.wday-name { font-size: 10px; font-weight: 500; color: var(--text2); display: block; }
+.wday-btn.on .wday-name { color: var(--bg); }
+.wday-dots { display: flex; gap: 2px; justify-content: center; margin-top: 4px; flex-wrap: wrap; }
+.wday-dot { width: 4px; height: 4px; border-radius: 50%; }
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center;
+  gap: 10px; margin: 18px 0 14px;
+}
+.div-line { flex: 1; height: 1px; background: var(--border); }
+.div-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .12em;
+  white-space: nowrap;
 }
 
-.streak-row {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 14px; flex-wrap: wrap;
+/* ── HISTORY ── */
+.hist-entry {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden; margin-bottom: 8px;
 }
-.streak-pill {
-  display: inline-flex; align-items: center; gap: 5px;
+.hist-head {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px; cursor: pointer;
+}
+.hist-date {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 14px; color: var(--text);
+}
+.hist-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text3); margin-top: 2px;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.hist-right { display: flex; align-items: center; gap: 10px; }
+.hist-pct {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 16px;
+}
+.hist-toggle { font-size: 10px; color: var(--text3); transition: transform .2s; }
+.hist-entry.open .hist-toggle { transform: rotate(180deg); }
+.hist-body {
+  display: none; padding: 0 14px 14px;
+  border-top: 1px solid var(--border);
+}
+.hist-entry.open .hist-body { display: block; }
+.hist-prog { height: 2px; background: var(--border2); border-radius: 2px; margin: 10px 0; overflow: hidden; }
+.hist-prog-fill { height: 100%; background: linear-gradient(90deg,var(--lime),var(--teal)); border-radius: 2px; }
+.hist-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.hist-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; background: var(--bg3);
+  border: 1px solid var(--border); color: var(--text3);
+  text-transform: uppercase;
+}
+.hist-pill.dp { opacity: .35; text-decoration: line-through; }
+.hist-note {
+  margin-top: 8px; padding: 10px 12px;
+  background: var(--bg3); border-radius: var(--rs);
+  font-size: 12px; color: var(--text2);
+  line-height: 1.6; white-space: pre-wrap; font-style: italic;
+}
+.hist-note-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 4px; margin-top: 10px;
+}
+.export-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: var(--rs);
+  border: 1px solid var(--border2); background: transparent;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--text2);
+  cursor: pointer; transition: all .15s;
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: .04em;
+}
+.export-btn:hover { border-color: var(--lime); color: var(--lime); }
+.export-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.hist-filter { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px; }
+.hf-btn {
   padding: 4px 11px; border-radius: 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px; color: var(--text2);
+  border: 1px solid var(--border); background: transparent;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text3);
+  cursor: pointer; transition: all .15s;
+  text-transform: uppercase; letter-spacing: .06em;
 }
-.streak-pill strong { color: var(--ink); }
+.hf-btn.on { background: var(--lime); border-color: var(--lime); color: var(--bg); }
+
+/* ── WEEK BARS ── */
+.week-bars-wrap { display: flex; gap: 4px; align-items: flex-end; height: 32px; margin-bottom: 6px; }
+.wbar-col { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+.wbar { width: 100%; border-radius: 2px 2px 0 0; background: var(--bg3); position: relative; overflow: hidden; }
+.wbar-fill { position: absolute; bottom: 0; left: 0; right: 0; background: var(--lime); border-radius: 2px 2px 0 0; transition: height .4s ease; opacity: .7; }
+.wbar-lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text3); }
+
+/* ── SKILLS ROADMAP ── */
+.roadmap { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.rm-item {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.rm-item.active { border-color: var(--lime); }
+.rm-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 22px; color: var(--text3);
+  line-height: 1; flex-shrink: 0; width: 28px;
+}
+.rm-item.active .rm-num { color: var(--lime); }
+.rm-body { flex: 1; }
+.rm-phase {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 3px;
+}
+.rm-item.active .rm-phase { color: var(--lime); }
+.rm-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+.rm-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+.rm-skills { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+.rm-skill-tag {
+  padding: 2px 8px; border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: .04em;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text3);
+}
+.rm-item.active .rm-skill-tag { border-color: var(--lime); color: var(--lime); background: color-mix(in srgb, var(--lime) 10%, transparent); }
+
+/* ── RULES ── */
+.rule-group { margin-bottom: 14px; }
+.rule-group-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .12em;
+  margin-bottom: 8px;
+}
+.rule-list { display: flex; flex-direction: column; gap: 4px; }
+.rule-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--rs); padding: 10px 12px;
+  font-size: 12px; line-height: 1.5; color: var(--text2);
+}
+.ri { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.ri-stop { background: color-mix(in srgb,var(--rose) 15%,transparent); color: var(--rose); }
+.ri-go   { background: color-mix(in srgb,var(--lime) 15%,transparent); color: var(--lime); }
+.ri-warn { background: color-mix(in srgb,var(--amber) 15%,transparent); color: var(--amber); }
+.ri-num  { background: var(--bg3); color: var(--text3); font-size: 8px; }
+
+/* ── ENGLISH CARD ── */
+.english-card {
+  background: var(--bg2);
+  border: 1px solid var(--teal);
+  border-radius: var(--r);
+  padding: 16px; margin-bottom: 14px;
+  position: relative; overflow: hidden;
+}
+.english-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--teal), transparent);
+}
+.ec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.ec-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 15px; color: var(--teal);
+}
+.ec-level {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--teal);
+  text-transform: uppercase; letter-spacing: .08em;
+  padding: 3px 8px; border-radius: 20px;
+  border: 1px solid var(--teal);
+}
+.ec-items { display: flex; flex-direction: column; gap: 6px; }
+.ec-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text2); }
+.ec-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 80px; left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--lime); color: var(--bg);
+  border-radius: var(--rs); padding: 8px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  opacity: 0; transition: all .25s; z-index: 999;
+  pointer-events: none; white-space: nowrap;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── EMPTY ── */
+.empty-state { text-align: center; padding: 48px 20px; }
+.empty-icon { font-size: 24px; display: block; margin-bottom: 10px; opacity: .2; }
+.empty-title { font-size: 12px; color: var(--text3); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+.block-row { animation: fadeUp .18s ease both; }
+
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- HEADER -->
 <div class="header">
-  <div class="header-row">
+  <div class="header-top">
     <div>
-      <div class="app-name">Sistema Semanal</div>
+      <div class="logo">Anton OS</div>
+      <div class="logo-sub">Sistema personal v2</div>
     </div>
-    <div class="app-sub mono" id="headerDate"></div>
+    <div class="header-date" id="headerDate"></div>
   </div>
   <div class="tabs">
-    <button class="tab on"  id="nav-today"  onclick="showNav('today')">Hoy</button>
-    <button class="tab"     id="nav-week"   onclick="showNav('week')">Semana</button>
-    <button class="tab"     id="nav-blocks" onclick="showNav('blocks')">Bloques</button>
-    <button class="tab"     id="nav-rules"  onclick="showNav('rules')">Reglas</button>
+    <button class="tab on"  id="nav-today"   onclick="showNav('today')">Hoy</button>
+    <button class="tab"     id="nav-week"    onclick="showNav('week')">Semana</button>
+    <button class="tab"     id="nav-history" onclick="showNav('history')">Historial</button>
+    <button class="tab"     id="nav-skills"  onclick="showNav('skills')">Habilidades</button>
+    <button class="tab"     id="nav-rules"   onclick="showNav('rules')">Sistema</button>
   </div>
 </div>
 
-<!-- ══ HOY ══ -->
+<!-- HOY -->
 <div id="sec-today" class="section on">
-  <div class="today-header">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
     <div>
-      <div class="today-title" id="todayTitle">—</div>
-      <div class="today-sub" id="todaySub">—</div>
+      <div style="font-family:'Archivo Black',sans-serif;font-size:22px;color:var(--text)" id="todayName">—</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em" id="todayType">—</div>
     </div>
-    <div id="todayDayType" class="day-type-pill">—</div>
+    <div id="todayBadge" class="day-badge">—</div>
   </div>
-
-  <!-- STREAK ROW — renderizado por JS con datos de localStorage -->
   <div class="streak-row" id="streakRow"></div>
-
-  <div class="stats-strip" id="todayStats"></div>
-  <div class="prog-card" id="todayProg"></div>
+  <div class="stats-grid" id="todayStats"></div>
+  <div class="prog-wrap" id="todayProg"></div>
   <div id="todayBlocks"></div>
-
-  <!-- RESET + NOTES — datos guardados en localStorage por fecha -->
   <button class="reset-btn" onclick="resetDay()">
     <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-    Resetear día actual
+    Resetear día
   </button>
-
-  <div class="notes-card">
-    <div class="notes-header">
-      <div class="notes-label">Notas del día</div>
+  <div class="notes-wrap">
+    <div class="notes-head">
+      <div class="notes-lbl">Notas del día</div>
       <div class="notes-saved" id="notesSaved">Guardado ✓</div>
     </div>
-    <textarea
-      class="notes-textarea"
-      id="notesTextarea"
-      placeholder="Reflexiones, ajustes al sistema, cómo fue el día…"
-      oninput="saveNote()"
-    ></textarea>
+    <textarea class="notes-ta" id="notesTA" placeholder="Reflexiones, logros, ajustes del día…" oninput="saveNote()"></textarea>
   </div>
 </div>
 
-<!-- ══ SEMANA ══ -->
+<!-- SEMANA -->
 <div id="sec-week" class="section">
-  <div class="sec-divider" style="margin-top:0">
-    <div class="sec-div-line"></div>
-    <div class="sec-div-label">Vista semanal</div>
-    <div class="sec-div-line"></div>
-  </div>
-  <div class="day-sel" id="weekDaySel"></div>
-  <div id="weekDayContent"></div>
+  <div class="divider" style="margin-top:0"><div class="div-line"></div><div class="div-label">Vista semanal</div><div class="div-line"></div></div>
+  <div class="week-sel" id="weekSel"></div>
+  <div id="weekContent"></div>
 </div>
 
-<!-- ══ BLOQUES ══ -->
-<div id="sec-blocks" class="section">
-  <div class="sec-divider" style="margin-top:0">
-    <div class="sec-div-line"></div><div class="sec-div-label">Guía de bloques</div><div class="sec-div-line"></div>
+<!-- HISTORIAL -->
+<div id="sec-history" class="section">
+  <div class="divider" style="margin-top:0"><div class="div-line"></div><div class="div-label">Historial</div><div class="div-line"></div></div>
+  <div class="prog-wrap" style="margin-bottom:12px">
+    <div class="prog-row" style="margin-bottom:10px"><span>Últimos 7 días</span><span id="weekAvg">—</span></div>
+    <div class="week-bars-wrap" id="weekBars"></div>
   </div>
-  <div class="rule-section">
-    <div class="rule-section-title">Orden de prioridad</div>
-    <div class="prio-grid" id="prioGrid"></div>
+  <div class="hist-filter">
+    <button class="hf-btn on" onclick="setHF('all',this)">Todos</button>
+    <button class="hf-btn" onclick="setHF('notes',this)">Con notas</button>
+    <button class="hf-btn" onclick="setHF('full',this)">100%</button>
   </div>
-  <div class="sec-divider">
-    <div class="sec-div-line"></div><div class="sec-div-label">Bloques definidos</div><div class="sec-div-line"></div>
-  </div>
-  <div class="blk-guide-grid" id="blkGuide"></div>
+  <button class="export-btn" onclick="exportData()">
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Exportar JSON
+  </button>
+  <div id="histContent"></div>
 </div>
 
-<!-- ══ REGLAS ══ -->
+<!-- HABILIDADES -->
+<div id="sec-skills" class="section">
+  <div class="divider" style="margin-top:0"><div class="div-line"></div><div class="div-label">Mapa de habilidades</div><div class="div-line"></div></div>
+
+  <div class="english-card">
+    <div class="ec-header">
+      <div class="ec-title">Inglés diario</div>
+      <div class="ec-level">Nivel 0 → B2</div>
+    </div>
+    <div class="ec-items">
+      <div class="ec-item"><div class="ec-dot"></div><div><strong>25–30 min</strong> cada mañana después del ritual — antes del pico cognitivo</div></div>
+      <div class="ec-item"><div class="ec-dot"></div><div>Método óptimo nivel 0: <strong>Duolingo + Anki</strong> (vocabulario con repetición espaciada)</div></div>
+      <div class="ec-item"><div class="ec-dot"></div><div>Mes 3+: agregar <strong>shadowing</strong> con videos en YouTube (Comprehensible Input)</div></div>
+      <div class="ec-item"><div class="ec-dot"></div><div>Mes 6+: <strong>conversación</strong> con IA (ChatGPT voice) 10 min/día</div></div>
+      <div class="ec-item"><div class="ec-dot"></div><div>La mañana es óptima porque el cerebro consolida vocabulario durante el sueño siguiente</div></div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="div-line"></div><div class="div-label">Hoja de ruta</div><div class="div-line"></div></div>
+  <div class="roadmap" id="roadmapList"></div>
+</div>
+
+<!-- SISTEMA / REGLAS -->
 <div id="sec-rules" class="section">
-  <div class="rule-section">
-    <div class="rule-section-title">Prohibiciones absolutas</div>
-    <div class="rule-card">
-      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div>No sacrificar sueño por <strong>ninguna actividad</strong> — sueño 10:30 PM, despertar 6:30 AM</div></div>
-      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div><strong>Pantallas después de 8:30 PM</strong> — bloque pre-sueño es intocable</div></div>
-      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div>Gym fuera de las <strong>4:00 PM</strong> salvo emergencia — ancla fisiológica</div></div>
-      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div>Deep Work antes de clases — reservar energía cognitiva para las 9 AM</div></div>
-      <div class="rule-item"><div class="rule-icon r-stop">✕</div><div>Carga pesada el <strong>domingo</strong> — día de reset obligatorio</div></div>
+  <div class="divider" style="margin-top:0"><div class="div-line"></div><div class="div-label">Reglas del sistema</div><div class="div-line"></div></div>
+
+  <div class="rule-group">
+    <div class="rule-group-title">Anclas no negociables</div>
+    <div class="rule-list">
+      <div class="rule-item"><div class="ri ri-stop">✕</div><div>Sueño <strong>10:30 PM – 6:30 AM</strong> — 8h fijas, no se mueve por nada</div></div>
+      <div class="rule-item"><div class="ri ri-stop">✕</div><div>Pantallas después de <strong>8:30 PM</strong> — ventana pre-sueño intocable</div></div>
+      <div class="rule-item"><div class="ri ri-stop">✕</div><div>Gym <strong>4:00 PM</strong> los días activos — ancla fisiológica de temperatura core</div></div>
+      <div class="rule-item"><div class="ri ri-stop">✕</div><div>Inglés <strong>todos los días</strong> sin excepción — la consistencia supera la cantidad</div></div>
     </div>
   </div>
-  <div class="rule-section">
-    <div class="rule-section-title">Optimizaciones permitidas</div>
-    <div class="rule-card">
-      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Mover Deep Work dentro de la tarde-noche <strong>(2–8:30 PM)</strong> según energía</div></div>
-      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Dividir Deep Work en <strong>2 bloques de 60 min</strong> si no hay ventana de 120 min</div></div>
-      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Estudio activo: mover ±30 min dentro del rango 11 AM – 1:30 PM</div></div>
-      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Lectura y espiritualidad son <strong>intercambiables</strong> en la ventana 8:30–10:30 PM</div></div>
-      <div class="rule-item"><div class="rule-icon r-go">✓</div><div>Miércoles sin gym: usar el bloque 4–6 PM para Deep Work extra o habilidad monetizable</div></div>
+
+  <div class="rule-group">
+    <div class="rule-group-title">Ventanas de energía (sin trabajo)</div>
+    <div class="rule-list">
+      <div class="rule-item"><div class="ri ri-warn">↑</div><div><strong>6:30–9:00 AM</strong> — Activación gradual. Ritual, inglés, desayuno</div></div>
+      <div class="rule-item"><div class="ri ri-warn">→</div><div><strong>9:00–12:00 PM</strong> — Energía media. Contabilidad, lectura, planificación</div></div>
+      <div class="rule-item"><div class="ri ri-warn">↓</div><div><strong>12:00–2:00 PM</strong> — Bajón post-almuerzo. Descanso, caminata</div></div>
+      <div class="rule-item"><div class="ri ri-warn">↑</div><div><strong>2:00–6:00 PM</strong> — Pico mental. Deep Work proyectos + gym 4 PM</div></div>
+      <div class="rule-item"><div class="ri ri-warn">↑</div><div><strong>7:00–8:30 PM</strong> — Segundo pico. Habilidades, contenido, cierre</div></div>
+      <div class="rule-item"><div class="ri ri-warn">↓</div><div><strong>8:30–10:30 PM</strong> — Descenso. Solo lectura, reflexión, sin pantallas</div></div>
     </div>
   </div>
-  <div class="rule-section">
-    <div class="rule-section-title">Protocolo de rescate (día roto)</div>
-    <div class="rule-card">
-      <div class="rule-item"><div class="rule-icon r-num">1</div><div>Proteger sueño y clases — intocables</div></div>
-      <div class="rule-item"><div class="rule-icon r-num">2</div><div>Proteger gym (ancla física semanal)</div></div>
-      <div class="rule-item"><div class="rule-icon r-num">3</div><div>Reubicar Deep Work a la noche (7–8:30 PM)</div></div>
-      <div class="rule-item"><div class="rule-icon r-num">4</div><div>Reducir lectura y expansión ese día</div></div>
-      <div class="rule-item"><div class="rule-icon r-num">5</div><div>No compensar gym perdido al día siguiente — continuar ciclo normal</div></div>
+
+  <div class="rule-group">
+    <div class="rule-group-title">Protocolo de disciplina baja</div>
+    <div class="rule-list">
+      <div class="rule-item"><div class="ri ri-go">✓</div><div>Bloques de <strong>25 min máx</strong> con descanso — evita el agotamiento de decisión</div></div>
+      <div class="rule-item"><div class="ri ri-go">✓</div><div>Una sola habilidad por bloque — nunca mezclar inglés + contabilidad + proyecto</div></div>
+      <div class="rule-item"><div class="ri ri-go">✓</div><div>Si pierdes un bloque: <strong>no recuperar</strong>, continuar el ciclo normal</div></div>
+      <div class="rule-item"><div class="ri ri-go">✓</div><div>Victoria mínima diaria: <strong>inglés + 1 bloque de proyecto</strong> = día exitoso</div></div>
     </div>
   </div>
-  <div class="rule-section">
-    <div class="rule-section-title">Ventanas de energía</div>
-    <div class="rule-card">
-      <div class="rule-item"><div class="rule-icon r-warn">↑</div><div><strong>6:30–9:00 AM</strong> — Activación gradual. Espiritualidad, desayuno, repaso ligero</div></div>
-      <div class="rule-item"><div class="rule-icon r-warn">↑</div><div><strong>9:00–11:00 AM</strong> — Pico cognitivo 1. Clases (ancla)</div></div>
-      <div class="rule-item"><div class="rule-icon r-warn">→</div><div><strong>11:00–1:30 PM</strong> — Sostenido. Estudio activo, almuerzo</div></div>
-      <div class="rule-item"><div class="rule-icon r-warn">↓</div><div><strong>1:30–3:00 PM</strong> — Caída post-almuerzo. Descanso, Deep Work ligero</div></div>
-      <div class="rule-item"><div class="rule-icon r-warn">↑</div><div><strong>3:00–6:00 PM</strong> — Pico físico. Gym 4 PM (óptimo fisiológico)</div></div>
-      <div class="rule-item"><div class="rule-icon r-warn">↑</div><div><strong>7:00–8:30 PM</strong> — Pico cognitivo 2. Deep Work principal</div></div>
-      <div class="rule-item"><div class="rule-icon r-warn">↓</div><div><strong>8:30–10:30 PM</strong> — Descenso. Solo actividades de baja carga mental</div></div>
+
+  <div class="rule-group">
+    <div class="rule-group-title">Protocolo de rescate</div>
+    <div class="rule-list">
+      <div class="rule-item"><div class="ri ri-num">1</div><div>Proteger sueño y pre-sueño siempre</div></div>
+      <div class="rule-item"><div class="ri ri-num">2</div><div>Proteger inglés diario (mínimo 15 min si el día está roto)</div></div>
+      <div class="rule-item"><div class="ri ri-num">3</div><div>Proteger gym (ancla física y mental)</div></div>
+      <div class="rule-item"><div class="ri ri-num">4</div><div>Sacrificar habilidades extra antes que proyectos</div></div>
+      <div class="rule-item"><div class="ri ri-num">5</div><div>Sacrificar contabilidad antes que proyectos (ingresos primero)</div></div>
     </div>
   </div>
 </div>
 
 </div><!-- /app -->
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════
-//  BLOCK DEFINITIONS
-// ═══════════════════════════════════════════════════
-const CAT = {
-  sleep:   { label:'Sueño',         bg:'--sleep-bg', fg:'--sleep-fg', dot:'--sleep-dot' },
-  class:   { label:'Clases',        bg:'--class-bg', fg:'--class-fg', dot:'--class-dot' },
-  gym:     { label:'Gym',           bg:'--gym-bg',   fg:'--gym-fg',   dot:'--gym-dot'   },
-  deep:    { label:'Deep Work',     bg:'--deep-bg',  fg:'--deep-fg',  dot:'--deep-dot'  },
-  study:   { label:'Estudio',       bg:'--study-bg', fg:'--study-fg', dot:'--study-dot' },
-  food:    { label:'Comida',        bg:'--food-bg',  fg:'--food-fg',  dot:'--food-dot'  },
-  read:    { label:'Lectura',       bg:'--read-bg',  fg:'--read-fg',  dot:'--read-dot'  },
-  spirit:  { label:'Espiritualidad',bg:'--spirit-bg',fg:'--spirit-fg',dot:'--spirit-dot'},
-  mob:     { label:'Movilidad',     bg:'--mob-bg',   fg:'--mob-fg',   dot:'--mob-dot'   },
-  rest:    { label:'Descanso',      bg:'--rest-bg',  fg:'--rest-fg',  dot:'--rest-dot'  },
-  plan:    { label:'Planificación', bg:'--plan-bg',  fg:'--plan-fg',  dot:'--plan-dot'  },
-  travel:  { label:'Traslado',      bg:'--travel-bg',fg:'--travel-fg',dot:'--travel-dot'},
-  presleep:{ label:'Pre-sueño',     bg:'--sleep-bg', fg:'--sleep-fg', dot:'--sleep-dot' },
-  skill:   { label:'Habilidad',     bg:'--plan-bg',  fg:'--plan-fg',  dot:'--plan-dot'  },
+// ═══════════════════════════════════════
+//  BLOCK CATALOG
+// ═══════════════════════════════════════
+const C = {
+  sleep:   { label:'Sueño',     col:'var(--c-sleep)' },
+  wake:    { label:'Ritual',    col:'var(--c-wake)' },
+  gym:     { label:'Gym',       col:'var(--c-gym)' },
+  english: { label:'Inglés',    col:'var(--c-english)' },
+  study:   { label:'Estudio',   col:'var(--c-study)' },
+  project: { label:'Proyecto',  col:'var(--c-project)' },
+  skill:   { label:'Habilidad', col:'var(--c-skill)' },
+  food:    { label:'Comida',    col:'var(--c-food)' },
+  spirit:  { label:'Ritual',    col:'var(--c-spirit)' },
+  rest:    { label:'Descanso',  col:'var(--c-rest)' },
+  read:    { label:'Lectura',   col:'var(--c-read)' },
+  plan:    { label:'Plan',      col:'var(--c-plan)' },
+  mob:     { label:'Movilidad', col:'var(--c-mob)' },
+  presleep:{ label:'Pre-sueño', col:'var(--c-presleep)' },
+  travel:  { label:'Traslado',  col:'#555' },
 };
 
-function B(name, start, dur, cat, tag) {
-  return { name, start, dur, end: start+dur, cat, tag: tag||CAT[cat].label };
-}
+function B(n,s,d,c,t){return{name:n,start:s,dur:d,end:s+d,cat:c,tag:t||C[c]?.label||c};}
+function toM(s){const[h,m]=s.split(':').map(Number);return h*60+m;}
+function fmM(m){const t=((m%1440)+1440)%1440;return`${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`;}
+function durS(m){if(m<60)return`${m} min`;const h=Math.floor(m/60),r=m%60;return r?`${h}h ${r}min`:`${h}h`;}
 
-function toM(s){ const [h,m]=s.split(':').map(Number); return h*60+m; }
-function fmM(m){ const t=((m%1440)+1440)%1440; return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
-function durS(m){ if(m<60) return `${m} min`; const h=Math.floor(m/60),r=m%60; return r?`${h}h ${r}min`:`${h}h`; }
+// ═══════════════════════════════════════
+//  DAILY SCHEDULES — nuevo sistema sin trabajo/clases
+// ═══════════════════════════════════════
 
-// ─── DAILY SCHEDULES ───────────────────────────────
-// GYM day (Mon, Tue, Thu, Fri)
-function dayGym(deepW2dur=90) {
+// Días activos: Lun, Mar, Jue, Vie (gym 4 PM)
+// Enfoque: Proyectos > Inglés > Contabilidad > Habilidad rotativa
+function dayActive(skillName){
   return [
     B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual'),
-    B('Desayuno', toM('07:30'), 30, 'food'),
-    B('Repaso ligero / preparación', toM('08:00'), 60, 'study', 'Repaso'),
-    B('Clases', toM('09:00'), 120, 'class'),
-    B('Estudio activo — Contabilidad', toM('11:00'), 80, 'study'),
-    B('Almuerzo', toM('12:20'), 60, 'food'),
-    B('Descanso estratégico', toM('13:20'), 40, 'rest'),
-    B('Deep Work — Proyectos', toM('14:00'), 90, 'deep', 'Deep Work 1'),
-    B('Traslado al gym', toM('15:45'), 15, 'travel'),
-    B('Gym', toM('16:00'), 100, 'gym'),
-    B('Traslado de regreso', toM('17:40'), 15, 'travel'),
-    B('Cena · Higiene personal', toM('18:00'), 60, 'food'),
-    B('Deep Work — Proyectos', toM('19:00'), deepW2dur, 'deep', 'Deep Work 2'),
-    B('Movilidad / recuperación', toM('20:30'), 15, 'mob'),
-    B('Pre-sueño · Lectura · Reflexión', toM('20:30'), 120, 'presleep', 'Pre-sueño'),
-    B('Sueño', toM('22:30'), 480, 'sleep'),
-  ].filter(b=>b).sort((a,b_)=>a.start-b_.start);
+    B('Inglés — Duolingo + Anki',             toM('07:30'), 30, 'english'),
+    B('Desayuno',                              toM('08:00'), 30, 'food'),
+    B('Contabilidad',                          toM('08:30'), 60, 'study'),
+    B('Descanso activo / caminata',            toM('09:30'), 30, 'rest'),
+    B('Deep Work — Proyectos',                 toM('10:00'), 90, 'project', 'Proyecto 1'),
+    B('Almuerzo',                              toM('11:30'), 60, 'food'),
+    B('Descanso estratégico',                  toM('12:30'), 30, 'rest'),
+    B('Deep Work — Proyectos',                 toM('13:00'), 90, 'project', 'Proyecto 2'),
+    B('Habilidad: ' + skillName,               toM('14:30'), 60, 'skill'),
+    B('Traslado al gym',                       toM('15:45'), 15, 'travel'),
+    B('Gym',                                   toM('16:00'), 100, 'gym'),
+    B('Traslado de regreso',                   toM('17:40'), 15, 'travel'),
+    B('Cena · Higiene',                        toM('18:00'), 60, 'food'),
+    B('Contenido / Cierre de proyectos',       toM('19:00'), 90, 'project', 'Contenido'),
+    B('Movilidad / recuperación',              toM('20:30'), 15, 'mob'),
+    B('Pre-sueño · Lectura · Sin pantallas',   toM('20:30'), 120, 'presleep', 'Pre-sueño'),
+    B('Sueño',                                 toM('22:30'), 480, 'sleep'),
+  ].sort((a,b)=>a.start-b.start);
 }
 
-// Recalculate pre-sleep to always start 20:30 for gym days (cena 18:00–19:00, DW2 19:00–20:30)
-function dayGymFull() {
+// Miércoles: sin gym, día de expansión y habilidades largas
+function dayWed(){
   return [
-    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual mañana'),
-    B('Desayuno', toM('07:30'), 30, 'food'),
-    B('Repaso ligero / preparación', toM('08:00'), 60, 'study', 'Repaso'),
-    B('Clases', toM('09:00'), 120, 'class'),
-    B('Estudio activo — Contabilidad', toM('11:00'), 80, 'study'),
-    B('Almuerzo', toM('12:20'), 60, 'food'),
-    B('Descanso estratégico', toM('13:20'), 40, 'rest'),
-    B('Deep Work — Proyectos', toM('14:00'), 90, 'deep', 'Deep Work 1'),
-    B('Traslado al gym', toM('15:45'), 15, 'travel'),
-    B('Gym', toM('16:00'), 100, 'gym'),
-    B('Traslado de regreso', toM('17:40'), 15, 'travel'),
-    B('Cena · Higiene personal', toM('18:00'), 60, 'food'),
-    B('Deep Work — Proyectos', toM('19:00'), 90, 'deep', 'Deep Work 2'),
-    B('Movilidad / recuperación', toM('20:30'), 15, 'mob'),
-    B('Pre-sueño · Lectura · Sin pantallas', toM('20:30'), 120, 'presleep', 'Pre-sueño'),
-    B('Sueño', toM('22:30'), 480, 'sleep'),
-  ].sort((a,b_)=>a.start-b_.start);
+    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual'),
+    B('Inglés — Duolingo + Anki',             toM('07:30'), 30, 'english'),
+    B('Desayuno',                              toM('08:00'), 30, 'food'),
+    B('Contabilidad',                          toM('08:30'), 60, 'study'),
+    B('Deep Work — Proyectos',                 toM('09:30'), 90, 'project', 'Proyecto 1'),
+    B('Almuerzo',                              toM('11:00'), 60, 'food'),
+    B('Descanso estratégico',                  toM('12:00'), 30, 'rest'),
+    B('Deep Work — Proyectos',                 toM('12:30'), 90, 'project', 'Proyecto 2'),
+    B('IA aplicada a negocios',                toM('14:00'), 90, 'skill', 'IA'),
+    B('Copywriting / escritura',               toM('15:30'), 60, 'skill', 'Copywriting'),
+    B('Cena · Higiene',                        toM('17:30'), 60, 'food'),
+    B('Contenido / Cierre',                    toM('18:30'), 120, 'project', 'Contenido'),
+    B('Movilidad',                             toM('20:30'), 15, 'mob'),
+    B('Pre-sueño · Lectura · Sin pantallas',   toM('20:30'), 120, 'presleep', 'Pre-sueño'),
+    B('Sueño',                                 toM('22:30'), 480, 'sleep'),
+  ].sort((a,b)=>a.start-b.start);
 }
 
-function dayWed() {
+// Sábado: gym + expansión más libre
+function daySat(){
   return [
-    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual mañana'),
-    B('Desayuno', toM('07:30'), 30, 'food'),
-    B('Repaso ligero / preparación', toM('08:00'), 60, 'study', 'Repaso'),
-    B('Clases', toM('09:00'), 120, 'class'),
-    B('Estudio activo — Contabilidad', toM('11:00'), 90, 'study'),
-    B('Almuerzo', toM('12:20'), 60, 'food'),
-    B('Descanso estratégico', toM('13:20'), 30, 'rest'),
-    B('Deep Work — Proyectos', toM('13:50'), 90, 'deep', 'Deep Work 1'),
-    B('Habilidad monetizable', toM('15:20'), 90, 'skill'),
-    B('Deep Work — Proyectos', toM('16:50'), 90, 'deep', 'Deep Work 2'),
-    B('Cena · Higiene personal', toM('18:20'), 60, 'food'),
-    B('Deep Work — Proyectos', toM('19:20'), 70, 'deep', 'Deep Work 3'),
-    B('Movilidad / recuperación', toM('20:30'), 15, 'mob'),
-    B('Pre-sueño · Lectura · Sin pantallas', toM('20:30'), 120, 'presleep', 'Pre-sueño'),
-    B('Sueño', toM('22:30'), 480, 'sleep'),
-  ].sort((a,b_)=>a.start-b_.start);
+    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual'),
+    B('Inglés — sesión extendida',             toM('07:30'), 45, 'english'),
+    B('Desayuno',                              toM('08:15'), 30, 'food'),
+    B('Lectura / expansión mental',            toM('08:45'), 75, 'read'),
+    B('Deep Work — Proyectos',                 toM('10:00'), 120, 'project', 'Proyecto'),
+    B('Almuerzo',                              toM('12:00'), 60, 'food'),
+    B('Diseño gráfico / Edición video',        toM('13:00'), 90, 'skill', 'Diseño·Video'),
+    B('Descanso / recuperación',               toM('14:30'), 75, 'rest'),
+    B('Traslado al gym',                       toM('15:45'), 15, 'travel'),
+    B('Gym',                                   toM('16:00'), 100, 'gym'),
+    B('Traslado de regreso',                   toM('17:40'), 15, 'travel'),
+    B('Cena · Higiene',                        toM('18:00'), 60, 'food'),
+    B('Lectura / reflexión personal',          toM('19:00'), 90, 'read'),
+    B('Movilidad',                             toM('20:30'), 15, 'mob'),
+    B('Pre-sueño · Sin pantallas',             toM('20:30'), 120, 'presleep', 'Pre-sueño'),
+    B('Sueño',                                 toM('22:30'), 480, 'sleep'),
+  ].sort((a,b)=>a.start-b.start);
 }
 
-function daySat() {
+// Domingo: reset total, planificación, iglesia
+function daySun(){
   return [
-    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual mañana'),
-    B('Desayuno', toM('07:30'), 30, 'food'),
-    B('Lectura / expansión', toM('08:00'), 60, 'read'),
-    B('Deep Work — Proyectos', toM('09:00'), 90, 'deep', 'Deep Work'),
-    B('Habilidad monetizable', toM('10:30'), 90, 'skill'),
-    B('Almuerzo', toM('12:20'), 60, 'food'),
-    B('Descanso / recuperación', toM('13:20'), 60, 'rest'),
-    B('Traslado al gym', toM('15:45'), 15, 'travel'),
-    B('Gym', toM('16:00'), 100, 'gym'),
-    B('Traslado de regreso', toM('17:40'), 15, 'travel'),
-    B('Cena · Higiene personal', toM('18:00'), 60, 'food'),
-    B('Lectura / reflexión', toM('19:00'), 90, 'read'),
-    B('Movilidad / recuperación', toM('20:30'), 15, 'mob'),
-    B('Pre-sueño · Lectura · Sin pantallas', toM('20:30'), 120, 'presleep', 'Pre-sueño'),
-    B('Sueño', toM('22:30'), 480, 'sleep'),
-  ].sort((a,b_)=>a.start-b_.start);
+    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual'),
+    B('Inglés — repaso semanal',               toM('07:30'), 30, 'english'),
+    B('Desayuno',                              toM('08:00'), 30, 'food'),
+    B('Lectura',                               toM('08:30'), 60, 'read'),
+    B('Reflexión personal',                    toM('09:30'), 30, 'spirit', 'Reflexión'),
+    B('Planificación semana siguiente',        toM('10:00'), 60, 'plan'),
+    B('Tiempo libre / recuperación',           toM('11:00'), 80, 'rest'),
+    B('Almuerzo',                              toM('12:20'), 60, 'food'),
+    B('Descanso',                              toM('13:20'), 90, 'rest'),
+    B('Traslado iglesia',                      toM('16:45'), 15, 'travel'),
+    B('Iglesia',                               toM('17:00'), 120, 'spirit', 'Iglesia'),
+    B('Cena · Higiene',                        toM('19:00'), 60, 'food'),
+    B('Pre-sueño · Lectura · Sin pantallas',   toM('20:30'), 120, 'presleep', 'Pre-sueño'),
+    B('Sueño',                                 toM('22:30'), 480, 'sleep'),
+  ].sort((a,b)=>a.start-b.start);
 }
 
-function daySun(churchTime) {
-  // churchTime: 'am' = 7:00, 'pm' = 17:00
-  const base = [
-    B('Despertar · Higiene · Espiritualidad', toM('06:30'), 60, 'spirit', 'Ritual mañana'),
-    B('Desayuno', toM('07:30'), 30, 'food'),
-  ];
-  if(churchTime === 'am') {
-    base.push(B('Iglesia', toM('07:00'), 120, 'spirit', 'Iglesia'));
-    base.push(B('Descanso / tiempo libre', toM('09:00'), 90, 'rest'));
-    base.push(B('Lectura', toM('10:30'), 60, 'read'));
-    base.push(B('Almuerzo', toM('12:20'), 60, 'food'));
-    base.push(B('Reflexión personal', toM('13:20'), 40, 'spirit', 'Reflexión'));
-    base.push(B('Planificación semana siguiente', toM('14:00'), 60, 'plan'));
-    base.push(B('Descanso / actividad ligera', toM('15:00'), 90, 'rest'));
-    base.push(B('Cena · Higiene personal', toM('18:20'), 60, 'food'));
-  } else {
-    base.push(B('Lectura', toM('08:00'), 60, 'read'));
-    base.push(B('Reflexión personal', toM('09:00'), 40, 'spirit', 'Reflexión'));
-    base.push(B('Planificación semana siguiente', toM('09:40'), 60, 'plan'));
-    base.push(B('Almuerzo', toM('12:20'), 60, 'food'));
-    base.push(B('Descanso / tiempo libre', toM('13:20'), 90, 'rest'));
-    base.push(B('Traslado iglesia', toM('16:45'), 15, 'travel'));
-    base.push(B('Iglesia', toM('17:00'), 120, 'spirit', 'Iglesia'));
-    base.push(B('Cena · Higiene personal', toM('19:00'), 60, 'food'));
-  }
-  base.push(B('Pre-sueño · Lectura · Sin pantallas', toM('20:30'), 120, 'presleep', 'Pre-sueño'));
-  base.push(B('Sueño', toM('22:30'), 480, 'sleep'));
-  return base.sort((a,b_)=>a.start-b_.start);
-}
+// Habilidades rotativas por día (Lun-Vie activos)
+const SKILL_ROTATION = ['IA aplicada', 'Copywriting', 'Edición video', 'Diseño gráfico', 'Programación web'];
 
-// ─── WEEK DATA ─────────────────────────────────────
 const WEEK = [
-  { name:'Lunes',    short:'Lun', type:'Alto rendimiento', gym:true,  blocks: dayGymFull() },
-  { name:'Martes',   short:'Mar', type:'Alto rendimiento', gym:true,  blocks: dayGymFull() },
-  { name:'Miércoles',short:'Mié', type:'Expansión',        gym:false, blocks: dayWed() },
-  { name:'Jueves',   short:'Jue', type:'Alto rendimiento', gym:true,  blocks: dayGymFull() },
-  { name:'Viernes',  short:'Vie', type:'Alto rendimiento', gym:true,  blocks: dayGymFull() },
-  { name:'Sábado',   short:'Sáb', type:'Ligero + Gym',     gym:true,  blocks: daySat() },
-  { name:'Domingo',  short:'Dom', type:'Reset',            gym:false, blocks: daySun('pm') },
+  { name:'Lunes',    short:'Lun', type:'Alto rendimiento', gym:true,  blocks: dayActive(SKILL_ROTATION[0]) },
+  { name:'Martes',   short:'Mar', type:'Alto rendimiento', gym:true,  blocks: dayActive(SKILL_ROTATION[1]) },
+  { name:'Miércoles',short:'Mié', type:'Expansión max',    gym:false, blocks: dayWed() },
+  { name:'Jueves',   short:'Jue', type:'Alto rendimiento', gym:true,  blocks: dayActive(SKILL_ROTATION[2]) },
+  { name:'Viernes',  short:'Vie', type:'Alto rendimiento', gym:true,  blocks: dayActive(SKILL_ROTATION[3]) },
+  { name:'Sábado',   short:'Sáb', type:'Expansión + Gym',  gym:true,  blocks: daySat() },
+  { name:'Domingo',  short:'Dom', type:'Reset total',      gym:false, blocks: daySun() },
 ];
 
-const PRIOS = [
-  { num:'01', name:'Sueño',             type:'Ancla', dot:'--sleep-dot',  badge:'No negociable' },
-  { num:'02', name:'Clases 9–11 AM',    type:'Ancla', dot:'--class-dot',  badge:'No negociable' },
-  { num:'03', name:'Gym 4 PM',          type:'Ancla', dot:'--gym-dot',    badge:'No negociable' },
-  { num:'04', name:'Deep Work',         type:'Flexible', dot:'--deep-dot',badge:'Alta prioridad' },
-  { num:'05', name:'Estudio activo',    type:'Flexible', dot:'--study-dot',badge:'Alta prioridad' },
-  { num:'06', name:'Habilidad monetiz.',type:'Flexible', dot:'--plan-dot', badge:'Media' },
-  { num:'07', name:'Lectura',           type:'Flexible', dot:'--read-dot', badge:'Media' },
-  { num:'08', name:'Espiritualidad',    type:'Flexible', dot:'--spirit-dot',badge:'Diaria' },
-  { num:'09', name:'Movilidad',         type:'Flexible', dot:'--mob-dot',  badge:'Diaria' },
+const ROADMAP = [
+  {
+    phase:'Ahora — Mes 3', active:true,
+    title:'Cimientos digitales',
+    desc:'Inglés diario para abrir mercados. IA para multiplicar tu output. Base de contenido y proyectos en marcha.',
+    skills:['Inglés A1→A2','IA aplicada','Contabilidad básica','Creación de contenido'],
+  },
+  {
+    phase:'Mes 3–6', active:false,
+    title:'Amplificar el mensaje',
+    desc:'Ya tienes base. Ahora aprendes a persuadir y distribuir. El copywriting multiplica todo lo demás.',
+    skills:['Inglés A2→B1','Copywriting','Edición video','Marca personal'],
+  },
+  {
+    phase:'Mes 6–12', active:false,
+    title:'Producción y escala',
+    desc:'Con audiencia y mensaje claro, el diseño y la edición profesional elevan la calidad de todo.',
+    skills:['Inglés B1→B2','Diseño gráfico','Programación básica','Freelance/monetización'],
+  },
 ];
 
-const BLK_GUIDE = [
-  { name:'Sueño',               type:'ANCLA',    dot:'--sleep-dot',  meta:'8h fijas · 10:30 PM – 6:30 AM · No se mueve por nada' },
-  { name:'Clases',              type:'ANCLA',    dot:'--class-dot',  meta:'9:00–11:00 AM · Lun–Vie · No se mueve' },
-  { name:'Gym',                 type:'ANCLA',    dot:'--gym-dot',    meta:'4:00–5:40 PM · Lun, Mar, Jue, Vie, Sáb · +15 min traslado c/u' },
-  { name:'Pre-sueño',           type:'ANCLA',    dot:'--sleep-dot',  meta:'8:30–10:30 PM · Sin pantallas · Solo lectura, reflexión, higiene' },
-  { name:'Deep Work',           type:'FLEXIBLE', dot:'--deep-dot',   meta:'60–120 min · Siempre tarde-noche · 1 bloque días Sáb/Dom, 2–3 resto' },
-  { name:'Estudio activo',      type:'FLEXIBLE', dot:'--study-dot',  meta:'60–90 min · Post-clases o mañana · Siempre cerca de las clases' },
-  { name:'Habilidad monetiz.',  type:'FLEXIBLE', dot:'--plan-dot',   meta:'45–90 min · Mié y Sáb · Se puede fusionar con Deep Work' },
-  { name:'Lectura',             type:'FLEXIBLE', dot:'--read-dot',   meta:'20–40 min · Pre-sueño o mañana libre · Baja carga mental' },
-  { name:'Espiritualidad',      type:'FLEXIBLE', dot:'--spirit-dot', meta:'10–20 min · Mañana al despertar · No se salta' },
-  { name:'Movilidad',           type:'FLEXIBLE', dot:'--mob-dot',    meta:'10–15 min · Post-gym o noche · Prevención activa' },
-  { name:'Descanso estratégico',type:'FLEXIBLE', dot:'--rest-dot',   meta:'20–30 min · Post-almuerzo · Recuperación cognitiva' },
-];
+// ═══════════════════════════════════════
+//  LOCALSTORAGE
+// ═══════════════════════════════════════
+function todayKey(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
+const lsB=d=>`aos_blocks_${d}`;
+const lsN=d=>`aos_note_${d}`;
 
-// ═══════════════════════════════════════════════════
-//  LOCALSTORAGE ENGINE
-//  Clave por fecha: "ss_blocks_2026-04-09"
-//  Clave de nota:   "ss_note_2026-04-09"
-//  Clave de racha:  "ss_streak" (objeto global)
-// ═══════════════════════════════════════════════════
-
-function todayKey() {
-  // Genera la clave de fecha actual: YYYY-MM-DD
-  const n = new Date();
-  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+function saveCompleted(date,set){try{localStorage.setItem(lsB(date),JSON.stringify([...set]));}catch(e){}}
+function loadCompleted(date){try{const r=localStorage.getItem(lsB(date));if(r)return new Set(JSON.parse(r));}catch(e){}return new Set();}
+function saveNote(){
+  try{localStorage.setItem(lsN(todayKey()),document.getElementById('notesTA').value);}catch(e){}
+  const el=document.getElementById('notesSaved');el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),1800);
 }
-
-function lsKeyBlocks(dateStr) { return `ss_blocks_${dateStr}`; }
-function lsKeyNote(dateStr)   { return `ss_note_${dateStr}`; }
-const LS_STREAK = 'ss_streak';
-
-// ── Guardar bloques completados para una fecha concreta ──
-// Guarda un Array de índices (Set no es serializable con JSON)
-function saveCompleted(dateStr, set) {
-  try {
-    localStorage.setItem(lsKeyBlocks(dateStr), JSON.stringify([...set]));
-  } catch(e) { console.warn('localStorage error', e); }
+function loadNote(date){try{return localStorage.getItem(lsN(date||todayKey()))||'';}catch(e){return'';}}
+function getAllDates(){
+  const d=[];
+  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('aos_blocks_'))d.push(k.replace('aos_blocks_',''));}}catch(e){}
+  return d.sort((a,b)=>b.localeCompare(a));
 }
-
-// ── Cargar bloques completados desde localStorage ──
-// Devuelve un Set<number>
-function loadCompleted(dateStr) {
-  try {
-    const raw = localStorage.getItem(lsKeyBlocks(dateStr));
-    if (raw) return new Set(JSON.parse(raw));
-  } catch(e) {}
-  return new Set();
-}
-
-// ── Guardar nota del día ──
-function saveNote() {
-  const txt = document.getElementById('notesTextarea').value;
-  try {
-    localStorage.setItem(lsKeyNote(todayKey()), txt);
-  } catch(e) {}
-  // Mostrar indicador "Guardado ✓" brevemente
-  const el = document.getElementById('notesSaved');
-  el.classList.add('show');
-  clearTimeout(el._t);
-  el._t = setTimeout(() => el.classList.remove('show'), 1800);
-}
-
-// ── Cargar nota del día ──
-function loadNote() {
-  try {
-    return localStorage.getItem(lsKeyNote(todayKey())) || '';
-  } catch(e) { return ''; }
-}
-
-// ── Calcular racha: días consecutivos con al menos 1 bloque completado ──
-function calcStreak() {
-  let streak = 0;
-  const check = new Date();
-  // Revisa los últimos 60 días hacia atrás
-  for (let i = 0; i < 60; i++) {
-    const d = check.toISOString().split('T')[0];
-    const raw = localStorage.getItem(lsKeyBlocks(d));
-    if (raw) {
-      try {
-        const arr = JSON.parse(raw);
-        if (arr.length > 0) { streak++; check.setDate(check.getDate()-1); continue; }
-      } catch(e) {}
-    }
-    break; // día sin datos → rompe la racha
+function calcStreak(){
+  let s=0;const c=new Date();
+  for(let i=0;i<90;i++){
+    const d=`${c.getFullYear()}-${String(c.getMonth()+1).padStart(2,'0')}-${String(c.getDate()).padStart(2,'0')}`;
+    try{const r=localStorage.getItem(lsB(d));if(r&&JSON.parse(r).length>0){s++;c.setDate(c.getDate()-1);continue;}}catch(e){}
+    break;
   }
-  return streak;
+  return s;
 }
-
-// ── Contar días con datos guardados esta semana ──
-function countWeekDaysWithData() {
-  let count = 0;
-  // Revisa los últimos 7 días
-  const check = new Date();
-  for (let i = 0; i < 7; i++) {
-    const d = check.toISOString().split('T')[0];
-    try {
-      const raw = localStorage.getItem(lsKeyBlocks(d));
-      if (raw && JSON.parse(raw).length > 0) count++;
-    } catch(e) {}
+function weekCount(){
+  let c=0;const check=new Date();
+  for(let i=0;i<7;i++){
+    const d=`${check.getFullYear()}-${String(check.getMonth()+1).padStart(2,'0')}-${String(check.getDate()).padStart(2,'0')}`;
+    try{const r=localStorage.getItem(lsB(d));if(r&&JSON.parse(r).length>0)c++;}catch(e){}
     check.setDate(check.getDate()-1);
   }
-  return count;
+  return c;
+}
+function exportData(){
+  const dates=getAllDates();
+  const data={export:new Date().toISOString(),days:{}};
+  dates.forEach(d=>{
+    data.days[d]={blocks:[],note:loadNote(d)};
+    try{const r=localStorage.getItem(lsB(d));if(r)data.days[d].blocks=JSON.parse(r);}catch(e){}
+  });
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`anton_os_${todayKey()}.json`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  showToast('Exportado ✓');
 }
 
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  STATE
-// ═══════════════════════════════════════════════════
-function jsToWk(js){ return js===0 ? 6 : js-1; }
+// ═══════════════════════════════════════
+function jsToWk(js){return js===0?6:js-1;}
 let wkIdx = jsToWk(new Date().getDay());
+const cMap = {};
+let hFilter = 'all';
 
-// completedMap: wkIdx -> Set<number>
-// Para "hoy" (wkIdx actual) siempre usa localStorage con la fecha actual.
-// Para otros días de la semana en la vista Semana usa memoria temporal de sesión.
-const completedMap = {};
-
-function getCompleted(idx) {
-  if (idx === wkIdx) {
-    // Hoy: siempre lee desde localStorage para ser consistente tras recargar
-    if (!completedMap[idx]) {
-      completedMap[idx] = loadCompleted(todayKey());
-    }
-    return completedMap[idx];
-  }
-  if (!completedMap[idx]) completedMap[idx] = new Set();
-  return completedMap[idx];
+function getCompleted(idx){
+  if(idx===wkIdx){cMap[idx]=loadCompleted(todayKey());return cMap[idx];}
+  if(!cMap[idx])cMap[idx]=new Set();
+  return cMap[idx];
+}
+function resetDay(){
+  if(!confirm('¿Borrar el progreso de hoy?'))return;
+  try{localStorage.removeItem(lsB(todayKey()));}catch(e){}
+  cMap[wkIdx]=new Set();renderToday();showToast('Día reseteado');
 }
 
-// ═══════════════════════════════════════════════════
-//  RESET DEL DÍA
-// ═══════════════════════════════════════════════════
-function resetDay() {
-  if (!confirm('¿Borrar todo el progreso de hoy? Esta acción no se puede deshacer.')) return;
-  try { localStorage.removeItem(lsKeyBlocks(todayKey())); } catch(e) {}
-  completedMap[wkIdx] = new Set();
-  renderToday();
-  showToast('Día reseteado');
-}
-
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  HELPERS
-// ═══════════════════════════════════════════════════
-function nowM(){ const n=new Date(); return n.getHours()*60+n.getMinutes(); }
-
-function showToast(msg){
-  const t=document.getElementById('toast'); t.textContent=msg;
-  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200);
-}
-
+// ═══════════════════════════════════════
+function nowM(){const n=new Date();return n.getHours()*60+n.getMinutes();}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 function updateDate(){
   const n=new Date();
   const days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
   const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  document.getElementById('headerDate').textContent=`${days[n.getDay()]} ${n.getDate()} ${months[n.getMonth()]}`;
+  document.getElementById('headerDate').innerHTML=`${days[n.getDay()]} ${n.getDate()} ${months[n.getMonth()]}<br>${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
 }
 
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  NAV
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 function showNav(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
   document.getElementById('sec-'+id).classList.add('on');
   document.getElementById('nav-'+id).classList.add('on');
-  if(id==='week') renderWeekView();
-  if(id==='blocks') renderBlocksGuide();
+  if(id==='week')renderWeek();
+  if(id==='history')renderHistory();
+  if(id==='skills')renderSkills();
 }
 
-// ═══════════════════════════════════════════════════
-//  BLOCK HTML
-// ═══════════════════════════════════════════════════
-function blockStyle(cat){
-  const c = CAT[cat]||CAT.rest;
-  return `style="--blk-bg:var(${c.bg});--blk-fg:var(${c.fg});--blk-dot:var(${c.dot});--dot-color:var(${c.dot})"`;
-}
-
+// ═══════════════════════════════════════
+//  BLOCK RENDER
+// ═══════════════════════════════════════
 function renderBlockList(blocks, doneSet, prefix, showNow){
   const nm = showNow ? nowM() : -1;
   return blocks.map((b,i)=>{
-    const c = CAT[b.cat]||CAT.rest;
+    const col = C[b.cat]?.col || '#666';
     const isDone = doneSet.has(i);
     const isNow = showNow && !isDone && nm>=b.start && nm<b.end;
-    return `
-      <div class="block-row" ${blockStyle(b.cat)}>
-        <div class="bl-time">${fmM(b.start)}</div>
-        <div class="bl-line"></div>
-        <div class="bl-content ${isDone?'done':''} ${isNow?'now-active':''}"
-             onclick="toggleBlock('${prefix}',${i})">
-          <div class="bl-left">
-            <div class="bl-name">${b.name}</div>
-            <div class="bl-dur">${durS(b.dur)}</div>
-          </div>
-          <div class="bl-right">
-            ${isNow?'<div class="now-dot"></div>':''}
-            <span class="bl-tag">${b.tag}</span>
-            <div class="bl-check ${isDone?'done':''}">
-              <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
-            </div>
+    return`<div class="block-row" style="--dot:${col}">
+      <div class="bl-time">${fmM(b.start)}</div>
+      <div class="bl-line"></div>
+      <div class="bl-content ${isDone?'done':''} ${isNow?'now-active':''}" onclick="toggleBlock('${prefix}',${i})">
+        <div class="bl-left">
+          <div class="bl-name">${b.name}</div>
+          <div class="bl-dur">${durS(b.dur)}</div>
+        </div>
+        <div class="bl-right">
+          ${isNow?'<div class="now-dot"></div>':''}
+          <span class="bl-tag">${b.tag}</span>
+          <div class="bl-check ${isDone?'done':''}">
+            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
           </div>
         </div>
-      </div>`;
+      </div>
+    </div>`;
   }).join('');
 }
 
-// ── Toggle bloque + guardar en localStorage inmediatamente ──
-function toggleBlock(prefix, i){
-  const isToday = (prefix === 'today');
+function toggleBlock(prefix,i){
+  const isToday = prefix==='today';
   const idx = isToday ? wkIdx : parseInt(prefix);
   const set = getCompleted(idx);
-
-  if(set.has(i)) {
-    set.delete(i);
-  } else {
-    set.add(i);
-    showToast('Bloque completado ✓');
-  }
-
-  // GUARDAR: si es hoy, persistir en localStorage con la fecha actual
-  if (isToday || idx === wkIdx) {
-    saveCompleted(todayKey(), set);
-  }
-
-  if(isToday) renderToday();
-  else renderWeekDayContent(idx);
+  if(set.has(i))set.delete(i);
+  else{set.add(i);showToast('Completado ✓');}
+  if(isToday||idx===wkIdx)saveCompleted(todayKey(),set);
+  if(isToday)renderToday();else renderWeekContent(idx);
 }
 
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  RENDER TODAY
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════
+// type color map defined inline below
+
 function renderToday(){
   const d = WEEK[wkIdx];
-  // Siempre recarga desde localStorage al renderizar
-  completedMap[wkIdx] = loadCompleted(todayKey());
-  const done = completedMap[wkIdx];
-  const total = d.blocks.length;
-  const doneCount = done.size;
-  const now = nowM();
+  cMap[wkIdx] = loadCompleted(todayKey());
+  const done = cMap[wkIdx], total = d.blocks.length, dc = done.size, now = nowM();
+  const cur = d.blocks.find(b=>now>=b.start&&now<b.end);
+  const nxt = cur ? d.blocks[d.blocks.indexOf(cur)+1] : d.blocks.find(b=>b.start>now);
 
-  const curBlock = d.blocks.find(b=>now>=b.start&&now<b.end);
-  const nextBlock = curBlock ? d.blocks[d.blocks.indexOf(curBlock)+1] : d.blocks.find(b=>b.start>now);
+  document.getElementById('todayName').textContent = d.name;
+  document.getElementById('todayType').textContent = d.type;
 
-  document.getElementById('todayTitle').textContent = d.name;
-  document.getElementById('todaySub').textContent = d.type;
+  const typeColMap = {'Alto rendimiento':'var(--lime)','Expansión max':'var(--violet)','Expansión + Gym':'var(--teal)','Reset total':'var(--amber)'};
+  const tc = typeColMap[d.type]||'var(--text3)';
+  document.getElementById('todayBadge').innerHTML = `<span class="day-badge-dot" style="background:${tc}"></span>${d.type}`;
+  document.getElementById('todayBadge').style.color = tc;
+  document.getElementById('todayBadge').style.borderColor = tc.replace(')',',0.3)').replace('var(','rgba(0,0,0,').replace('rgba(0,0,0,',tc);
 
-  const typeColors = {
-    'Alto rendimiento':'#2d4a8a','Expansión':'#4a2d8a',
-    'Ligero + Gym':'#1a5c2e','Reset':'#7a5c00'
-  };
-  document.getElementById('todayDayType').innerHTML = d.type;
-  document.getElementById('todayDayType').style.color = typeColors[d.type]||'var(--text2)';
-  document.getElementById('todayDayType').style.borderColor = (typeColors[d.type]||'#888')+'33';
-
-  // ── Streak row ──
-  const streak = calcStreak();
-  const weekDays = countWeekDaysWithData();
+  const streak = calcStreak(), wc = weekCount();
   document.getElementById('streakRow').innerHTML = `
-    <div class="streak-pill">Racha <strong>${streak} día${streak!==1?'s':''}</strong></div>
-    <div class="streak-pill">Esta semana <strong>${weekDays}/7</strong></div>
-    <div class="streak-pill">Fecha <strong>${todayKey()}</strong></div>`;
+    <div class="streak-chip">Racha <strong>${streak}d</strong></div>
+    <div class="streak-chip">Semana <strong>${wc}/7</strong></div>
+    <div class="streak-chip"><strong>${todayKey()}</strong></div>`;
+
+  // English check
+  const engDone = d.blocks.some((b,i)=>b.cat==='english'&&done.has(i));
+  const projDone = d.blocks.filter((b,i)=>b.cat==='project'&&done.has(i)).length;
 
   document.getElementById('todayStats').innerHTML = `
-    <div class="stat-box">
-      <div class="stat-v">06:30</div><div class="stat-l">Despertar</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-v">22:30</div><div class="stat-l">Dormir</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-v">${doneCount}/${total}</div><div class="stat-l">Hechos</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-v">${d.gym?'Sí':'No'}</div><div class="stat-l">Gym</div>
-    </div>`;
+    <div class="stat-card"><div class="stat-v">${dc}/${total}</div><div class="stat-l">Bloques</div></div>
+    <div class="stat-card"><div class="stat-v" style="color:${engDone?'var(--teal)':'var(--rose)'}">${engDone?'✓':'—'}</div><div class="stat-l">Inglés</div></div>
+    <div class="stat-card"><div class="stat-v">${Math.round(dc/total*100)}%</div><div class="stat-l">Progreso</div></div>`;
 
   document.getElementById('todayProg').innerHTML = `
     <div class="prog-row">
-      <span>${curBlock ? 'Ahora: '+curBlock.name : 'Sin bloque activo'}</span>
-      <span>${Math.round(doneCount/total*100)}%</span>
+      <span>${cur?cur.name:'Sin bloque activo'}</span>
+      <span style="color:var(--lime)">${Math.round(dc/total*100)}%</span>
     </div>
-    <div class="prog-bar">
-      <div class="prog-fill" style="width:${Math.round(doneCount/total*100)}%"></div>
-    </div>
-    ${nextBlock&&!curBlock?`<div style="font-size:11px;color:var(--text3);margin-top:8px">Próximo: ${nextBlock.name} a las ${fmM(nextBlock.start)}</div>`:''}`;
+    <div class="prog-bar"><div class="prog-fill" style="width:${Math.round(dc/total*100)}%"></div></div>
+    ${nxt&&!cur?`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-top:8px">Próximo → ${nxt.name} · ${fmM(nxt.start)}</div>`:''}`;
 
   document.getElementById('todayBlocks').innerHTML = renderBlockList(d.blocks, done, 'today', true);
 
-  // ── Restaurar nota desde localStorage ──
-  const noteEl = document.getElementById('notesTextarea');
-  if (noteEl && !noteEl._focused) {
-    noteEl.value = loadNote();
-  }
+  const ta = document.getElementById('notesTA');
+  if(ta && !ta._focused) ta.value = loadNote();
 }
 
-// ═══════════════════════════════════════════════════
-//  RENDER WEEK VIEW
-// ═══════════════════════════════════════════════════
-function renderWeekView(){
-  let selHtml = WEEK.map((d,i)=>{
+// ═══════════════════════════════════════
+//  RENDER WEEK
+// ═══════════════════════════════════════
+function renderWeek(){
+  document.getElementById('weekSel').innerHTML = WEEK.map((d,i)=>{
     const cats = [...new Set(d.blocks.map(b=>b.cat))].slice(0,5);
-    const dots = cats.map(c=>`<div class="dsel-dot" style="background:var(${CAT[c]?.dot||'--rest-dot'})"></div>`).join('');
-    return `<button class="day-sel-btn ${i===wkIdx?'on':''}" onclick="selectWeekDay(${i})">
-      <span class="dsel-name">${d.short}</span>
-      <div class="dsel-dots">${dots}</div>
+    const dots = cats.map(c=>`<div class="wday-dot" style="background:${C[c]?.col||'#444'}"></div>`).join('');
+    return`<button class="wday-btn ${i===wkIdx?'on':''}" onclick="selectWDay(${i})">
+      <span class="wday-name">${d.short}</span>
+      <div class="wday-dots">${dots}</div>
     </button>`;
   }).join('');
-  document.getElementById('weekDaySel').innerHTML = selHtml;
-  renderWeekDayContent(wkIdx);
+  renderWeekContent(wkIdx);
 }
-
-function selectWeekDay(i){
-  wkIdx = i;
-  document.querySelectorAll('.day-sel-btn').forEach((b,j)=>b.classList.toggle('on',j===i));
-  renderWeekDayContent(i);
+function selectWDay(i){
+  wkIdx=i;
+  document.querySelectorAll('.wday-btn').forEach((b,j)=>b.classList.toggle('on',j===i));
+  renderWeekContent(i);
 }
-
-function renderWeekDayContent(i){
-  const d = WEEK[i];
-  const done = getCompleted(i);
-  const total = d.blocks.length;
-  const doneCount = done.size;
-  const typeColors = {
-    'Alto rendimiento':'#2d4a8a','Expansión':'#4a2d8a',
-    'Ligero + Gym':'#1a5c2e','Reset':'#7a5c00'
-  };
-  document.getElementById('weekDayContent').innerHTML = `
+function renderWeekContent(i){
+  const d=WEEK[i],done=getCompleted(i),total=d.blocks.length,dc=done.size;
+  document.getElementById('weekContent').innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div>
-        <div style="font-family:'Instrument Serif',serif;font-size:18px">${d.name}</div>
-        <div style="font-size:11px;color:var(--text3)">${d.type}</div>
-      </div>
-      <div style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--text2)">${doneCount}/${total} completados</div>
+      <div><div style="font-family:'Archivo Black',sans-serif;font-size:18px">${d.name}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">${d.type}</div></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2)">${dc}/${total}</div>
     </div>
-    <div class="prog-card" style="margin-bottom:12px">
-      <div class="prog-row"><span>Progreso</span><span>${Math.round(doneCount/total*100)}%</span></div>
-      <div class="prog-bar"><div class="prog-fill" style="width:${Math.round(doneCount/total*100)}%"></div></div>
+    <div class="prog-wrap" style="margin-bottom:12px">
+      <div class="prog-row"><span>Progreso</span><span style="color:var(--lime)">${Math.round(dc/total*100)}%</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${Math.round(dc/total*100)}%"></div></div>
     </div>
-    ${renderBlockList(d.blocks, done, String(i), false)}`;
+    ${renderBlockList(d.blocks,done,String(i),false)}`;
 }
 
-// ═══════════════════════════════════════════════════
-//  RENDER BLOCKS GUIDE
-// ═══════════════════════════════════════════════════
-function renderBlocksGuide(){
-  document.getElementById('prioGrid').innerHTML = PRIOS.map(p=>`
-    <div class="prio-item">
-      <div class="prio-num">${p.num}</div>
-      <div class="prio-dot" style="background:var(${p.dot})"></div>
-      <div class="prio-name">${p.name}</div>
-      <div class="prio-badge">${p.badge}</div>
-    </div>`).join('');
-
-  document.getElementById('blkGuide').innerHTML = BLK_GUIDE.map(b=>`
-    <div class="blk-guide-item">
-      <div class="blk-guide-top">
-        <div class="blk-guide-dot" style="background:var(${b.dot})"></div>
-        <div class="blk-guide-name">${b.name}</div>
-        <div class="blk-guide-type">${b.type}</div>
-      </div>
-      <div class="blk-guide-meta">${b.meta}</div>
-    </div>`).join('');
+// ═══════════════════════════════════════
+//  RENDER HISTORY
+// ═══════════════════════════════════════
+function setHF(f,btn){hFilter=f;document.querySelectorAll('.hf-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderHistory();}
+function getDN(dateStr){const d=new Date(dateStr+'T12:00:00');return['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][d.getDay()];}
+function fmDate(dateStr){
+  const[y,mo,da]=dateStr.split('-');
+  const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  return`${getDN(dateStr)} ${parseInt(da)} ${months[parseInt(mo)-1]} ${y}`;
 }
+function getWkData(dateStr){const d=new Date(dateStr+'T12:00:00');return WEEK[jsToWk(d.getDay())];}
 
-// ─── WEEKLY OVERVIEW (legacy, no activo en tabs actuales) ──
-function renderWeekOverview(){
-  if(!document.getElementById('weekGrid')) return;
-  document.getElementById('weekGrid').innerHTML = WEEK.map((d,i)=>{
-    const cats = [...new Set(d.blocks.map(b=>b.cat))];
-    const pills = cats.map(c=>`<div class="mini-pill" style="background:var(${CAT[c]?.dot||'--rest-dot'})"></div>`).join('');
-    return `<div class="week-day-card" id="wdc${i}">
-      <div class="week-day-header" onclick="toggleWkCard(${i})">
-        <div class="week-day-left"><div>
-          <div class="week-day-name">${d.name}</div>
-          <div class="week-day-type">${d.type}</div>
-        </div></div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="week-day-pills">${pills}</div>
-          <div class="week-day-toggle">▾</div>
-        </div>
+function renderHistory(){
+  // Bars
+  const barDates=[];const ch=new Date();
+  for(let i=6;i>=0;i--){const dc=new Date(ch);dc.setDate(ch.getDate()-i);barDates.push(`${dc.getFullYear()}-${String(dc.getMonth()+1).padStart(2,'0')}-${String(dc.getDate()).padStart(2,'0')}`);}
+  let tp=0,bc=0;
+  const barsHtml=barDates.map(d=>{
+    let pct=0;
+    try{const r=localStorage.getItem(lsB(d));if(r){const arr=JSON.parse(r),dd=getWkData(d);pct=dd?Math.round(arr.length/dd.blocks.length*100):0;if(arr.length>0){tp+=pct;bc++;}}}catch(e){}
+    const h=Math.max(2,Math.round(pct*0.28));
+    return`<div class="wbar-col"><div class="wbar" style="height:28px"><div class="wbar-fill" style="height:${h}px;opacity:${pct>0?.8:.2}"></div></div><div class="wbar-lbl">${getDN(d)}</div></div>`;
+  }).join('');
+  document.getElementById('weekBars').innerHTML=barsHtml;
+  document.getElementById('weekAvg').textContent=bc>0?`${Math.round(tp/bc)}% promedio`:'Sin datos aún';
+
+  const dates=getAllDates();
+  if(!dates.length){
+    document.getElementById('histContent').innerHTML=`<div class="empty-state"><span class="empty-icon">◎</span><div class="empty-title">Sin historial todavía</div><div style="font-size:11px;color:var(--text3);margin-top:6px">Marca bloques en Hoy para construir tu historial.</div></div>`;
+    return;
+  }
+
+  const filtered=dates.filter(d=>{
+    if(hFilter==='all')return true;
+    if(hFilter==='notes')return loadNote(d).trim().length>0;
+    if(hFilter==='full'){try{const r=localStorage.getItem(lsB(d));if(!r)return false;const arr=JSON.parse(r),dd=getWkData(d);return dd&&arr.length===dd.blocks.length;}catch(e){return false;}}
+    return true;
+  });
+
+  if(!filtered.length){document.getElementById('histContent').innerHTML=`<div class="empty-state"><span class="empty-icon">◎</span><div class="empty-title">Sin entradas con este filtro</div></div>`;return;}
+
+  document.getElementById('histContent').innerHTML=filtered.map((d,ei)=>{
+    let arr=[],pct=0,total=0;
+    const dd=getWkData(d);
+    try{const r=localStorage.getItem(lsB(d));if(r)arr=JSON.parse(r);}catch(e){}
+    if(dd){total=dd.blocks.length;pct=total>0?Math.round(arr.length/total*100):0;}
+    const note=loadNote(d),doneSet=new Set(arr);
+    const pillsHtml=dd?dd.blocks.map((b,i)=>{
+      const col=C[b.cat]?.col||'#666';
+      return`<div class="hist-pill ${doneSet.has(i)?'dp':''}" style="color:${doneSet.has(i)?'var(--text3)':col};border-color:${doneSet.has(i)?'var(--border)':col}40">
+        ${b.tag}
+      </div>`;
+    }).join(''):'';
+    const pc=pct>=80?'var(--lime)':pct>=50?'var(--amber)':'var(--rose)';
+    return`<div class="hist-entry" id="he${ei}">
+      <div class="hist-head" onclick="document.getElementById('he${ei}').classList.toggle('open')">
+        <div><div class="hist-date">${fmDate(d)}</div><div class="hist-meta">${arr.length}/${total} bloques · ${dd?dd.type:'—'}</div></div>
+        <div class="hist-right"><div class="hist-pct" style="color:${pc}">${pct}%</div><div class="hist-toggle">▾</div></div>
       </div>
-      <div class="week-day-body" id="wdb${i}">
-        ${renderBlockList(d.blocks, getCompleted(i), String(i), false)}
+      <div class="hist-body">
+        <div class="hist-prog"><div class="hist-prog-fill" style="width:${pct}%"></div></div>
+        <div class="hist-pills">${pillsHtml}</div>
+        ${note?`<div class="hist-note-lbl">Nota</div><div class="hist-note">${note.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`:''}
       </div>
     </div>`;
   }).join('');
 }
 
-function toggleWkCard(i){
-  document.getElementById('wdc'+i)?.classList.toggle('open');
+// ═══════════════════════════════════════
+//  RENDER SKILLS ROADMAP
+// ═══════════════════════════════════════
+function renderSkills(){
+  document.getElementById('roadmapList').innerHTML=ROADMAP.map((rm,i)=>`
+    <div class="rm-item ${rm.active?'active':''}">
+      <div class="rm-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="rm-body">
+        <div class="rm-phase">${rm.phase}</div>
+        <div class="rm-title">${rm.title}</div>
+        <div class="rm-desc">${rm.desc}</div>
+        <div class="rm-skills">${rm.skills.map(s=>`<span class="rm-skill-tag">${s}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
 }
 
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════
 updateDate();
-setInterval(updateDate, 60000);
-// Refresca "Hoy" cada minuto para actualizar bloque activo
+setInterval(updateDate, 30000);
 setInterval(()=>renderToday(), 60000);
-
-// Evitar que la nota se sobreescriba mientras el usuario escribe
-document.addEventListener('DOMContentLoaded', () => {
-  const ta = document.getElementById('notesTextarea');
-  if(ta){
-    ta.addEventListener('focus', ()=>{ ta._focused = true; });
-    ta.addEventListener('blur',  ()=>{ ta._focused = false; });
-  }
-});
-
 renderToday();
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const ta=document.getElementById('notesTA');
+  if(ta){ta.addEventListener('focus',()=>ta._focused=true);ta.addEventListener('blur',()=>ta._focused=false);}
+});
 </script>
 </body>
 </html>
