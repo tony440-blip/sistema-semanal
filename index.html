@@ -2,918 +2,944 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#0e0e0e">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#f5f5f7">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Anton OS">
-<title>Anton OS</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Anton">
+<title>Anton</title>
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ─── APPLE DESIGN SYSTEM ─── */
 :root {
-  --bg:       #0e0e0e;
-  --bg2:      #161616;
-  --bg3:      #1e1e1e;
-  --border:   rgba(255,255,255,0.06);
-  --border2:  rgba(255,255,255,0.12);
-  --text:     #e8e8e8;
-  --text2:    #888;
-  --text3:    #444;
-  --ink:      #e8e8e8;
+  --bg:          #f5f5f7;
+  --bg2:         #ffffff;
+  --bg3:         #f5f5f7;
+  --surface:     #ffffff;
+  --surface2:    rgba(255,255,255,0.8);
+  --border:      rgba(0,0,0,0.08);
+  --border2:     rgba(0,0,0,0.14);
+  --text:        #1d1d1f;
+  --text2:       #6e6e73;
+  --text3:       #aeaeb2;
+  --blue:        #007aff;
+  --green:       #34c759;
+  --orange:      #ff9500;
+  --red:         #ff3b30;
+  --purple:      #af52de;
+  --teal:        #30b0c7;
+  --indigo:      #5856d6;
+  --pink:        #ff2d55;
+  --yellow:      #ffcc00;
+  --gray:        #8e8e93;
+  --r:           12px;
+  --rs:          10px;
+  --rL:          18px;
+  --shadow:      0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow2:     0 4px 16px rgba(0,0,0,0.08);
+}
 
-  /* accent — one strong color per category */
-  --lime:   #c8f135;
-  --blue:   #4f8ef7;
-  --amber:  #f5a623;
-  --rose:   #f7547a;
-  --violet: #9b72f7;
-  --teal:   #3dd6a3;
-  --orange: #f7834f;
-  --slate:  #8aaabf;
-
-  /* block colors */
-  --c-sleep:   #4f8ef7;
-  --c-wake:    #c8f135;
-  --c-gym:     #f5a623;
-  --c-english: #3dd6a3;
-  --c-study:   #8aaabf;
-  --c-project: #c8f135;
-  --c-skill:   #9b72f7;
-  --c-food:    #f7547a;
-  --c-spirit:  #f5a623;
-  --c-rest:    #444;
-  --c-read:    #3dd6a3;
-  --c-plan:    #9b72f7;
-  --c-mob:     #8aaabf;
-  --c-presleep:#4f8ef7;
-
-  --r: 10px;
-  --rs: 7px;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #000000;
+    --bg2:       #1c1c1e;
+    --bg3:       #2c2c2e;
+    --surface:   #1c1c1e;
+    --surface2:  rgba(28,28,30,0.8);
+    --border:    rgba(255,255,255,0.1);
+    --border2:   rgba(255,255,255,0.18);
+    --text:      #f5f5f7;
+    --text2:     #aeaeb2;
+    --text3:     #6e6e73;
+    --shadow:    0 1px 3px rgba(0,0,0,0.4);
+    --shadow2:   0 4px 16px rgba(0,0,0,0.3);
+  }
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Archivo', sans-serif;
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  font-size: 13px;
-  line-height: 1.5;
-  overscroll-behavior: none;
+  font-size: 15px;
+  line-height: 1.47;
+  -webkit-font-smoothing: antialiased;
 }
 
-.app { max-width: 480px; margin: 0 auto; padding-bottom: 72px; }
+.app { max-width: 430px; margin: 0 auto; padding-bottom: 84px; }
 
-/* ── HEADER ── */
+/* ─── HEADER ─── */
 .header {
-  padding: 20px 16px 0;
+  padding: 52px 20px 0;
   background: var(--bg);
   position: sticky; top: 0; z-index: 100;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: var(--surface2);
 }
 .header-top {
   display: flex; align-items: flex-end;
-  justify-content: space-between; margin-bottom: 16px;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
-.logo {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 20px; letter-spacing: -.02em;
-  color: var(--lime);
+.app-title {
+  font-size: 34px; font-weight: 700;
+  letter-spacing: -0.5px; color: var(--text);
   line-height: 1;
-}
-.logo-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  letter-spacing: .12em; text-transform: uppercase;
-  margin-top: 2px;
 }
 .header-date {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text3);
-  text-align: right;
+  font-size: 13px; color: var(--text2);
+  font-weight: 400; text-align: right;
+  line-height: 1.4;
 }
 
-/* ── TABS ── */
-.tabs {
-  display: flex; gap: 0;
-  overflow-x: auto; scrollbar-width: none;
-  border-bottom: 1px solid var(--border);
-  margin: 0 -16px; padding: 0 16px;
+/* ─── SEGMENTED CONTROL (Apple style) ─── */
+.seg-ctrl {
+  display: flex;
+  background: rgba(118,118,128,0.12);
+  border-radius: 9px;
+  padding: 2px;
+  margin-bottom: 16px;
+  gap: 0;
 }
-.tabs::-webkit-scrollbar { display: none; }
-.tab {
-  flex-shrink: 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: 10px 14px;
+.seg-btn {
+  flex: 1; padding: 6px 0;
+  font-size: 13px; font-weight: 500;
   border: none; background: transparent;
-  color: var(--text3); cursor: pointer;
-  transition: color .15s; position: relative;
-  white-space: nowrap;
+  color: var(--text2); cursor: pointer;
+  border-radius: 7px; transition: all .2s;
+  font-family: inherit; letter-spacing: -0.1px;
 }
-.tab.on { color: var(--lime); }
-.tab.on::after {
-  content: ''; position: absolute;
-  bottom: -1px; left: 10%; width: 80%;
-  height: 1px; background: var(--lime);
+.seg-btn.on {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.06);
 }
 
-/* ── SECTIONS ── */
-.section { display: none; padding: 16px; }
+/* ─── SECTIONS ─── */
+.section { display: none; padding: 20px 16px; }
 .section.on { display: block; }
 
-/* ── BLOCK ROWS ── */
-.block-row {
-  display: flex; align-items: stretch;
-  gap: 0; margin-top: 6px;
+/* ─── LIST GROUPS (iOS settings style) ─── */
+.list-group {
+  background: var(--surface);
+  border-radius: var(--rL);
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
 }
-.bl-time {
-  width: 46px; flex-shrink: 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text3);
-  padding: 10px 8px 0 0; text-align: right;
-}
-.bl-line {
-  width: 1px; background: var(--border);
-  margin: 0 10px; position: relative; flex-shrink: 0;
-}
-.bl-line::before {
-  content: ''; position: absolute;
-  top: 11px; left: -3.5px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--dot, var(--text3));
-}
-.bl-content {
-  flex: 1; padding: 9px 12px;
-  border-radius: var(--rs);
-  border: 1px solid var(--border);
-  min-height: 42px;
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 8px;
-  cursor: pointer; transition: all .15s;
-  background: var(--bg2);
-  position: relative; overflow: hidden;
-}
-.bl-content::before {
-  content: ''; position: absolute;
-  left: 0; top: 0; bottom: 0; width: 2px;
-  background: var(--dot, transparent);
-  opacity: .7;
-}
-.bl-content:hover { border-color: var(--border2); }
-.bl-content.done { opacity: .35; }
-.bl-content.done .bl-name { text-decoration: line-through; text-decoration-color: var(--text3); }
-.bl-content.now-active {
-  border-color: var(--dot) !important;
-  background: color-mix(in srgb, var(--dot) 8%, var(--bg2)) !important;
-}
-.bl-left { display: flex; flex-direction: column; gap: 1px; }
-.bl-name { font-size: 12px; font-weight: 500; color: var(--text); }
-.bl-dur {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text3);
-}
-.bl-right { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
-.bl-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; letter-spacing: .06em;
-  padding: 2px 7px; border-radius: 20px;
-  background: color-mix(in srgb, var(--dot) 15%, transparent);
-  color: var(--dot);
+.list-group-label {
+  font-size: 13px; font-weight: 400;
+  color: var(--text2);
+  padding: 0 16px 8px;
   text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
-.bl-check {
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 1px solid var(--border2);
+.list-row {
+  display: flex; align-items: center;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+  gap: 12px; min-height: 48px;
+  cursor: pointer; transition: background .12s;
+  position: relative;
+}
+.list-row:last-child { border-bottom: none; }
+.list-row:active { background: rgba(0,0,0,0.04); }
+.list-row.done { opacity: 0.4; }
+.list-row.done .lr-title { text-decoration: line-through; text-decoration-color: var(--text3); }
+.list-row.now-active { background: rgba(0,122,255,0.04); }
+
+.lr-icon {
+  width: 30px; height: 30px; border-radius: 7px;
   display: flex; align-items: center;
   justify-content: center; flex-shrink: 0;
-  transition: all .15s;
+  font-size: 15px;
 }
-.bl-check.done {
-  background: var(--dot, var(--lime));
-  border-color: var(--dot, var(--lime));
+.lr-body { flex: 1; min-width: 0; }
+.lr-title { font-size: 15px; font-weight: 400; color: var(--text); }
+.lr-sub {
+  font-size: 12px; color: var(--text2);
+  margin-top: 1px; font-weight: 400;
 }
-.bl-check svg {
-  width: 9px; height: 9px;
-  stroke: var(--bg); fill: none;
+.lr-right {
+  display: flex; align-items: center;
+  gap: 6px; flex-shrink: 0;
+}
+.lr-time {
+  font-size: 13px; color: var(--text2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Checkmark circle */
+.lr-check {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
+  transition: all .2s cubic-bezier(.34,1.56,.64,1);
+}
+.lr-check.done {
+  background: var(--green); border-color: var(--green);
+  transform: scale(1.05);
+}
+.lr-check svg {
+  width: 12px; height: 12px;
+  stroke: white; fill: none;
   stroke-width: 2.5; stroke-linecap: round;
   stroke-linejoin: round; opacity: 0;
+  transition: opacity .15s;
 }
-.bl-check.done svg { opacity: 1; }
+.lr-check.done svg { opacity: 1; }
 
-@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.2} }
-.now-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--dot, var(--lime));
-  animation: pulse 2s infinite; flex-shrink: 0;
+/* Now active pulse */
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+.now-badge {
+  font-size: 11px; font-weight: 500;
+  color: var(--blue); background: rgba(0,122,255,0.1);
+  padding: 2px 8px; border-radius: 20px;
+  animation: pulse 2s infinite;
 }
 
-/* ── STATS ── */
-.stats-grid {
+/* ─── STATS CARDS ─── */
+.stats-row {
   display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 6px; margin-bottom: 12px;
+  gap: 10px; margin-bottom: 20px;
 }
 .stat-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 12px 10px; text-align: center;
+  background: var(--surface);
+  border-radius: var(--rL);
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
 }
 .stat-v {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 20px; color: var(--lime);
+  font-size: 28px; font-weight: 700;
+  letter-spacing: -0.5px; color: var(--text);
   line-height: 1;
 }
+.stat-v.blue { color: var(--blue); }
+.stat-v.green { color: var(--green); }
+.stat-v.orange { color: var(--orange); }
 .stat-l {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .08em;
-  margin-top: 3px;
+  font-size: 11px; color: var(--text2);
+  margin-top: 4px; font-weight: 400;
 }
 
-/* ── PROGRESS ── */
-.prog-wrap {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--rs); padding: 12px 14px;
-  margin-bottom: 12px;
+/* ─── PROGRESS ─── */
+.prog-card {
+  background: var(--surface);
+  border-radius: var(--rL);
+  padding: 16px; margin-bottom: 20px;
+  box-shadow: var(--shadow);
 }
-.prog-row {
+.prog-header {
   display: flex; justify-content: space-between;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text2); margin-bottom: 8px;
+  align-items: center; margin-bottom: 10px;
 }
-.prog-bar { height: 2px; background: var(--border2); border-radius: 2px; overflow: hidden; }
+.prog-title { font-size: 13px; color: var(--text2); font-weight: 400; }
+.prog-pct { font-size: 13px; color: var(--text); font-weight: 600; }
+.prog-track {
+  height: 4px; background: rgba(118,118,128,0.12);
+  border-radius: 2px; overflow: hidden;
+}
 .prog-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--lime), var(--teal));
-  border-radius: 2px; transition: width .5s cubic-bezier(.4,0,.2,1);
+  height: 100%; border-radius: 2px;
+  background: var(--blue);
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+}
+.prog-sub {
+  font-size: 12px; color: var(--text2);
+  margin-top: 10px; font-weight: 400;
 }
 
-/* ── DAY BADGE ── */
-.day-badge {
-  display: inline-flex; align-items: center; gap: 6px;
+/* ─── DAY TYPE BANNER ─── */
+.day-banner {
+  border-radius: var(--rL);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow2);
+}
+.day-banner-title {
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.3px; color: white;
+  margin-bottom: 2px;
+}
+.day-banner-sub { font-size: 13px; color: rgba(255,255,255,0.8); }
+.day-banner-badge {
+  position: absolute; top: 18px; right: 20px;
+  font-size: 11px; font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.2);
   padding: 4px 10px; border-radius: 20px;
-  border: 1px solid var(--border2);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text3);
-  margin-bottom: 12px; letter-spacing: .05em;
-  text-transform: uppercase;
+  letter-spacing: 0.3px; text-transform: uppercase;
 }
-.day-badge-dot { width: 5px; height: 5px; border-radius: 50%; }
 
-/* ── STREAK ── */
-.streak-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-.streak-chip {
+/* ─── STREAK CHIPS ─── */
+.chips-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.chip {
   display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 10px; border-radius: 20px;
-  background: var(--bg2); border: 1px solid var(--border);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text2);
+  padding: 5px 12px; border-radius: 20px;
+  background: var(--surface);
+  font-size: 13px; color: var(--text2);
+  box-shadow: var(--shadow); font-weight: 400;
 }
-.streak-chip strong { color: var(--lime); }
+.chip strong { color: var(--text); font-weight: 600; }
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; }
 
-/* ── NOTES ── */
-.notes-wrap {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 14px;
-  margin-top: 14px;
+/* ─── NOTES ─── */
+.notes-group {
+  background: var(--surface);
+  border-radius: var(--rL);
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
 }
-.notes-head {
-  display: flex; align-items: center;
-  justify-content: space-between; margin-bottom: 10px;
-}
-.notes-lbl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .1em;
-}
-.notes-saved {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--teal);
-  opacity: 0; transition: opacity .3s;
-}
-.notes-saved.show { opacity: 1; }
-.notes-ta {
-  width: 100%; min-height: 80px;
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: var(--rs); padding: 10px 12px;
-  font-family: 'Archivo', sans-serif;
-  font-size: 13px; color: var(--text);
-  line-height: 1.6; resize: vertical; outline: none;
-  transition: border .15s;
-}
-.notes-ta:focus { border-color: var(--border2); }
-.notes-ta::placeholder { color: var(--text3); }
-
-/* ── RESET BTN ── */
-.reset-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 14px; border-radius: 20px;
-  border: 1px solid var(--border2); background: transparent;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text3);
-  cursor: pointer; transition: all .15s;
-  margin-top: 12px; letter-spacing: .04em;
-  text-transform: uppercase;
-}
-.reset-btn:hover { border-color: var(--rose); color: var(--rose); }
-.reset-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-/* ── WEEK SELECTOR ── */
-.week-sel {
-  display: grid; grid-template-columns: repeat(7,1fr);
-  gap: 4px; margin-bottom: 14px;
-}
-.wday-btn {
-  padding: 8px 4px; border-radius: var(--rs);
-  border: 1px solid var(--border); background: var(--bg2);
-  cursor: pointer; text-align: center;
-  transition: all .15s; font-family: 'Archivo', sans-serif;
-}
-.wday-btn.on { background: var(--lime); border-color: var(--lime); }
-.wday-name { font-size: 10px; font-weight: 500; color: var(--text2); display: block; }
-.wday-btn.on .wday-name { color: var(--bg); }
-.wday-dots { display: flex; gap: 2px; justify-content: center; margin-top: 4px; flex-wrap: wrap; }
-.wday-dot { width: 4px; height: 4px; border-radius: 50%; }
-
-/* ── DIVIDER ── */
-.divider {
-  display: flex; align-items: center;
-  gap: 10px; margin: 18px 0 14px;
-}
-.div-line { flex: 1; height: 1px; background: var(--border); }
-.div-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .12em;
-  white-space: nowrap;
-}
-
-/* ── HISTORY ── */
-.hist-entry {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--r); overflow: hidden; margin-bottom: 8px;
-}
-.hist-head {
+.notes-header {
   display: flex; align-items: center;
   justify-content: space-between;
-  padding: 12px 14px; cursor: pointer;
+  padding: 12px 16px 0;
 }
-.hist-date {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 14px; color: var(--text);
+.notes-lbl { font-size: 13px; color: var(--text2); font-weight: 400; text-transform: uppercase; letter-spacing: 0.3px; }
+.notes-saved { font-size: 12px; color: var(--green); opacity: 0; transition: opacity .3s; }
+.notes-saved.show { opacity: 1; }
+.notes-ta {
+  width: 100%; min-height: 88px;
+  background: transparent; border: none;
+  padding: 10px 16px 16px;
+  font-family: inherit; font-size: 15px;
+  color: var(--text); line-height: 1.5;
+  resize: none; outline: none;
 }
-.hist-meta {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3); margin-top: 2px;
-  text-transform: uppercase; letter-spacing: .05em;
-}
-.hist-right { display: flex; align-items: center; gap: 10px; }
-.hist-pct {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 16px;
-}
-.hist-toggle { font-size: 10px; color: var(--text3); transition: transform .2s; }
-.hist-entry.open .hist-toggle { transform: rotate(180deg); }
-.hist-body {
-  display: none; padding: 0 14px 14px;
-  border-top: 1px solid var(--border);
-}
-.hist-entry.open .hist-body { display: block; }
-.hist-prog { height: 2px; background: var(--border2); border-radius: 2px; margin: 10px 0; overflow: hidden; }
-.hist-prog-fill { height: 100%; background: linear-gradient(90deg,var(--lime),var(--teal)); border-radius: 2px; }
-.hist-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
-.hist-pill {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 2px 8px; border-radius: 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; background: var(--bg3);
-  border: 1px solid var(--border); color: var(--text3);
-  text-transform: uppercase;
-}
-.hist-pill.dp { opacity: .35; text-decoration: line-through; }
-.hist-note {
-  margin-top: 8px; padding: 10px 12px;
-  background: var(--bg3); border-radius: var(--rs);
-  font-size: 12px; color: var(--text2);
-  line-height: 1.6; white-space: pre-wrap; font-style: italic;
-}
-.hist-note-lbl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .08em;
-  margin-bottom: 4px; margin-top: 10px;
-}
-.export-btn {
+.notes-ta::placeholder { color: var(--text3); }
+
+/* ─── BUTTONS ─── */
+.btn-ghost {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 14px; border-radius: var(--rs);
-  border: 1px solid var(--border2); background: transparent;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text2);
-  cursor: pointer; transition: all .15s;
-  margin-bottom: 12px; text-transform: uppercase; letter-spacing: .04em;
+  padding: 10px 16px; border-radius: 10px;
+  border: none; background: var(--surface);
+  font-family: inherit; font-size: 15px;
+  color: var(--red); cursor: pointer;
+  box-shadow: var(--shadow); font-weight: 400;
+  transition: all .15s;
 }
-.export-btn:hover { border-color: var(--lime); color: var(--lime); }
-.export-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.hist-filter { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px; }
-.hf-btn {
-  padding: 4px 11px; border-radius: 20px;
-  border: 1px solid var(--border); background: transparent;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  cursor: pointer; transition: all .15s;
-  text-transform: uppercase; letter-spacing: .06em;
+.btn-ghost:active { transform: scale(0.97); }
+.btn-ghost svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 16px; border-radius: 10px;
+  border: none; background: var(--blue);
+  font-family: inherit; font-size: 15px;
+  color: white; cursor: pointer;
+  font-weight: 500; transition: all .15s;
 }
-.hf-btn.on { background: var(--lime); border-color: var(--lime); color: var(--bg); }
+.btn-primary:active { transform: scale(0.97); opacity: 0.9; }
+.btn-primary svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ── WEEK BARS ── */
-.week-bars-wrap { display: flex; gap: 4px; align-items: flex-end; height: 32px; margin-bottom: 6px; }
-.wbar-col { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
-.wbar { width: 100%; border-radius: 2px 2px 0 0; background: var(--bg3); position: relative; overflow: hidden; }
-.wbar-fill { position: absolute; bottom: 0; left: 0; right: 0; background: var(--lime); border-radius: 2px 2px 0 0; transition: height .4s ease; opacity: .7; }
-.wbar-lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text3); }
+/* ─── WEEK SELECTOR ─── */
+.week-days {
+  display: grid; grid-template-columns: repeat(7,1fr);
+  gap: 6px; margin-bottom: 20px;
+}
+.wd-btn {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  padding: 8px 2px;
+  background: var(--surface); border-radius: 10px;
+  border: none; cursor: pointer;
+  box-shadow: var(--shadow); transition: all .15s;
+}
+.wd-btn.on { background: var(--blue); }
+.wd-name { font-size: 11px; font-weight: 500; color: var(--text2); }
+.wd-btn.on .wd-name { color: white; }
+.wd-dot { width: 4px; height: 4px; border-radius: 50%; }
 
-/* ── SKILLS ROADMAP ── */
-.roadmap { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+/* ─── SUNDAY TOGGLE ─── */
+.sun-toggle-card {
+  background: var(--surface);
+  border-radius: var(--rL);
+  padding: 16px; margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.sun-toggle-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+.toggle-pills { display: flex; gap: 8px; }
+.toggle-pill {
+  flex: 1; padding: 10px;
+  border-radius: 10px; border: 1.5px solid var(--border2);
+  background: transparent; cursor: pointer;
+  font-family: inherit; font-size: 13px;
+  font-weight: 500; color: var(--text2);
+  transition: all .2s; text-align: center;
+}
+.toggle-pill.on {
+  background: var(--blue); border-color: var(--blue);
+  color: white;
+}
+
+/* ─── ROADMAP ─── */
 .rm-item {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 14px;
-  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--surface);
+  border-radius: var(--rL);
+  padding: 16px; margin-bottom: 10px;
+  box-shadow: var(--shadow);
+  display: flex; gap: 14px; align-items: flex-start;
 }
-.rm-item.active { border-color: var(--lime); }
+.rm-item.active { box-shadow: 0 0 0 1.5px var(--blue), var(--shadow); }
 .rm-num {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 22px; color: var(--text3);
-  line-height: 1; flex-shrink: 0; width: 28px;
+  font-size: 28px; font-weight: 700;
+  color: var(--text3); line-height: 1;
+  width: 32px; flex-shrink: 0;
+  letter-spacing: -1px;
 }
-.rm-item.active .rm-num { color: var(--lime); }
+.rm-item.active .rm-num { color: var(--blue); }
 .rm-body { flex: 1; }
-.rm-phase {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 3px;
-}
-.rm-item.active .rm-phase { color: var(--lime); }
-.rm-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
-.rm-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
-.rm-skills { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
-.rm-skill-tag {
-  padding: 2px 8px; border-radius: 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; text-transform: uppercase; letter-spacing: .04em;
-  background: var(--bg3); border: 1px solid var(--border);
-  color: var(--text3);
-}
-.rm-item.active .rm-skill-tag { border-color: var(--lime); color: var(--lime); background: color-mix(in srgb, var(--lime) 10%, transparent); }
-
-/* ── RULES ── */
-.rule-group { margin-bottom: 14px; }
-.rule-group-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text3);
-  text-transform: uppercase; letter-spacing: .12em;
-  margin-bottom: 8px;
-}
-.rule-list { display: flex; flex-direction: column; gap: 4px; }
-.rule-item {
-  display: flex; align-items: flex-start; gap: 10px;
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--rs); padding: 10px 12px;
-  font-size: 12px; line-height: 1.5; color: var(--text2);
-}
-.ri { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-.ri-stop { background: color-mix(in srgb,var(--rose) 15%,transparent); color: var(--rose); }
-.ri-go   { background: color-mix(in srgb,var(--lime) 15%,transparent); color: var(--lime); }
-.ri-warn { background: color-mix(in srgb,var(--amber) 15%,transparent); color: var(--amber); }
-.ri-num  { background: var(--bg3); color: var(--text3); font-size: 8px; }
-
-/* ── ENGLISH CARD ── */
-.english-card {
-  background: var(--bg2);
-  border: 1px solid var(--teal);
-  border-radius: var(--r);
-  padding: 16px; margin-bottom: 14px;
-  position: relative; overflow: hidden;
-}
-.english-card::before {
-  content: ''; position: absolute;
-  top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, var(--teal), transparent);
-}
-.ec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.ec-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 15px; color: var(--teal);
-}
-.ec-level {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--teal);
-  text-transform: uppercase; letter-spacing: .08em;
-  padding: 3px 8px; border-radius: 20px;
-  border: 1px solid var(--teal);
-}
-.ec-items { display: flex; flex-direction: column; gap: 6px; }
-.ec-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text2); }
-.ec-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
-
-/* ── TOAST ── */
-.toast {
-  position: fixed; bottom: 80px; left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: var(--lime); color: var(--bg);
-  border-radius: var(--rs); padding: 8px 16px;
-  font-family: 'JetBrains Mono', monospace;
+.rm-phase { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.rm-item.active .rm-phase { color: var(--blue); }
+.rm-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+.rm-desc { font-size: 13px; color: var(--text2); line-height: 1.5; }
+.rm-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.rm-tag {
   font-size: 11px; font-weight: 500;
-  opacity: 0; transition: all .25s; z-index: 999;
-  pointer-events: none; white-space: nowrap;
-  text-transform: uppercase; letter-spacing: .06em;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(0,122,255,0.08);
+  color: var(--blue);
+}
+.rm-item:not(.active) .rm-tag { background: rgba(0,0,0,0.05); color: var(--text2); }
+
+/* ─── ENGLISH CARD ─── */
+.english-card {
+  background: linear-gradient(135deg, #30b0c7, #5856d6);
+  border-radius: var(--rL);
+  padding: 20px; margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(48,176,199,0.25);
+}
+.ec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.ec-title { font-size: 20px; font-weight: 700; color: white; letter-spacing: -0.3px; }
+.ec-badge {
+  font-size: 11px; font-weight: 600; color: white;
+  background: rgba(255,255,255,0.2);
+  padding: 4px 10px; border-radius: 20px;
+}
+.ec-item { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.4; }
+.ec-item:last-child { margin-bottom: 0; }
+.ec-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.6); flex-shrink: 0; margin-top: 5px; }
+
+/* ─── RULES ─── */
+.rule-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+  font-size: 15px; line-height: 1.4; color: var(--text);
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-icon {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center;
+  justify-content: center; font-size: 11px;
+  font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.ri-stop { background: rgba(255,59,48,0.12); color: var(--red); }
+.ri-go   { background: rgba(52,199,89,0.12);  color: var(--green); }
+.ri-warn { background: rgba(255,149,0,0.12);  color: var(--orange); }
+.ri-num  { background: rgba(0,0,0,0.06);       color: var(--text2); font-size: 10px; }
+
+/* ─── MATH CARD ─── */
+.math-row {
+  display: flex; align-items: center;
+  padding: 10px 16px;
+  border-bottom: 0.5px solid var(--border);
+  gap: 10px; font-size: 14px;
+}
+.math-row:last-child { border-bottom: none; }
+.math-time { font-variant-numeric: tabular-nums; color: var(--blue); font-weight: 500; min-width: 40px; font-size: 13px; }
+.math-label { color: var(--text2); flex: 1; }
+.math-dur { font-size: 12px; color: var(--text3); }
+
+/* ─── SECTION LABEL ─── */
+.section-label {
+  font-size: 13px; font-weight: 400;
+  color: var(--text2); text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 0 4px 8px; margin-top: 4px;
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 96px; left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(50,50,50,0.92);
+  backdrop-filter: blur(10px);
+  color: white; border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 14px; font-weight: 500;
+  opacity: 0; transition: all .3s cubic-bezier(.34,1.56,.64,1);
+  z-index: 999; pointer-events: none;
+  white-space: nowrap; letter-spacing: -0.1px;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ── EMPTY ── */
-.empty-state { text-align: center; padding: 48px 20px; }
-.empty-icon { font-size: 24px; display: block; margin-bottom: 10px; opacity: .2; }
-.empty-title { font-size: 12px; color: var(--text3); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+/* ─── BOTTOM TAB BAR ─── */
+.tab-bar {
+  position: fixed; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: var(--surface2);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 0.5px solid var(--border);
+  display: flex; z-index: 200;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.tab-btn {
+  flex: 1; padding: 10px 0 12px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  border: none; background: transparent;
+  cursor: pointer; transition: all .15s;
+  font-family: inherit;
+}
+.tab-btn svg {
+  width: 22px; height: 22px;
+  stroke: var(--gray); fill: none;
+  stroke-width: 1.5; stroke-linecap: round;
+  stroke-linejoin: round; transition: stroke .15s;
+}
+.tab-btn.on svg { stroke: var(--blue); }
+.tab-label {
+  font-size: 10px; font-weight: 500;
+  color: var(--gray); transition: color .15s;
+  letter-spacing: 0.1px;
+}
+.tab-btn.on .tab-label { color: var(--blue); }
 
-@keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-.block-row { animation: fadeUp .18s ease both; }
-
-::-webkit-scrollbar { width: 2px; }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+.list-group { animation: fadeUp .25s ease both; }
+.stats-row  { animation: fadeUp .2s ease both; }
+.day-banner { animation: fadeUp .15s ease both; }
 </style>
 </head>
 <body>
 <div class="app">
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-top">
-    <div>
-      <div class="logo">Anton OS</div>
-      <div class="logo-sub">Sistema personal v2</div>
-    </div>
+    <div class="app-title" id="headerTitle">Anton</div>
     <div class="header-date" id="headerDate"></div>
   </div>
-  <div class="tabs">
-    <button class="tab on"  id="nav-today"   onclick="showNav('today')">Hoy</button>
-    <button class="tab"     id="nav-week"    onclick="showNav('week')">Semana</button>
-    <button class="tab"     id="nav-history" onclick="showNav('history')">Historial</button>
-    <button class="tab"     id="nav-skills"  onclick="showNav('skills')">Habilidades</button>
-    <button class="tab"     id="nav-rules"   onclick="showNav('rules')">Sistema</button>
+  <div class="seg-ctrl">
+    <button class="seg-btn on" id="nav-today"   onclick="showNav('today')">Hoy</button>
+    <button class="seg-btn"    id="nav-week"    onclick="showNav('week')">Semana</button>
+    <button class="seg-btn"    id="nav-history" onclick="showNav('history')">Historial</button>
+    <button class="seg-btn"    id="nav-skills"  onclick="showNav('skills')">Plan</button>
+    <button class="seg-btn"    id="nav-rules"   onclick="showNav('rules')">Sistema</button>
   </div>
 </div>
 
 <!-- HOY -->
 <div id="sec-today" class="section on">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-    <div>
-      <div style="font-family:'Archivo Black',sans-serif;font-size:22px;color:var(--text)" id="todayName">—</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em" id="todayType">—</div>
-    </div>
-    <div id="todayBadge" class="day-badge">—</div>
+  <div id="todayBanner" class="day-banner" style="background:linear-gradient(135deg,#007aff,#5856d6)">
+    <div class="day-banner-title" id="todayName">—</div>
+    <div class="day-banner-sub" id="todayType">—</div>
+    <div class="day-banner-badge" id="todayBadge">—</div>
   </div>
-  <div class="streak-row" id="streakRow"></div>
-  <div class="stats-grid" id="todayStats"></div>
-  <div class="prog-wrap" id="todayProg"></div>
-  <div id="todayBlocks"></div>
-  <button class="reset-btn" onclick="resetDay()">
-    <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-    Resetear día
-  </button>
-  <div class="notes-wrap">
-    <div class="notes-head">
-      <div class="notes-lbl">Notas del día</div>
-      <div class="notes-saved" id="notesSaved">Guardado ✓</div>
+
+  <!-- Domingo toggle: solo aparece en domingo -->
+  <div id="sunToggleWrap" style="display:none">
+    <div class="sun-toggle-card">
+      <div class="sun-toggle-title">¿Trabajas hoy?</div>
+      <div class="toggle-pills">
+        <button class="toggle-pill on" id="sunWork" onclick="setSunMode('work')">Sí, trabajo</button>
+        <button class="toggle-pill" id="sunFree" onclick="setSunMode('free')">Día libre</button>
+      </div>
     </div>
-    <textarea class="notes-ta" id="notesTA" placeholder="Reflexiones, logros, ajustes del día…" oninput="saveNote()"></textarea>
+  </div>
+
+  <div class="chips-row" id="streakRow"></div>
+  <div class="stats-row" id="todayStats"></div>
+  <div class="prog-card" id="todayProg"></div>
+  <div id="todayBlocks"></div>
+
+  <div style="display:flex;gap:10px;margin-top:6px;margin-bottom:20px">
+    <button class="btn-ghost" onclick="resetDay()">
+      <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      Resetear
+    </button>
+  </div>
+
+  <div class="section-label">Notas del día</div>
+  <div class="notes-group">
+    <div class="notes-header">
+      <div class="notes-lbl">Reflexiones</div>
+      <div class="notes-saved" id="notesSaved">Guardado</div>
+    </div>
+    <textarea class="notes-ta" id="notesTA"
+      placeholder="¿Cómo fue el día? ¿Qué ajustar?"
+      oninput="saveNote()"></textarea>
   </div>
 </div>
 
 <!-- SEMANA -->
 <div id="sec-week" class="section">
-  <div class="divider" style="margin-top:0"><div class="div-line"></div><div class="div-label">Vista semanal</div><div class="div-line"></div></div>
-  <div class="week-sel" id="weekSel"></div>
+  <div class="section-label">Selecciona un día</div>
+  <div class="week-days" id="weekDays"></div>
   <div id="weekContent"></div>
 </div>
 
 <!-- HISTORIAL -->
 <div id="sec-history" class="section">
-  <div class="divider" style="margin-top:0"><div class="div-line"></div><div class="div-label">Historial</div><div class="div-line"></div></div>
-  <div class="prog-wrap" style="margin-bottom:12px">
-    <div class="prog-row" style="margin-bottom:10px"><span>Últimos 7 días</span><span id="weekAvg">—</span></div>
-    <div class="week-bars-wrap" id="weekBars"></div>
+  <div class="prog-card" style="margin-bottom:20px">
+    <div class="prog-header" style="margin-bottom:12px">
+      <span class="prog-title">Últimos 7 días</span>
+      <span class="prog-pct" id="weekAvg">—</span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:flex-end;height:36px" id="weekBars"></div>
   </div>
-  <div class="hist-filter">
-    <button class="hf-btn on" onclick="setHF('all',this)">Todos</button>
-    <button class="hf-btn" onclick="setHF('notes',this)">Con notas</button>
-    <button class="hf-btn" onclick="setHF('full',this)">100%</button>
+
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="toggle-pill on" style="flex:none;padding:7px 14px" onclick="setHF('all',this)">Todos</button>
+    <button class="toggle-pill" style="flex:none;padding:7px 14px" onclick="setHF('notes',this)">Con notas</button>
+    <button class="toggle-pill" style="flex:none;padding:7px 14px" onclick="setHF('full',this)">100%</button>
   </div>
-  <button class="export-btn" onclick="exportData()">
+
+  <button class="btn-primary" style="margin-bottom:20px" onclick="exportData()">
     <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    Exportar JSON
+    Exportar datos
   </button>
+
   <div id="histContent"></div>
 </div>
 
-<!-- HABILIDADES -->
+<!-- PLAN / HABILIDADES -->
 <div id="sec-skills" class="section">
-  <div class="divider" style="margin-top:0"><div class="div-line"></div><div class="div-label">Mapa de habilidades</div><div class="div-line"></div></div>
-
   <div class="english-card">
-    <div class="ec-header">
+    <div class="ec-head">
       <div class="ec-title">Inglés diario</div>
-      <div class="ec-level">Nivel 0 → B2</div>
+      <div class="ec-badge">Nivel 0 → B2</div>
     </div>
-    <div class="ec-items">
-      <div class="ec-item"><div class="ec-dot"></div><div><strong>20 min a las 18:00</strong> cada tarde, justo al llegar — cerebro activo antes del agotamiento nocturno</div></div>
-      <div class="ec-item"><div class="ec-dot"></div><div>Método nivel 0: <strong>Duolingo (10 min) + Anki (10 min)</strong> — repetición espaciada diaria</div></div>
-      <div class="ec-item"><div class="ec-dot"></div><div>Domingo: sesión de <strong>40 min</strong> — shadowing, escucha activa, repaso de la semana</div></div>
-      <div class="ec-item"><div class="ec-dot"></div><div>Mes 3+: reemplaza Duolingo por <strong>podcasts lentos</strong> (Slow English, ESL Pod) mientras llegas</div></div>
-      <div class="ec-item"><div class="ec-dot"></div><div>Mes 6+: <strong>10 min conversación</strong> con ChatGPT voice antes de pre-sueño — consolida durante la noche</div></div>
-    </div>
+    <div class="ec-item"><div class="ec-dot"></div><div><strong>20 min cada tarde</strong> al llegar a casa — antes del Deep Work, cerebro activo</div></div>
+    <div class="ec-item"><div class="ec-dot"></div><div>Duolingo 10 min + Anki vocabulario 10 min — repetición espaciada diaria</div></div>
+    <div class="ec-item"><div class="ec-dot"></div><div>Domingo: sesión larga de <strong>40 min</strong> — shadowing + repaso semanal</div></div>
+    <div class="ec-item"><div class="ec-dot"></div><div>Mes 3+: podcasts lentos en inglés durante traslados (Slow English, ESL Pod)</div></div>
+    <div class="ec-item"><div class="ec-dot"></div><div>Mes 6+: conversación con ChatGPT voice 10 min antes de dormir</div></div>
   </div>
 
-  <div class="divider"><div class="div-line"></div><div class="div-label">Hoja de ruta</div><div class="div-line"></div></div>
-  <div class="roadmap" id="roadmapList"></div>
+  <div class="section-label">Hoja de ruta</div>
+  <div id="roadmapList"></div>
 </div>
 
 <!-- SISTEMA / REGLAS -->
 <div id="sec-rules" class="section">
-  <div class="divider" style="margin-top:0"><div class="div-line"></div><div class="div-label">Reglas del sistema</div><div class="div-line"></div></div>
 
-  <div class="rule-group">
-    <div class="rule-group-title">Anclas no negociables</div>
-    <div class="rule-list">
-      <div class="rule-item"><div class="ri ri-stop">✕</div><div>Sueño mínimo <strong>7 horas</strong> — días con gym: 21:30–04:10 · miércoles: 21:15–04:15 · domingo igual</div></div>
-      <div class="rule-item"><div class="ri ri-stop">✕</div><div>Pantallas en el bloque <strong>pre-sueño</strong> — ventana corta, no desperdiciarla</div></div>
-      <div class="rule-item"><div class="ri ri-stop">✕</div><div>Gym solo <strong>Lun/Mar/Jue/Vie/Sáb</strong> — miércoles y domingo son los días de recuperación</div></div>
-      <div class="rule-item"><div class="ri ri-stop">✕</div><div>Inglés <strong>todos los días</strong> sin excepción — aunque sean 15 min si el día está roto</div></div>
-      <div class="rule-item"><div class="ri ri-stop">✕</div><div>No sacrificar sueño por Deep Work — si se acaba el tiempo, corta el proyecto, no el sueño</div></div>
-    </div>
+  <div class="section-label">La matemática de tu día (Lun–Vie)</div>
+  <div class="list-group" style="margin-bottom:20px">
+    <div class="math-row"><div class="math-time">15:30</div><div class="math-label">Fin del trabajo</div><div class="math-dur"></div></div>
+    <div class="math-row"><div class="math-time">15:45</div><div class="math-label">Llegada a casa</div><div class="math-dur">15 min</div></div>
+    <div class="math-row"><div class="math-time">16:05</div><div class="math-label">Baño + cambio de ropa</div><div class="math-dur">20 min</div></div>
+    <div class="math-row"><div class="math-time">16:25</div><div class="math-label">Tiempo libre / descanso</div><div class="math-dur">20 min</div></div>
+    <div class="math-row"><div class="math-time">16:45</div><div class="math-label">Traslado al gym</div><div class="math-dur">15 min</div></div>
+    <div class="math-row"><div class="math-time">17:00</div><div class="math-label">Gym</div><div class="math-dur">100 min</div></div>
+    <div class="math-row"><div class="math-time">18:40</div><div class="math-label">Traslado de regreso</div><div class="math-dur">15 min</div></div>
+    <div class="math-row"><div class="math-time">18:55</div><div class="math-label">Cena + higiene</div><div class="math-dur">30 min</div></div>
+    <div class="math-row"><div class="math-time">19:25</div><div class="math-label">Contenido / Proyectos</div><div class="math-dur">60 min</div></div>
+    <div class="math-row"><div class="math-time">20:25</div><div class="math-label">Inglés</div><div class="math-dur">20 min</div></div>
+    <div class="math-row"><div class="math-time">20:45</div><div class="math-label">Pre-sueño · Sin pantallas</div><div class="math-dur">25 min</div></div>
+    <div class="math-row"><div class="math-time">21:10</div><div class="math-label">Sueño → 04:10 = <strong>7h exactas</strong></div><div class="math-dur">✓</div></div>
   </div>
 
-  <div class="rule-group">
-    <div class="rule-group-title">La matemática real de tu semana</div>
-    <div class="rule-list">
-      <div class="rule-item"><div class="ri ri-warn">→</div><div><strong>Lun/Mar/Jue/Vie/Sáb</strong> — Con gym · cena rápida → gym 17:50 → inglés 20 min → Deep Work 40 min · dormir 21:30 · sueño 7h</div></div>
-      <div class="rule-item"><div class="ri ri-warn">→</div><div><strong>Miércoles</strong> — Sin gym · expansión · inglés 20 min → <strong>Deep Work 90 min</strong> · dormir 21:15 · sueño 7h</div></div>
-      <div class="rule-item"><div class="ri ri-warn">★</div><div><strong>Domingo</strong> — Día rey · sale 14:00 · <strong>3h Deep Work</strong> · 40 min inglés · 45 min estudio · planificación</div></div>
-    </div>
+  <div class="section-label">Anclas no negociables</div>
+  <div class="list-group" style="margin-bottom:20px">
+    <div class="rule-item"><div class="rule-icon ri-stop">✕</div><div>Sueño mínimo <strong>7 horas</strong> — dormir 21:10, despertar 04:10, sin excepciones</div></div>
+    <div class="rule-item"><div class="rule-icon ri-stop">✕</div><div>Pantallas después del <strong>pre-sueño</strong> — la ventana es corta, no la quemes</div></div>
+    <div class="rule-item"><div class="rule-icon ri-stop">✕</div><div>Gym solo <strong>Lun–Vie</strong> — Sáb/Dom el gym está cerrado, son días de Deep Work</div></div>
+    <div class="rule-item"><div class="rule-icon ri-stop">✕</div><div>Inglés <strong>todos los días</strong> — aunque sean 15 min si el día está roto</div></div>
+    <div class="rule-item"><div class="rule-icon ri-stop">✕</div><div>No sacrificar sueño por contenido — corta el proyecto, nunca el sueño</div></div>
   </div>
 
-  <div class="rule-group">
-    <div class="rule-group-title">Ventanas de energía por tipo de día</div>
-    <div class="rule-list">
-      <div class="rule-item"><div class="ri ri-warn">↑</div><div><strong>17:15–17:35</strong> (días gym) — Cena rápida y cambio. Sin sentarse a descansar, perderías el impulso</div></div>
-      <div class="rule-item"><div class="ri ri-warn">↑</div><div><strong>19:45–20:50</strong> (días gym) — Post-gym: higiene → inglés → Deep Work → pre-sueño. Ventana de 65 min</div></div>
-      <div class="rule-item"><div class="ri ri-warn">↑</div><div><strong>18:00–19:50</strong> (miércoles) — Sin gym: ventana de 110 min para inglés + Deep Work largo</div></div>
-      <div class="rule-item"><div class="ri ri-warn">★</div><div><strong>14:20–21:15</strong> (domingo) — 7h libres. Tu única ventana real de la semana para trabajo profundo</div></div>
-    </div>
+  <div class="section-label">Protocolo de rescate</div>
+  <div class="list-group" style="margin-bottom:20px">
+    <div class="rule-item"><div class="rule-icon ri-num">1</div><div>Proteger sueño — intocable siempre</div></div>
+    <div class="rule-item"><div class="rule-icon ri-num">2</div><div>Inglés mínimo 15 min — aunque sea audio en el traslado</div></div>
+    <div class="rule-item"><div class="rule-icon ri-num">3</div><div>Si no hay energía para contenido — solo inglés cuenta como victoria</div></div>
+    <div class="rule-item"><div class="rule-icon ri-num">4</div><div>No compensar gym perdido — continuar el ciclo normal</div></div>
+    <div class="rule-item"><div class="rule-icon ri-num">5</div><div>Si se pierde el domingo libre — es la única pérdida que justifica ajustar la semana</div></div>
   </div>
 
-  <div class="rule-group">
-    <div class="rule-group-title">El domingo es tu activo más valioso</div>
-    <div class="rule-list">
-      <div class="rule-item"><div class="ri ri-go">✓</div><div>Sale 14:00 → 7h libres. Es la única ventana larga de toda la semana</div></div>
-      <div class="rule-item"><div class="ri ri-go">✓</div><div>Sin gym — cuerpo lleva 5 días seguidos. El domingo es recuperación activa obligatoria</div></div>
-      <div class="rule-item"><div class="ri ri-go">✓</div><div>Trabajo cognitivo más profundo: proyectos complejos, aprendizaje largo, planificación</div></div>
-      <div class="rule-item"><div class="ri ri-go">✓</div><div>Planificación semanal obligatoria — define los 3 objetivos clave de la semana siguiente</div></div>
-    </div>
-  </div>
-
-  <div class="rule-group">
-    <div class="rule-group-title">Protocolo de rescate (día roto)</div>
-    <div class="rule-list">
-      <div class="rule-item"><div class="ri ri-num">1</div><div>Sueño primero — nunca negociable</div></div>
-      <div class="rule-item"><div class="ri ri-num">2</div><div>Inglés mínimo 15 min — aunque sea audio en el transporte o en la cama</div></div>
-      <div class="rule-item"><div class="ri ri-num">3</div><div>Si no hay energía para Deep Work — solo inglés cuenta como victoria del día</div></div>
-      <div class="rule-item"><div class="ri ri-num">4</div><div>No compensar gym perdido — seguir el ciclo Lun/Mar/Jue/Vie/Sáb normal</div></div>
-      <div class="rule-item"><div class="ri ri-num">5</div><div>Si se pierde el domingo — es la única pérdida que justifica ajustar la semana siguiente</div></div>
-    </div>
+  <div class="section-label">Ventanas de energía</div>
+  <div class="list-group">
+    <div class="rule-item"><div class="rule-icon ri-warn">↑</div><div><strong>15:30–16:45</strong> — Transición. Casa, baño, cambio, pequeño descanso</div></div>
+    <div class="rule-item"><div class="rule-icon ri-warn">↑</div><div><strong>17:00–18:40</strong> — Pico físico. Gym (temperatura core óptima)</div></div>
+    <div class="rule-item"><div class="rule-icon ri-warn">↑</div><div><strong>18:55–20:25</strong> — Segundo pico cognitivo. Contenido + proyectos</div></div>
+    <div class="rule-item"><div class="rule-icon ri-warn">→</div><div><strong>20:25–20:45</strong> — Inglés (cerebro activo, consolida durante el sueño)</div></div>
+    <div class="rule-item"><div class="rule-icon ri-warn">↓</div><div><strong>20:45–21:10</strong> — Descenso. Solo lectura, reflexión, sin pantallas</div></div>
   </div>
 </div>
 
 </div><!-- /app -->
+
+<!-- TAB BAR -->
+<nav class="tab-bar">
+  <button class="tab-btn on" id="tab-today" onclick="showNav('today')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+    <span class="tab-label">Hoy</span>
+  </button>
+  <button class="tab-btn" id="tab-week" onclick="showNav('week')">
+    <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    <span class="tab-label">Semana</span>
+  </button>
+  <button class="tab-btn" id="tab-history" onclick="showNav('history')">
+    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <span class="tab-label">Historial</span>
+  </button>
+  <button class="tab-btn" id="tab-skills" onclick="showNav('skills')">
+    <svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+    <span class="tab-label">Plan</span>
+  </button>
+  <button class="tab-btn" id="tab-rules" onclick="showNav('rules')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span class="tab-label">Sistema</span>
+  </button>
+</nav>
+
 <div class="toast" id="toast"></div>
 
 <script>
 // ═══════════════════════════════════════
-//  BLOCK CATALOG
+//  BLOCK CATALOG — color per category
 // ═══════════════════════════════════════
 const C = {
-  sleep:   { label:'Sueño',     col:'var(--c-sleep)' },
-  wake:    { label:'Ritual',    col:'var(--c-wake)' },
-  gym:     { label:'Gym',       col:'var(--c-gym)' },
-  english: { label:'Inglés',    col:'var(--c-english)' },
-  study:   { label:'Estudio',   col:'var(--c-study)' },
-  project: { label:'Proyecto',  col:'var(--c-project)' },
-  skill:   { label:'Habilidad', col:'var(--c-skill)' },
-  food:    { label:'Comida',    col:'var(--c-food)' },
-  spirit:  { label:'Ritual',    col:'var(--c-spirit)' },
-  rest:    { label:'Descanso',  col:'var(--c-rest)' },
-  read:    { label:'Lectura',   col:'var(--c-read)' },
-  plan:    { label:'Plan',      col:'var(--c-plan)' },
-  mob:     { label:'Movilidad', col:'var(--c-mob)' },
-  presleep:{ label:'Pre-sueño', col:'var(--c-presleep)' },
-  travel:  { label:'Traslado',  col:'#555' },
+  sleep:   { emoji:'🌙', color:'#5856d6', label:'Sueño' },
+  spirit:  { emoji:'✨', color:'#ff9500', label:'Ritual' },
+  travel:  { emoji:'🚌', color:'#8e8e93', label:'Traslado' },
+  project: { emoji:'💻', color:'#007aff', label:'Trabajo' },
+  shower:  { emoji:'🚿', color:'#30b0c7', label:'Higiene' },
+  free:    { emoji:'☕', color:'#34c759', label:'Libre' },
+  gym:     { emoji:'🏋️', color:'#ff9500', label:'Gym' },
+  food:    { emoji:'🍽', color:'#ff2d55', label:'Comida' },
+  content: { emoji:'🎬', color:'#af52de', label:'Contenido' },
+  english: { emoji:'🇺🇸', color:'#30b0c7', label:'Inglés' },
+  presleep:{ emoji:'📖', color:'#5856d6', label:'Pre-sueño' },
+  study:   { emoji:'📊', color:'#ff9500', label:'Estudio' },
+  plan:    { emoji:'📋', color:'#5856d6', label:'Plan' },
+  rest:    { emoji:'💆', color:'#34c759', label:'Descanso' },
+  deepwork:{ emoji:'🚀', color:'#af52de', label:'Deep Work' },
+  masterclass:{ emoji:'🎓', color:'#ff9500', label:'Masterclass' },
 };
 
-function B(n,s,d,c,t){return{name:n,start:s,dur:d,end:s+d,cat:c,tag:t||C[c]?.label||c};}
-function toM(s){const[h,m]=s.split(':').map(Number);return h*60+m;}
-function fmM(m){const t=((m%1440)+1440)%1440;return`${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`;}
-function durS(m){if(m<60)return`${m} min`;const h=Math.floor(m/60),r=m%60;return r?`${h}h ${r}min`:`${h}h`;}
+function B(n,s,d,c,t){ return{name:n,start:s,dur:d,end:s+d,cat:c,tag:t||C[c]?.label||c}; }
+function toM(s){ const[h,m]=s.split(':').map(Number); return h*60+m; }
+function fmM(m){ const t=((m%1440)+1440)%1440; return`${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
+function durS(m){ if(m<60)return`${m} min`; const h=Math.floor(m/60),r=m%60; return r?`${h}h ${r}m`:`${h}h`; }
 
 // ═══════════════════════════════════════
-//  DAILY SCHEDULES
-//  Trabajo Lun–Sáb: 05:00–17:00 (720 min)
-//  Trabajo Dom:     05:30–14:00 (510 min)
-//  Gym:             Lun–Vie ÚNICAMENTE (sáb cierra 4 PM / dom cerrado)
-//  Traslado casa↔trabajo: 15 min · casa↔gym: 15 min
+//  SCHEDULES
+//  Trabajo Lun–Sáb: 05:00–15:30 (630 min)
+//  Trabajo Dom (si aplica): 05:30–14:00 (510 min)
+//  Gym: Lun–Vie (cerrado Sáb y Dom)
+//  Traslados: trabajo↔casa 15min | casa↔gym 15min
+//  Baño+cambio antes gym: 20 min
 //
-//  SUEÑO VERIFICADO = 7h00 EN TODOS LOS DÍAS:
-//  Días gym  (Lun–Vie): dormir 21:10 → despertar 04:10 = 7h ✓
-//  Sábado (sin gym):    dormir 21:10 → despertar 04:10 = 7h ✓
-//  Domingo  (sin gym):  dormir 21:10 → despertar 04:10 = 7h ✓
-//
-//  CADENA DÍAS GYM (Lun–Vie):
-//  04:10 ritual 20' → 04:30 traslado 30' → 05:00 trabajo 720'
-//  17:00 traslado gym 15' → 17:15 gym 100' → 18:55 traslado 15'
-//  19:10 cena+higiene 30' → 19:40 inglés 20' → 20:00 pre-sueño 70' → 21:10 sueño
-//
-//  CADENA SÁBADO (sin gym — Deep Work):
-//  04:10 ritual 20' → 04:30 traslado 30' → 05:00 trabajo 720'
-//  17:00 traslado 15' → 17:15 cena+higiene 45' → 18:00 inglés 20'
-//  18:20 Deep Work 75' → 19:35 movilidad 15' → 19:50 pre-sueño 80' → 21:10 sueño
-//
-//  CADENA DOMINGO (entra 05:30, sale 14:00):
-//  04:10 ritual 20' → 04:30 traslado 60' → 05:30 trabajo 510'
-//  14:00 traslado 20' → 14:20 almuerzo+descanso 40' → 15:00 inglés 40'
-//  15:40 Deep Work 1 (90') → 17:10 descanso 20' → 17:30 Deep Work 2 (90')
-//  19:00 estudio 45' → 19:45 planificación 25' → 20:10 pre-sueño 60' → 21:10 sueño
+//  SUEÑO VERIFICADO 7h TODOS LOS DÍAS:
+//  Lun–Vie (gym): 21:10→04:10 = 7h ✓
+//  Sáb (Deep Work): 21:10→04:10 = 7h ✓
+//  Dom trabaja: 21:10→04:50 = 7h40 ✓
+//  Dom libre: 22:00→06:00 (puede dormir más) ✓
 // ═══════════════════════════════════════
 
-// ── DÍAS CON GYM: Lun, Mar, Mié, Jue, Vie ──
-// Sin Deep Work. Prioridad: trabajo → gym → inglés → sueño 7h
+// ── LUN–VIE: trabajo + gym + contenido ──
+// 15:30 trabajo fin → 15:45 casa → 16:05 baño → 16:25 libre → 16:45 gym traslado
+// → 17:00 gym → 18:40 fin → 18:55 casa → cena → contenido → inglés → pre-sueño → 21:10
 function dayGym() {
   return [
-    B('Despertar · Higiene · Ritual',        toM('04:10'), 20,  'spirit',   'Ritual'),
-    B('Traslado al trabajo',                 toM('04:30'), 30,  'travel'),
-    B('Trabajo',                             toM('05:00'), 720, 'project',  'Trabajo'),
-    B('Traslado al gym',                     toM('17:00'), 15,  'travel'),
-    B('Gym',                                 toM('17:15'), 100, 'gym'),
-    B('Traslado de regreso',                 toM('18:55'), 15,  'travel'),
-    B('Cena · Higiene personal',             toM('19:10'), 30,  'food'),
-    B('Inglés — Duolingo + Anki',            toM('19:40'), 20,  'english'),
-    B('Pre-sueño · Lectura · Sin pantallas', toM('20:00'), 70,  'presleep', 'Pre-sueño'),
-    B('Sueño',                               toM('21:10'), 420, 'sleep'),
-  ].sort((a, b) => a.start - b.start);
+    B('Despertar · Higiene · Ritual',           toM('04:10'), 20,  'spirit',   'Ritual'),
+    B('Traslado al trabajo',                    toM('04:30'), 30,  'travel'),
+    B('Trabajo',                                toM('05:00'), 630, 'project',  'Trabajo'),
+    B('Traslado a casa',                        toM('15:30'), 15,  'travel'),
+    B('Baño · Cambio de ropa',                  toM('15:45'), 20,  'shower'),
+    B('Descanso libre',                         toM('16:05'), 40,  'free'),
+    B('Traslado al gym',                        toM('16:45'), 15,  'travel'),
+    B('Gym',                                    toM('17:00'), 100, 'gym'),
+    B('Traslado de regreso',                    toM('18:40'), 15,  'travel'),
+    B('Cena · Higiene personal',                toM('18:55'), 30,  'food'),
+    B('Contenido / Proyectos',                  toM('19:25'), 60,  'content'),
+    B('Inglés — Duolingo + Anki',               toM('20:25'), 20,  'english'),
+    B('Pre-sueño · Lectura · Sin pantallas',    toM('20:45'), 25,  'presleep', 'Pre-sueño'),
+    B('Sueño',                                  toM('21:10'), 420, 'sleep'),
+  ].sort((a,b)=>a.start-b.start);
 }
 
-// ── SÁBADO — Sin gym (cierra 4 PM) · Deep Work disponible ──
-// Misma matemática que Miércoles anterior. Sueño: 21:10 → 04:10 = 7h ✓
+// ── SÁBADO: trabajo + Deep Work + Masterclass (sin gym — cerrado) ──
+// Ventana libre desde 15:45 hasta 21:10 = 5h25
 function daySat() {
   return [
-    B('Despertar · Higiene · Ritual',        toM('04:10'), 20,  'spirit',   'Ritual'),
-    B('Traslado al trabajo',                 toM('04:30'), 30,  'travel'),
-    B('Trabajo',                             toM('05:00'), 720, 'project',  'Trabajo'),
-    B('Traslado de regreso',                 toM('17:00'), 15,  'travel'),
-    B('Cena · Higiene · Descanso',           toM('17:15'), 45,  'food'),
-    B('Inglés — Duolingo + Anki',            toM('18:00'), 20,  'english'),
-    B('Deep Work — Proyectos / Contenido',   toM('18:20'), 75,  'project',  'Deep Work'),
-    B('Movilidad / stretching',              toM('19:35'), 15,  'mob'),
-    B('Pre-sueño · Lectura · Sin pantallas', toM('19:50'), 80,  'presleep', 'Pre-sueño'),
-    B('Sueño',                               toM('21:10'), 420, 'sleep'),
-  ].sort((a, b) => a.start - b.start);
+    B('Despertar · Higiene · Ritual',           toM('04:10'), 20,  'spirit',   'Ritual'),
+    B('Traslado al trabajo',                    toM('04:30'), 30,  'travel'),
+    B('Trabajo',                                toM('05:00'), 630, 'project',  'Trabajo'),
+    B('Traslado a casa',                        toM('15:30'), 15,  'travel'),
+    B('Baño · Descanso',                        toM('15:45'), 30,  'shower'),
+    B('Masterclass — Creación de Contenido',    toM('16:15'), 60,  'masterclass'),
+    B('Cena · Higiene',                         toM('17:15'), 30,  'food'),
+    B('Deep Work — Proyectos',                  toM('17:45'), 90,  'deepwork',  'Deep Work 1'),
+    B('Inglés — Duolingo + Anki',               toM('19:15'), 25,  'english'),
+    B('Deep Work — Contenido',                  toM('19:40'), 60,  'content',   'Contenido'),
+    B('Pre-sueño · Lectura · Sin pantallas',    toM('20:40'), 30,  'presleep',  'Pre-sueño'),
+    B('Sueño',                                  toM('21:10'), 420, 'sleep'),
+  ].sort((a,b)=>a.start-b.start);
 }
 
-// ── DOMINGO — Día rey · Entrada 05:30 · Salida 14:00 · Sin gym ──
-// Despertar 04:50 (traslado 40 min → llega 05:30 con margen)
-// Sueño: 21:10 → 04:50 = 7h40 ✓ (mejor descanso de la semana)
-function daySun() {
+// ── DOMINGO TRABAJA: 05:30–14:00 + tarde productiva ──
+// Despierta 04:50 (sueño 21:10→04:50 = 7h40)
+function daySunWork() {
   return [
-    B('Despertar · Higiene · Ritual',        toM('04:50'), 20,  'spirit',   'Ritual'),
-    B('Traslado al trabajo',                 toM('05:10'), 20,  'travel'),
-    B('Trabajo',                             toM('05:30'), 510, 'project',  'Trabajo'),
-    B('Traslado de regreso',                 toM('14:00'), 20,  'travel'),
-    B('Almuerzo · Descanso activo',          toM('14:20'), 40,  'food'),
-    B('Inglés — Sesión larga semanal',       toM('15:00'), 40,  'english'),
-    B('Deep Work — Proyectos',               toM('15:40'), 90,  'project',  'Proyecto 1'),
-    B('Descanso estratégico',                toM('17:10'), 20,  'rest'),
-    B('Deep Work — Proyectos',               toM('17:30'), 90,  'project',  'Proyecto 2'),
-    B('Contabilidad / Estudio',              toM('19:00'), 45,  'study'),
-    B('Planificación semana siguiente',      toM('19:45'), 25,  'plan'),
-    B('Pre-sueño · Lectura · Sin pantallas', toM('20:10'), 60,  'presleep', 'Pre-sueño'),
-    B('Sueño',                               toM('21:10'), 460, 'sleep'),
-  ].sort((a, b) => a.start - b.start);
+    B('Despertar · Higiene · Ritual',           toM('04:50'), 20,  'spirit',   'Ritual'),
+    B('Traslado al trabajo',                    toM('05:10'), 20,  'travel'),
+    B('Trabajo',                                toM('05:30'), 510, 'project',  'Trabajo'),
+    B('Traslado a casa',                        toM('14:00'), 15,  'travel'),
+    B('Almuerzo · Descanso activo',             toM('14:15'), 45,  'food'),
+    B('Inglés — Sesión larga semanal',          toM('15:00'), 40,  'english'),
+    B('Masterclass — Creación de Contenido',    toM('15:40'), 60,  'masterclass'),
+    B('Deep Work — Proyectos',                  toM('16:40'), 90,  'deepwork',  'Proyecto 1'),
+    B('Descanso estratégico',                   toM('18:10'), 20,  'rest'),
+    B('Deep Work — Contenido',                  toM('18:30'), 60,  'content',   'Contenido'),
+    B('Estudio — Contabilidad',                 toM('19:30'), 40,  'study'),
+    B('Planificación semana siguiente',         toM('20:10'), 25,  'plan'),
+    B('Pre-sueño · Lectura · Sin pantallas',    toM('20:35'), 35,  'presleep',  'Pre-sueño'),
+    B('Sueño',                                  toM('21:10'), 460, 'sleep'),
+  ].sort((a,b)=>a.start-b.start);
+}
+
+// ── DOMINGO LIBRE: día de máximo rendimiento ──
+// Puede despertar más tarde — sueño extendido hasta 7:00 AM
+function daySunFree() {
+  return [
+    B('Despertar · Higiene · Ritual',           toM('07:00'), 30,  'spirit',   'Ritual'),
+    B('Desayuno tranquilo',                     toM('07:30'), 30,  'food'),
+    B('Inglés — Sesión larga semanal',          toM('08:00'), 45,  'english'),
+    B('Masterclass — Creación de Contenido',    toM('08:45'), 90,  'masterclass'),
+    B('Deep Work — Proyectos',                  toM('10:15'), 90,  'deepwork',  'Proyecto 1'),
+    B('Almuerzo · Descanso',                    toM('11:45'), 45,  'food'),
+    B('Deep Work — Contenido',                  toM('12:30'), 90,  'content',   'Contenido'),
+    B('Descanso estratégico',                   toM('14:00'), 30,  'rest'),
+    B('Deep Work — Proyectos',                  toM('14:30'), 90,  'deepwork',  'Proyecto 2'),
+    B('Estudio — Contabilidad',                 toM('16:00'), 45,  'study'),
+    B('Planificación semana siguiente',         toM('16:45'), 30,  'plan'),
+    B('Tiempo libre · Recuperación',            toM('17:15'), 90,  'free'),
+    B('Cena · Higiene',                         toM('18:45'), 30,  'food'),
+    B('Pre-sueño · Lectura · Sin pantallas',    toM('19:15'), 115, 'presleep',  'Pre-sueño'),
+    B('Sueño',                                  toM('21:10'), 590, 'sleep'),
+  ].sort((a,b)=>a.start-b.start);
 }
 
 const WEEK = [
-  { name:'Lunes',     short:'Lun', type:'Trabajo + Gym',       gym:true,  blocks: dayGym()  },
-  { name:'Martes',    short:'Mar', type:'Trabajo + Gym',       gym:true,  blocks: dayGym()  },
-  { name:'Miércoles', short:'Mié', type:'Trabajo + Gym',       gym:true,  blocks: dayGym()  },
-  { name:'Jueves',    short:'Jue', type:'Trabajo + Gym',       gym:true,  blocks: dayGym()  },
-  { name:'Viernes',   short:'Vie', type:'Trabajo + Gym',       gym:true,  blocks: dayGym()  },
-  { name:'Sábado',    short:'Sáb', type:'Trabajo + Deep Work', gym:false, blocks: daySat()  },
-  { name:'Domingo',   short:'Dom', type:'Día rey — Sin gym',   gym:false, blocks: daySun()  },
+  { name:'Lunes',     short:'Lun', type:'Trabajo + Gym',        color:'#007aff', gym:true,  blocks: dayGym()  },
+  { name:'Martes',    short:'Mar', type:'Trabajo + Gym',        color:'#007aff', gym:true,  blocks: dayGym()  },
+  { name:'Miércoles', short:'Mié', type:'Trabajo + Gym',        color:'#007aff', gym:true,  blocks: dayGym()  },
+  { name:'Jueves',    short:'Jue', type:'Trabajo + Gym',        color:'#007aff', gym:true,  blocks: dayGym()  },
+  { name:'Viernes',   short:'Vie', type:'Trabajo + Gym',        color:'#007aff', gym:true,  blocks: dayGym()  },
+  { name:'Sábado',    short:'Sáb', type:'Trabajo + Deep Work',  color:'#af52de', gym:false, blocks: daySat()  },
+  { name:'Domingo',   short:'Dom', type:'Día rey',              color:'#34c759', gym:false, blocks: daySunWork() },
 ];
 
 const ROADMAP = [
   {
     phase:'Ahora — Mes 3', active:true,
-    title:'Consistencia bajo presión',
-    desc:'Trabajo de 12h diarias. El objetivo no es hacer mucho, es no parar. Inglés 20 min diarios y 1 bloque de proyecto cada noche construyen más que sesiones intensas esporádicas.',
-    skills:['Inglés A1→A2 (20 min/día)','Deep Work 40 min (gym) · 90 min (mié)','Domingos: día rey 3h proyectos','Gym Lun/Mar/Jue/Vie/Sáb'],
+    title:'Cimientos del creador',
+    desc:'Masterclass de contenido + proyectos diarios + inglés. El gym ancla la disciplina física. El sábado y domingo son tu ventana de producción real.',
+    tags:['Inglés 20 min/día','Masterclass contenido','Proyectos Sáb/Dom','Gym Lun–Vie'],
   },
   {
     phase:'Mes 3–6', active:false,
-    title:'Primera salida o ingreso extra',
-    desc:'Con base sólida y proyectos avanzando, el copywriting y el contenido empiezan a generar retorno. El inglés ya permite consumir contenido en inglés para aprender más rápido.',
-    skills:['Inglés A2→B1','Copywriting aplicado','Primer ingreso de contenido','Edición video básica'],
+    title:'Primera audiencia',
+    desc:'Con la base del creador sólida, empieza a distribuir. Copywriting para convertir. Primer contenido publicado y consistente.',
+    tags:['Inglés A2→B1','Copywriting','Contenido publicado','Primera monetización'],
   },
   {
     phase:'Mes 6–12', active:false,
-    title:'Escala y transición',
-    desc:'Si los ingresos propios crecen, reducir dependencia del trabajo. Con más tiempo libre, acelerar habilidades técnicas y construir activos digitales.',
-    skills:['Inglés B1→B2','Diseño + Video pro','Freelance / monetización','Transición laboral opcional'],
+    title:'Escala e independencia',
+    desc:'Ingresos propios creciendo. Menos dependencia del trabajo. Más tiempo para producir. Inglés ya funcional para mercados en inglés.',
+    tags:['Inglés B1→B2','Edición video pro','Freelance/monetización','Transición laboral'],
   },
 ];
 
 // ═══════════════════════════════════════
 //  LOCALSTORAGE
 // ═══════════════════════════════════════
-function todayKey(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
-const lsB=d=>`aos_blocks_${d}`;
-const lsN=d=>`aos_note_${d}`;
+function todayKey(){ const n=new Date(); return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`; }
+const lsB=d=>`ant_blocks_${d}`;
+const lsN=d=>`ant_note_${d}`;
+const lsSunMode=d=>`ant_sunmode_${d}`;
 
-function saveCompleted(date,set){try{localStorage.setItem(lsB(date),JSON.stringify([...set]));}catch(e){}}
-function loadCompleted(date){try{const r=localStorage.getItem(lsB(date));if(r)return new Set(JSON.parse(r));}catch(e){}return new Set();}
-function saveNote(){
-  try{localStorage.setItem(lsN(todayKey()),document.getElementById('notesTA').value);}catch(e){}
-  const el=document.getElementById('notesSaved');el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),1800);
-}
-function loadNote(date){try{return localStorage.getItem(lsN(date||todayKey()))||'';}catch(e){return'';}}
-function getAllDates(){
-  const d=[];
-  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('aos_blocks_'))d.push(k.replace('aos_blocks_',''));}}catch(e){}
-  return d.sort((a,b)=>b.localeCompare(a));
-}
-function calcStreak(){
-  let s=0;const c=new Date();
-  for(let i=0;i<90;i++){
-    const d=`${c.getFullYear()}-${String(c.getMonth()+1).padStart(2,'0')}-${String(c.getDate()).padStart(2,'0')}`;
-    try{const r=localStorage.getItem(lsB(d));if(r&&JSON.parse(r).length>0){s++;c.setDate(c.getDate()-1);continue;}}catch(e){}
-    break;
-  }
-  return s;
-}
-function weekCount(){
-  let c=0;const check=new Date();
-  for(let i=0;i<7;i++){
-    const d=`${check.getFullYear()}-${String(check.getMonth()+1).padStart(2,'0')}-${String(check.getDate()).padStart(2,'0')}`;
-    try{const r=localStorage.getItem(lsB(d));if(r&&JSON.parse(r).length>0)c++;}catch(e){}
-    check.setDate(check.getDate()-1);
-  }
-  return c;
-}
+function saveCompleted(date,set){ try{localStorage.setItem(lsB(date),JSON.stringify([...set]));}catch(e){} }
+function loadCompleted(date){ try{const r=localStorage.getItem(lsB(date));if(r)return new Set(JSON.parse(r));}catch(e){}return new Set(); }
+function saveNote(){ try{localStorage.setItem(lsN(todayKey()),document.getElementById('notesTA').value);}catch(e){} const el=document.getElementById('notesSaved');el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2000); }
+function loadNote(d){ try{return localStorage.getItem(lsN(d||todayKey()))||'';}catch(e){return'';} }
+function saveSunMode(d,mode){ try{localStorage.setItem(lsSunMode(d),mode);}catch(e){} }
+function loadSunMode(d){ try{return localStorage.getItem(lsSunMode(d))||'work';}catch(e){return'work';} }
+
+function getAllDates(){ const d=[]; try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('ant_blocks_'))d.push(k.replace('ant_blocks_',''));}}catch(e){}return d.sort((a,b)=>b.localeCompare(a)); }
+function calcStreak(){ let s=0;const c=new Date();for(let i=0;i<90;i++){const d=`${c.getFullYear()}-${String(c.getMonth()+1).padStart(2,'0')}-${String(c.getDate()).padStart(2,'0')}`;try{const r=localStorage.getItem(lsB(d));if(r&&JSON.parse(r).length>0){s++;c.setDate(c.getDate()-1);continue;}}catch(e){}break;}return s; }
+function weekCount(){ let c=0;const ch=new Date();for(let i=0;i<7;i++){const d=`${ch.getFullYear()}-${String(ch.getMonth()+1).padStart(2,'0')}-${String(ch.getDate()).padStart(2,'0')}`;try{const r=localStorage.getItem(lsB(d));if(r&&JSON.parse(r).length>0)c++;}catch(e){}ch.setDate(ch.getDate()-1);}return c; }
+
 function exportData(){
-  const dates=getAllDates();
-  const data={export:new Date().toISOString(),days:{}};
-  dates.forEach(d=>{
-    data.days[d]={blocks:[],note:loadNote(d)};
-    try{const r=localStorage.getItem(lsB(d));if(r)data.days[d].blocks=JSON.parse(r);}catch(e){}
-  });
+  const dates=getAllDates(),data={export:new Date().toISOString(),days:{}};
+  dates.forEach(d=>{data.days[d]={blocks:[],note:loadNote(d)};try{const r=localStorage.getItem(lsB(d));if(r)data.days[d].blocks=JSON.parse(r);}catch(e){}});
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=`anton_os_${todayKey()}.json`;
-  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-  showToast('Exportado ✓');
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=`anton_${todayKey()}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  showToast('Datos exportados');
 }
 
 // ═══════════════════════════════════════
 //  STATE
 // ═══════════════════════════════════════
-function jsToWk(js){return js===0?6:js-1;}
+function jsToWk(js){ return js===0?6:js-1; }
 let wkIdx = jsToWk(new Date().getDay());
 const cMap = {};
 let hFilter = 'all';
+let sunMode = loadSunMode(todayKey()); // 'work' | 'free'
 
 function getCompleted(idx){
-  if(idx===wkIdx){cMap[idx]=loadCompleted(todayKey());return cMap[idx];}
-  if(!cMap[idx])cMap[idx]=new Set();
+  if(idx===wkIdx){ cMap[idx]=loadCompleted(todayKey()); return cMap[idx]; }
+  if(!cMap[idx]) cMap[idx]=new Set();
   return cMap[idx];
 }
+
+function getBlocks(idx, mode){
+  if(idx===6){ // Domingo
+    const m = (idx===wkIdx) ? sunMode : 'work';
+    return m==='free' ? daySunFree() : daySunWork();
+  }
+  return WEEK[idx].blocks;
+}
+
+function setSunMode(mode){
+  sunMode = mode;
+  saveSunMode(todayKey(), mode);
+  cMap[wkIdx] = new Set(); // reset completados al cambiar modo
+  document.getElementById('sunWork').classList.toggle('on', mode==='work');
+  document.getElementById('sunFree').classList.toggle('on', mode==='free');
+  WEEK[6].blocks = getBlocks(6, mode);
+  renderToday();
+}
+
 function resetDay(){
   if(!confirm('¿Borrar el progreso de hoy?'))return;
   try{localStorage.removeItem(lsB(todayKey()));}catch(e){}
-  cMap[wkIdx]=new Set();renderToday();showToast('Día reseteado');
+  cMap[wkIdx]=new Set(); renderToday(); showToast('Día reseteado');
 }
 
 // ═══════════════════════════════════════
 //  HELPERS
 // ═══════════════════════════════════════
-function nowM(){const n=new Date();return n.getHours()*60+n.getMinutes();}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+function nowM(){ const n=new Date(); return n.getHours()*60+n.getMinutes(); }
+function showToast(msg){ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400); }
 function updateDate(){
   const n=new Date();
-  const days=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const days=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   document.getElementById('headerDate').innerHTML=`${days[n.getDay()]} ${n.getDate()} ${months[n.getMonth()]}<br>${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
 }
@@ -923,9 +949,11 @@ function updateDate(){
 // ═══════════════════════════════════════
 function showNav(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('sec-'+id).classList.add('on');
   document.getElementById('nav-'+id).classList.add('on');
+  document.getElementById('tab-'+id).classList.add('on');
   if(id==='week')renderWeek();
   if(id==='history')renderHistory();
   if(id==='skills')renderSkills();
@@ -935,86 +963,94 @@ function showNav(id){
 //  BLOCK RENDER
 // ═══════════════════════════════════════
 function renderBlockList(blocks, doneSet, prefix, showNow){
+  if(!blocks.length) return '';
   const nm = showNow ? nowM() : -1;
-  return blocks.map((b,i)=>{
-    const col = C[b.cat]?.col || '#666';
+  const rows = blocks.map((b,i)=>{
+    const cat = C[b.cat] || {emoji:'•', color:'#8e8e93', label:b.cat};
     const isDone = doneSet.has(i);
     const isNow = showNow && !isDone && nm>=b.start && nm<b.end;
-    return`<div class="block-row" style="--dot:${col}">
-      <div class="bl-time">${fmM(b.start)}</div>
-      <div class="bl-line"></div>
-      <div class="bl-content ${isDone?'done':''} ${isNow?'now-active':''}" onclick="toggleBlock('${prefix}',${i})">
-        <div class="bl-left">
-          <div class="bl-name">${b.name}</div>
-          <div class="bl-dur">${durS(b.dur)}</div>
-        </div>
-        <div class="bl-right">
-          ${isNow?'<div class="now-dot"></div>':''}
-          <span class="bl-tag">${b.tag}</span>
-          <div class="bl-check ${isDone?'done':''}">
-            <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
-          </div>
+    return`<div class="list-row ${isDone?'done':''} ${isNow?'now-active':''}" onclick="toggleBlock('${prefix}',${i})" style="animation-delay:${i*0.03}s">
+      <div class="lr-icon" style="background:${cat.color}20">${cat.emoji}</div>
+      <div class="lr-body">
+        <div class="lr-title">${b.name}</div>
+        <div class="lr-sub">${fmM(b.start)} · ${durS(b.dur)}</div>
+      </div>
+      <div class="lr-right">
+        ${isNow?'<span class="now-badge">Ahora</span>':''}
+        <div class="lr-check ${isDone?'done':''}">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
         </div>
       </div>
     </div>`;
   }).join('');
+  return `<div class="list-group">${rows}</div>`;
 }
 
 function toggleBlock(prefix,i){
   const isToday = prefix==='today';
   const idx = isToday ? wkIdx : parseInt(prefix);
   const set = getCompleted(idx);
-  if(set.has(i))set.delete(i);
-  else{set.add(i);showToast('Completado ✓');}
-  if(isToday||idx===wkIdx)saveCompleted(todayKey(),set);
-  if(isToday)renderToday();else renderWeekContent(idx);
+  const wasAdded = !set.has(i);
+  if(set.has(i)) set.delete(i); else set.add(i);
+  if(isToday||idx===wkIdx) saveCompleted(todayKey(),set);
+  if(wasAdded) showToast('Completado ✓');
+  if(isToday) renderToday(); else renderWeekContent(idx);
 }
 
 // ═══════════════════════════════════════
 //  RENDER TODAY
 // ═══════════════════════════════════════
-// type color map defined inline below
-
 function renderToday(){
-  const d = WEEK[wkIdx];
+  const isSunday = wkIdx === 6;
+  const blocks = isSunday ? getBlocks(6, sunMode) : WEEK[wkIdx].blocks;
   cMap[wkIdx] = loadCompleted(todayKey());
-  const done = cMap[wkIdx], total = d.blocks.length, dc = done.size, now = nowM();
-  const cur = d.blocks.find(b=>now>=b.start&&now<b.end);
-  const nxt = cur ? d.blocks[d.blocks.indexOf(cur)+1] : d.blocks.find(b=>b.start>now);
+  const done = cMap[wkIdx], total = blocks.length, dc = done.size, now = nowM();
+  const d = WEEK[wkIdx];
+  const cur = blocks.find(b=>now>=b.start&&now<b.end);
+  const nxt = cur ? blocks[blocks.indexOf(cur)+1] : blocks.find(b=>b.start>now);
 
+  // Banner
+  const banner = document.getElementById('todayBanner');
+  const gradient = isSunday
+    ? (sunMode==='free' ? 'linear-gradient(135deg,#34c759,#30b0c7)' : 'linear-gradient(135deg,#34c759,#5856d6)')
+    : (d.gym ? 'linear-gradient(135deg,#007aff,#5856d6)' : 'linear-gradient(135deg,#af52de,#5856d6)');
+  banner.style.background = gradient;
   document.getElementById('todayName').textContent = d.name;
-  document.getElementById('todayType').textContent = d.type;
+  document.getElementById('todayType').textContent = isSunday ? (sunMode==='free'?'Día libre total':'Trabajo + Tarde libre') : d.type;
+  document.getElementById('todayBadge').textContent = isSunday ? (sunMode==='free'?'Libre 🌟':'Trabajo') : (d.gym?'Gym 🏋️':'Deep Work 🚀');
 
-  const typeColMap = {'Alto rendimiento':'var(--lime)','Expansión max':'var(--violet)','Expansión + Gym':'var(--teal)','Reset total':'var(--amber)'};
-  const tc = typeColMap[d.type]||'var(--text3)';
-  document.getElementById('todayBadge').innerHTML = `<span class="day-badge-dot" style="background:${tc}"></span>${d.type}`;
-  document.getElementById('todayBadge').style.color = tc;
-  document.getElementById('todayBadge').style.borderColor = tc.replace(')',',0.3)').replace('var(','rgba(0,0,0,').replace('rgba(0,0,0,',tc);
+  // Sunday toggle
+  document.getElementById('sunToggleWrap').style.display = isSunday ? '' : 'none';
+  if(isSunday){
+    document.getElementById('sunWork').classList.toggle('on', sunMode==='work');
+    document.getElementById('sunFree').classList.toggle('on', sunMode==='free');
+  }
 
-  const streak = calcStreak(), wc = weekCount();
-  document.getElementById('streakRow').innerHTML = `
-    <div class="streak-chip">Racha <strong>${streak}d</strong></div>
-    <div class="streak-chip">Semana <strong>${wc}/7</strong></div>
-    <div class="streak-chip"><strong>${todayKey()}</strong></div>`;
+  // Streak
+  const streak=calcStreak(), wc=weekCount();
+  const engDone = blocks.some((b,i)=>b.cat==='english'&&done.has(i));
+  document.getElementById('streakRow').innerHTML=`
+    <div class="chip"><span class="chip-dot" style="background:#ff9500"></span>Racha <strong>${streak}d</strong></div>
+    <div class="chip"><span class="chip-dot" style="background:#34c759"></span>Semana <strong>${wc}/7</strong></div>
+    <div class="chip"><span class="chip-dot" style="background:${engDone?'#34c759':'#ff3b30'}"></span>Inglés <strong>${engDone?'✓':'—'}</strong></div>`;
 
-  // English check
-  const engDone = d.blocks.some((b,i)=>b.cat==='english'&&done.has(i));
-  const projDone = d.blocks.filter((b,i)=>b.cat==='project'&&done.has(i)).length;
-
-  document.getElementById('todayStats').innerHTML = `
-    <div class="stat-card"><div class="stat-v">${dc}/${total}</div><div class="stat-l">Bloques</div></div>
-    <div class="stat-card"><div class="stat-v" style="color:${engDone?'var(--teal)':'var(--rose)'}">${engDone?'✓':'—'}</div><div class="stat-l">Inglés</div></div>
+  // Stats
+  const gymDone = blocks.some((b,i)=>b.cat==='gym'&&done.has(i));
+  document.getElementById('todayStats').innerHTML=`
+    <div class="stat-card"><div class="stat-v blue">${dc}/${total}</div><div class="stat-l">Bloques</div></div>
+    <div class="stat-card"><div class="stat-v ${gymDone?'green':'orange'}">${d.gym?(gymDone?'✓':'—'):'–'}</div><div class="stat-l">Gym</div></div>
     <div class="stat-card"><div class="stat-v">${Math.round(dc/total*100)}%</div><div class="stat-l">Progreso</div></div>`;
 
-  document.getElementById('todayProg').innerHTML = `
-    <div class="prog-row">
-      <span>${cur?cur.name:'Sin bloque activo'}</span>
-      <span style="color:var(--lime)">${Math.round(dc/total*100)}%</span>
+  // Progress
+  document.getElementById('todayProg').innerHTML=`
+    <div class="prog-header">
+      <span class="prog-title">${cur?cur.name:'Día completo'}</span>
+      <span class="prog-pct">${Math.round(dc/total*100)}%</span>
     </div>
-    <div class="prog-bar"><div class="prog-fill" style="width:${Math.round(dc/total*100)}%"></div></div>
-    ${nxt&&!cur?`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-top:8px">Próximo → ${nxt.name} · ${fmM(nxt.start)}</div>`:''}`;
+    <div class="prog-track"><div class="prog-fill" style="width:${Math.round(dc/total*100)}%"></div></div>
+    ${nxt&&!cur?`<div class="prog-sub">Próximo: ${nxt.name} · ${fmM(nxt.start)}</div>`:''}`;
 
-  document.getElementById('todayBlocks').innerHTML = renderBlockList(d.blocks, done, 'today', true);
+  document.getElementById('todayBlocks').innerHTML = renderBlockList(blocks, done, 'today', true);
 
   const ta = document.getElementById('notesTA');
   if(ta && !ta._focused) ta.value = loadNote();
@@ -1024,67 +1060,61 @@ function renderToday(){
 //  RENDER WEEK
 // ═══════════════════════════════════════
 function renderWeek(){
-  document.getElementById('weekSel').innerHTML = WEEK.map((d,i)=>{
-    const cats = [...new Set(d.blocks.map(b=>b.cat))].slice(0,5);
-    const dots = cats.map(c=>`<div class="wday-dot" style="background:${C[c]?.col||'#444'}"></div>`).join('');
-    return`<button class="wday-btn ${i===wkIdx?'on':''}" onclick="selectWDay(${i})">
-      <span class="wday-name">${d.short}</span>
-      <div class="wday-dots">${dots}</div>
+  document.getElementById('weekDays').innerHTML = WEEK.map((d,i)=>{
+    const cats = [...new Set(getBlocks(i,'work').map(b=>b.cat))].slice(0,4);
+    const dots = cats.map(c=>`<div class="wd-dot" style="background:${C[c]?.color||'#8e8e93'}"></div>`).join('');
+    return`<button class="wd-btn ${i===wkIdx?'on':''}" onclick="selectWDay(${i})">
+      <span class="wd-name">${d.short}</span><div style="display:flex;gap:2px;justify-content:center">${dots}</div>
     </button>`;
   }).join('');
   renderWeekContent(wkIdx);
 }
-function selectWDay(i){
-  wkIdx=i;
-  document.querySelectorAll('.wday-btn').forEach((b,j)=>b.classList.toggle('on',j===i));
-  renderWeekContent(i);
-}
+function selectWDay(i){ wkIdx=i; document.querySelectorAll('.wd-btn').forEach((b,j)=>b.classList.toggle('on',j===i)); renderWeekContent(i); }
 function renderWeekContent(i){
-  const d=WEEK[i],done=getCompleted(i),total=d.blocks.length,dc=done.size;
+  const blocks = getBlocks(i, i===6?sunMode:'work');
+  const done=getCompleted(i),total=blocks.length,dc=done.size;
+  const d=WEEK[i];
   document.getElementById('weekContent').innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div><div style="font-family:'Archivo Black',sans-serif;font-size:18px">${d.name}</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">${d.type}</div></div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2)">${dc}/${total}</div>
+    <div class="day-banner" style="background:linear-gradient(135deg,${d.color},${d.color}99)">
+      <div class="day-banner-title">${d.name}</div>
+      <div class="day-banner-sub">${d.type}</div>
+      <div class="day-banner-badge">${dc}/${total} completados</div>
     </div>
-    <div class="prog-wrap" style="margin-bottom:12px">
-      <div class="prog-row"><span>Progreso</span><span style="color:var(--lime)">${Math.round(dc/total*100)}%</span></div>
-      <div class="prog-bar"><div class="prog-fill" style="width:${Math.round(dc/total*100)}%"></div></div>
+    <div class="prog-card" style="margin-bottom:20px">
+      <div class="prog-header"><span class="prog-title">Progreso</span><span class="prog-pct">${Math.round(dc/total*100)}%</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:${Math.round(dc/total*100)}%"></div></div>
     </div>
-    ${renderBlockList(d.blocks,done,String(i),false)}`;
+    ${renderBlockList(blocks,done,String(i),false)}`;
 }
 
 // ═══════════════════════════════════════
 //  RENDER HISTORY
 // ═══════════════════════════════════════
-function setHF(f,btn){hFilter=f;document.querySelectorAll('.hf-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderHistory();}
-function getDN(dateStr){const d=new Date(dateStr+'T12:00:00');return['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][d.getDay()];}
-function fmDate(dateStr){
-  const[y,mo,da]=dateStr.split('-');
-  const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  return`${getDN(dateStr)} ${parseInt(da)} ${months[parseInt(mo)-1]} ${y}`;
-}
-function getWkData(dateStr){const d=new Date(dateStr+'T12:00:00');return WEEK[jsToWk(d.getDay())];}
+function setHF(f,btn){ hFilter=f; document.querySelectorAll('#sec-history .toggle-pill').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); renderHistory(); }
+function getDN(ds){ return['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][new Date(ds+'T12:00:00').getDay()]; }
+function fmDate(ds){ const[y,mo,da]=ds.split('-');const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];return`${getDN(ds)} ${parseInt(da)} ${months[parseInt(mo)-1]} ${y}`; }
+function getWkData(ds){ return WEEK[jsToWk(new Date(ds+'T12:00:00').getDay())]; }
 
 function renderHistory(){
-  // Bars
-  const barDates=[];const ch=new Date();
+  // Mini bars
+  const barDates=[]; const ch=new Date();
   for(let i=6;i>=0;i--){const dc=new Date(ch);dc.setDate(ch.getDate()-i);barDates.push(`${dc.getFullYear()}-${String(dc.getMonth()+1).padStart(2,'0')}-${String(dc.getDate()).padStart(2,'0')}`);}
   let tp=0,bc=0;
-  const barsHtml=barDates.map(d=>{
-    let pct=0;
-    try{const r=localStorage.getItem(lsB(d));if(r){const arr=JSON.parse(r),dd=getWkData(d);pct=dd?Math.round(arr.length/dd.blocks.length*100):0;if(arr.length>0){tp+=pct;bc++;}}}catch(e){}
-    const h=Math.max(2,Math.round(pct*0.28));
-    return`<div class="wbar-col"><div class="wbar" style="height:28px"><div class="wbar-fill" style="height:${h}px;opacity:${pct>0?.8:.2}"></div></div><div class="wbar-lbl">${getDN(d)}</div></div>`;
+  const barsH=barDates.map(d=>{
+    let pct=0;try{const r=localStorage.getItem(lsB(d));if(r){const arr=JSON.parse(r),dd=getWkData(d);pct=dd?Math.round(arr.length/dd.blocks.length*100):0;if(arr.length>0){tp+=pct;bc++;}}}catch(e){}
+    const h=Math.max(2,Math.round(pct*0.32));
+    return`<div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+      <div style="width:100%;border-radius:3px 3px 0 0;background:rgba(0,0,0,0.06);height:32px;position:relative;overflow:hidden">
+        <div style="position:absolute;bottom:0;left:0;right:0;height:${h}px;background:var(--blue);border-radius:3px 3px 0 0;opacity:${pct>0?0.8:0.2}"></div>
+      </div>
+      <div style="font-size:9px;color:var(--text3)">${getDN(d)}</div>
+    </div>`;
   }).join('');
-  document.getElementById('weekBars').innerHTML=barsHtml;
-  document.getElementById('weekAvg').textContent=bc>0?`${Math.round(tp/bc)}% promedio`:'Sin datos aún';
+  document.getElementById('weekBars').innerHTML=barsH;
+  document.getElementById('weekAvg').textContent=bc>0?`${Math.round(tp/bc)}%`:'—';
 
   const dates=getAllDates();
-  if(!dates.length){
-    document.getElementById('histContent').innerHTML=`<div class="empty-state"><span class="empty-icon">◎</span><div class="empty-title">Sin historial todavía</div><div style="font-size:11px;color:var(--text3);margin-top:6px">Marca bloques en Hoy para construir tu historial.</div></div>`;
-    return;
-  }
+  if(!dates.length){document.getElementById('histContent').innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--text3)"><div style="font-size:40px;margin-bottom:12px">📊</div><div style="font-size:15px">Sin historial todavía</div><div style="font-size:13px;margin-top:6px">Marca bloques en Hoy para comenzar</div></div>`;return;}
 
   const filtered=dates.filter(d=>{
     if(hFilter==='all')return true;
@@ -1093,37 +1123,40 @@ function renderHistory(){
     return true;
   });
 
-  if(!filtered.length){document.getElementById('histContent').innerHTML=`<div class="empty-state"><span class="empty-icon">◎</span><div class="empty-title">Sin entradas con este filtro</div></div>`;return;}
+  if(!filtered.length){document.getElementById('histContent').innerHTML=`<div style="text-align:center;padding:40px 20px;color:var(--text3);font-size:15px">Sin entradas con este filtro</div>`;return;}
 
   document.getElementById('histContent').innerHTML=filtered.map((d,ei)=>{
-    let arr=[],pct=0,total=0;
-    const dd=getWkData(d);
+    let arr=[],pct=0,total=0;const dd=getWkData(d);
     try{const r=localStorage.getItem(lsB(d));if(r)arr=JSON.parse(r);}catch(e){}
     if(dd){total=dd.blocks.length;pct=total>0?Math.round(arr.length/total*100):0;}
     const note=loadNote(d),doneSet=new Set(arr);
+    const pc=pct>=80?'var(--green)':pct>=50?'var(--orange)':'var(--red)';
     const pillsHtml=dd?dd.blocks.map((b,i)=>{
-      const col=C[b.cat]?.col||'#666';
-      return`<div class="hist-pill ${doneSet.has(i)?'dp':''}" style="color:${doneSet.has(i)?'var(--text3)':col};border-color:${doneSet.has(i)?'var(--border)':col}40">
-        ${b.tag}
-      </div>`;
+      const cat=C[b.cat]||{emoji:'•',color:'#8e8e93'};
+      return`<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:11px;background:${doneSet.has(i)?cat.color+'20':'rgba(0,0,0,0.05)'};color:${doneSet.has(i)?cat.color:'var(--text3)'};${doneSet.has(i)?'':'opacity:.6;text-decoration:line-through'}">${cat.emoji} ${b.tag}</span>`;
     }).join(''):'';
-    const pc=pct>=80?'var(--lime)':pct>=50?'var(--amber)':'var(--rose)';
-    return`<div class="hist-entry" id="he${ei}">
-      <div class="hist-head" onclick="document.getElementById('he${ei}').classList.toggle('open')">
-        <div><div class="hist-date">${fmDate(d)}</div><div class="hist-meta">${arr.length}/${total} bloques · ${dd?dd.type:'—'}</div></div>
-        <div class="hist-right"><div class="hist-pct" style="color:${pc}">${pct}%</div><div class="hist-toggle">▾</div></div>
+    return`<div class="list-group" id="he${ei}" style="margin-bottom:12px">
+      <div class="list-row" onclick="document.getElementById('heb${ei}').style.display=document.getElementById('heb${ei}').style.display==='none'?'block':'none'" style="cursor:pointer">
+        <div class="lr-body">
+          <div class="lr-title" style="font-weight:500">${fmDate(d)}</div>
+          <div class="lr-sub">${arr.length}/${total} bloques · ${dd?dd.type:'—'}</div>
+        </div>
+        <div class="lr-right">
+          <div style="font-size:20px;font-weight:700;color:${pc}">${pct}%</div>
+          <svg width="14" height="14" viewBox="0 0 24 24" style="stroke:var(--text3);fill:none;stroke-width:2;stroke-linecap:round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
       </div>
-      <div class="hist-body">
-        <div class="hist-prog"><div class="hist-prog-fill" style="width:${pct}%"></div></div>
-        <div class="hist-pills">${pillsHtml}</div>
-        ${note?`<div class="hist-note-lbl">Nota</div><div class="hist-note">${note.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`:''}
+      <div id="heb${ei}" style="display:none;padding:12px 16px;border-top:0.5px solid var(--border)">
+        <div style="height:3px;background:rgba(0,0,0,0.06);border-radius:2px;overflow:hidden;margin-bottom:10px"><div style="height:100%;width:${pct}%;background:var(--blue);border-radius:2px"></div></div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:${note?'10px':'0'}">${pillsHtml}</div>
+        ${note?`<div style="font-size:12px;color:var(--text2);font-style:italic;padding:10px;background:var(--bg3);border-radius:10px;line-height:1.5">${note.replace(/</g,'&lt;')}</div>`:''}
       </div>
     </div>`;
   }).join('');
 }
 
 // ═══════════════════════════════════════
-//  RENDER SKILLS ROADMAP
+//  RENDER SKILLS
 // ═══════════════════════════════════════
 function renderSkills(){
   document.getElementById('roadmapList').innerHTML=ROADMAP.map((rm,i)=>`
@@ -1133,7 +1166,7 @@ function renderSkills(){
         <div class="rm-phase">${rm.phase}</div>
         <div class="rm-title">${rm.title}</div>
         <div class="rm-desc">${rm.desc}</div>
-        <div class="rm-skills">${rm.skills.map(s=>`<span class="rm-skill-tag">${s}</span>`).join('')}</div>
+        <div class="rm-tags">${rm.tags.map(t=>`<span class="rm-tag">${t}</span>`).join('')}</div>
       </div>
     </div>`).join('');
 }
@@ -1143,12 +1176,12 @@ function renderSkills(){
 // ═══════════════════════════════════════
 updateDate();
 setInterval(updateDate, 30000);
-setInterval(()=>renderToday(), 60000);
+setInterval(()=>{ if(document.getElementById('sec-today').classList.contains('on')) renderToday(); }, 60000);
 renderToday();
 
 document.addEventListener('DOMContentLoaded',()=>{
   const ta=document.getElementById('notesTA');
-  if(ta){ta.addEventListener('focus',()=>ta._focused=true);ta.addEventListener('blur',()=>ta._focused=false);}
+  if(ta){ ta.addEventListener('focus',()=>ta._focused=true); ta.addEventListener('blur',()=>ta._focused=false); }
 });
 </script>
 </body>
